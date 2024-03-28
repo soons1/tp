@@ -143,11 +143,12 @@ Examples:
 Find all persons whose names contain any of the given keywords. The find command also supports searches in the two
 separate Volunteer and Befriendee lists, if the role is specified. The order where the role is specified does not matter.
 
-Format: `find [r/ROLE] KEYWORD [MORE_KEYWORDS]`
+Format: `find [r/ROLE] [t/TAG] KEYWORD [MORE_KEYWORDS]...`
 
-* The search is case-insensitive. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
-* If the role is specified, the search will be limited to the specified respective List. The other list remains unaffected.
-* Only the name is searched.
+* The search is **case-insensitive**. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
+* If the **role** is specified, the search will be limited to the specified respective List. The other list remains unaffected.
+* If a **pairing status** is specified, the search will narrow down to either paired or non-paired persons. 
+* Keyword only searches on name. Search via tag is also supported, by adding in appropriate tags..
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`

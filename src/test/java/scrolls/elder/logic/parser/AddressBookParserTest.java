@@ -107,7 +107,7 @@ public class AddressBookParserTest {
                 new FindCommand(
                         new NameContainsKeywordsPredicate(keywords),
                         new TagListContainsTagsPredicate(Collections.emptySet()),
-                        true, true), command);
+                        true, true, true, true), command);
     }
 
     @Test

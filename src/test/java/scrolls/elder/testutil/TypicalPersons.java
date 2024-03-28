@@ -98,4 +98,12 @@ public class TypicalPersons {
     public static List<Person> getTypicalBefriendeePersons() {
         return new ArrayList<>(Arrays.asList(ELLE, FIONA, GEORGE));
     }
+
+    public static List<Person> getPairedPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, ELLE));
+    }
+
+    public static List<Person> getUnpairedPersons() {
+        return new ArrayList<>(Arrays.asList(BENSON, CARL, DANIEL, FIONA, GEORGE));
+    }
 }

@@ -18,6 +18,7 @@ import scrolls.elder.model.ModelManager;
 import scrolls.elder.model.ReadOnlyPersonStore;
 import scrolls.elder.model.UserPrefs;
 import scrolls.elder.model.person.NameContainsKeywordsPredicate;
+import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.TagListContainsTagsPredicate;
 import scrolls.elder.model.tag.Tag;
 import scrolls.elder.testutil.TypicalDatastore;
@@ -47,33 +48,33 @@ public class FindCommandTest {
         TagListContainsTagsPredicate tagPredicate2 = prepareTagPredicate("owesMoney");
 
         FindCommand findFirstCommand =
-                new FindCommand(namePredicate1, tagPredicate1, true, true);
+                new FindCommand(namePredicate1, tagPredicate1, true, true, true, true);
 
         FindCommand findSecondCommand =
-                new FindCommand(namePredicate2, tagPredicate1, true, true);
+                new FindCommand(namePredicate2, tagPredicate1, true, true, true, true);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values and same search -> returns true
         FindCommand findFirstCommandCopy = new FindCommand(namePredicate1, tagPredicate1,
-                true, true);
+                true, true, true, true);
 
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // same values but different search -> returns false
         FindCommand findFirstCommandCopy2 = new FindCommand(namePredicate1, tagPredicate1,
-                false, true);
+                false, true, true, true);
         assertFalse(findFirstCommand.equals(findFirstCommandCopy2));
 
         // same values but different search -> returns false
         FindCommand findFirstCommandCopy3 = new FindCommand(namePredicate1, tagPredicate1,
-                true, false);
+                true, false, true, true);
         assertFalse(findFirstCommand.equals(findFirstCommandCopy3));
 
         // same values, same search, different tag -> returns false
         FindCommand findFirstCommandCopy4 = new FindCommand(namePredicate1, tagPredicate2,
-                true, true);
+                true, true, true, true);
         assertFalse(findFirstCommand.equals(findFirstCommandCopy4));
 
         // different types -> returns false
@@ -94,14 +95,14 @@ public class FindCommandTest {
 
         // Find within both volunteer and befriendee
         FindCommand commandAll =
-                new FindCommand(emptyNamePredicate, emptyTagPredicate, true, true);
+                new FindCommand(emptyNamePredicate, emptyTagPredicate, true, true, true, true);
         expectedPersonStore.updateFilteredPersonList(emptyNamePredicate);
         assertCommandSuccess(commandAll, model, expectedMessage, expectedModel);
         assertEquals(TypicalPersons.getTypicalPersons(), personStore.getFilteredPersonList());
 
         // Find within volunteer only
         FindCommand commandSearchVolunteer =
-                new FindCommand(emptyNamePredicate, emptyTagPredicate, true, false);
+                new FindCommand(emptyNamePredicate, emptyTagPredicate, true, false, true, true);
         expectedMessage = String.format(
                 Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 4, CommandTestUtil.VALID_ROLE_VOLUNTEER);
         expectedPersonStore.updateFilteredVolunteerList(emptyNamePredicate);
@@ -110,7 +111,7 @@ public class FindCommandTest {
 
         // Find within befriendee only
         FindCommand commandSearchBefriendee =
-                new FindCommand(emptyNamePredicate, emptyTagPredicate, false, true);
+                new FindCommand(emptyNamePredicate, emptyTagPredicate, false, true, true, true);
         expectedMessage = String.format(
                 Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 3, CommandTestUtil.VALID_ROLE_BEFRIENDEE);
         expectedPersonStore.updateFilteredBefriendeeList(emptyNamePredicate);
@@ -123,7 +124,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(namePredicate, emptyTagPredicate, true, true);
+        FindCommand command = new FindCommand(namePredicate, emptyTagPredicate, true, true, true, true);
 
         expectedPersonStore.updateFilteredPersonList(namePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -132,7 +133,7 @@ public class FindCommandTest {
 
         // Find within volunteer only
         String expectedMessageV = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 1, "volunteer");
-        command = new FindCommand(namePredicate, emptyTagPredicate, true, false);
+        command = new FindCommand(namePredicate, emptyTagPredicate, true, false, true, true);
 
         expectedPersonStore.updateFilteredVolunteerList(namePredicate);
         assertCommandSuccess(command, model, expectedMessageV, expectedModel);
@@ -140,7 +141,7 @@ public class FindCommandTest {
 
         // Find within befriendee only
         String expectedMessageB = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 2, "befriendee");
-        command = new FindCommand(namePredicate, emptyTagPredicate, false, true);
+        command = new FindCommand(namePredicate, emptyTagPredicate, false, true, true, true);
         expectedPersonStore.updateFilteredBefriendeeList(namePredicate);
         assertCommandSuccess(command, model, expectedMessageB, expectedModel);
         assertEquals(Arrays.asList(TypicalPersons.ELLE, TypicalPersons.FIONA), personStore.getFilteredBefriendeeList());
@@ -150,35 +151,41 @@ public class FindCommandTest {
 
 
     @Test
-    public void execute_singleTag_multiplePersonsFoundAll() {
+    public void execute_singleTag_multiplePersons() {
+        // All Persons
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         TagListContainsTagsPredicate tagPredicate = prepareTagPredicate("friends");
-
-        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, true, true);
+        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, true, true, true, true);
         expectedPersonStore.updateFilteredPersonList(tagPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalPersons.ALICE, TypicalPersons.BENSON, TypicalPersons.DANIEL),
                 personStore.getFilteredPersonList());
-    }
 
-    @Test
-    public void execute_singleTag_multiplePersonsFoundVolunteer() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 3, "volunteer");
-        TagListContainsTagsPredicate tagPredicate = prepareTagPredicate("friends");
-
-        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, true, false);
+        // Voluteers
+        String expectedVMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 3, "volunteer");
+        FindCommand commandV = new FindCommand(emptyNamePredicate, tagPredicate, true, false, true, true);
         expectedPersonStore.updateFilteredVolunteerList(tagPredicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(commandV, model, expectedVMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalPersons.ALICE, TypicalPersons.BENSON, TypicalPersons.DANIEL),
                 personStore.getFilteredVolunteerList());
+
+        // Befriendees
+        String expectedMessageB = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 1, "befriendee");
+        TagListContainsTagsPredicate tagPredicateB = prepareTagPredicate("exConvict");
+        FindCommand commandB = new FindCommand(emptyNamePredicate, tagPredicateB,
+                false, true, true, true);
+        expectedPersonStore.updateFilteredBefriendeeList(tagPredicate);
+        assertCommandSuccess(commandB, model, expectedMessageB, expectedModel);
+        assertEquals(Collections.singletonList(TypicalPersons.GEORGE), personStore.getFilteredBefriendeeList());
     }
+
 
     @Test
     public void execute_singleTag_multiplePersonsFoundBefriendee() {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 1, "befriendee");
         TagListContainsTagsPredicate tagPredicate = prepareTagPredicate("exConvict");
 
-        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, false, true);
+        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, false, true, true, true);
         expectedPersonStore.updateFilteredBefriendeeList(tagPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalPersons.GEORGE), personStore.getFilteredBefriendeeList());
@@ -188,7 +195,7 @@ public class FindCommandTest {
     public void execute_multipleTag_mutiplePersonsFound() {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
         TagListContainsTagsPredicate tagPredicate = prepareTagPredicate("friends exConvict");
-        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, true, true);
+        FindCommand command = new FindCommand(emptyNamePredicate, tagPredicate, true, true, true, true);
 
 
         expectedPersonStore.updateFilteredPersonList(tagPredicate);
@@ -198,19 +205,79 @@ public class FindCommandTest {
                 personStore.getFilteredPersonList());
     }
 
+    @Test
+    public void execute_pairedUnpairedFlag_multiplePersonsFound() {
+        String expectedMessagePaired = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        FindCommand command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                true, true, true, false);
+        expectedPersonStore.updateFilteredPersonList(Person::isPaired);
+        assertCommandSuccess(command, model, expectedMessagePaired, expectedModel);
+        assertEquals(TypicalPersons.getPairedPersons(), personStore.getFilteredPersonList());
+
+        String expectedMessageUnpaired = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
+        command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                true, true, false, true);
+        expectedPersonStore.updateFilteredPersonList(Person -> !Person.isPaired());
+        assertCommandSuccess(command, model, expectedMessageUnpaired, expectedModel);
+        assertEquals(TypicalPersons.getUnpairedPersons(), personStore.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_pairedUnpairedFlagVolunteerBefriendee_multiplePersonsFound() {
+        // Volunteer
+        String expectedMessagePairedV =
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 1, "volunteer");
+        FindCommand command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                true, false, true, false);
+        expectedPersonStore.updateFilteredVolunteerList(Person::isPaired);
+        assertCommandSuccess(command, model, expectedMessagePairedV, expectedModel);
+        assertEquals(Collections.singletonList(TypicalPersons.ALICE), personStore.getFilteredVolunteerList());
+
+        String expectedMessageUnpairedV =
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 3, "volunteer");
+        command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                true, false, false, true);
+        expectedPersonStore.updateFilteredPersonList(Person -> !Person.isPaired());
+        assertCommandSuccess(command, model, expectedMessageUnpairedV, expectedModel);
+        assertEquals(Arrays.asList(TypicalPersons.BENSON, TypicalPersons.CARL, TypicalPersons.DANIEL),
+                personStore.getFilteredVolunteerList());
+
+        // Befriendee
+        String expectedMessagePairedB =
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 1, "befriendee");
+        command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                false, true, true, false);
+        expectedPersonStore.updateFilteredBefriendeeList(Person::isPaired);
+        assertCommandSuccess(command, model, expectedMessagePairedB, expectedModel);
+        assertEquals(Collections.singletonList(TypicalPersons.ELLE), personStore.getFilteredBefriendeeList());
+
+        String expectedMessageUnpairedB =
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 2, "befriendee");
+        command = new FindCommand(emptyNamePredicate, emptyTagPredicate,
+                false, true, false, true);
+        expectedPersonStore.updateFilteredBefriendeeList(Person -> !Person.isPaired());
+        assertCommandSuccess(command, model, expectedMessageUnpairedB, expectedModel);
+        assertEquals(Arrays.asList(TypicalPersons.FIONA, TypicalPersons.GEORGE),
+                personStore.getFilteredBefriendeeList());
+    }
+
+
 
     @Test
     public void toStringMethod() {
 
         NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         TagListContainsTagsPredicate tagPredicate = prepareTagPredicate(" ");
-        FindCommand findCommand = new FindCommand(namePredicate, tagPredicate, true, true);
+        FindCommand findCommand = new FindCommand(namePredicate, tagPredicate,
+                true, true, true, true);
         String expected = FindCommand.class.getCanonicalName()
                 + "{"
                 + "namePredicate=" + namePredicate + ", "
                 + "tagPredicate=" + tagPredicate + ", "
                 + "isSearchingVolunteer=true, "
-                + "isSearchingBefriendee=true"
+                + "isSearchingBefriendee=true, "
+                + "isSearchingPaired=true, "
+                + "isSearchingUnpaired=true"
                 + "}";
         assertEquals(expected, findCommand.toString());
     }

@@ -7,6 +7,7 @@ import scrolls.elder.logic.Messages;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.person.NameContainsKeywordsPredicate;
+import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.TagListContainsTagsPredicate;
 
 /**
@@ -19,7 +20,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive), displays them in the respective lists with index numbers.\n"
-            + "Parameters: [r/ROLE] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final NameContainsKeywordsPredicate namePredicate;
@@ -29,19 +30,25 @@ public class FindCommand extends Command {
     private final Boolean isSearchingBefriendee;
     private final Boolean isSearchingNamePredicate;
     private final Boolean isSearchingTagPredicate;
+    private final Boolean isSearchingPaired;
+    private final Boolean isSearchingUnpaired;
 
 
     /**
      * Creates a FindCommand to find the specified {@code NameContainsKeywordsPredicate}
      */
     public FindCommand(NameContainsKeywordsPredicate namePredicate, TagListContainsTagsPredicate tagPredicate,
-                       Boolean isSearchingVolunteer, Boolean isSearchingBefriendee) {
+                       Boolean isSearchingVolunteer, Boolean isSearchingBefriendee,
+                       Boolean isSearchingPaired, Boolean isSearchingUnpaired) {
         this.namePredicate = namePredicate;
         this.isSearchingNamePredicate = !namePredicate.isEmpty();
         this.tagPredicate = tagPredicate;
         this.isSearchingTagPredicate = !tagPredicate.isEmpty();
         this.isSearchingBefriendee = isSearchingBefriendee;
         this.isSearchingVolunteer = isSearchingVolunteer;
+
+        this.isSearchingPaired = isSearchingPaired;
+        this.isSearchingUnpaired = isSearchingUnpaired;
     }
 
     @Override
@@ -66,6 +73,12 @@ public class FindCommand extends Command {
     }
 
     private CommandResult searchAllPersons(PersonStore store) {
+        if (isSearchingPaired && !isSearchingUnpaired) {
+            store.updateFilteredPersonList(Person::isPaired);
+        } else if (isSearchingUnpaired && !isSearchingPaired) {
+            store.updateFilteredPersonList(Person -> !Person.isPaired());
+        }
+
         if (isSearchingNamePredicate) {
             store.updateFilteredPersonList(namePredicate);
         }
@@ -77,6 +90,12 @@ public class FindCommand extends Command {
     }
 
     private CommandResult searchVolunteerOnly(PersonStore store) {
+        if (isSearchingPaired && !isSearchingUnpaired) {
+            store.updateFilteredVolunteerList(Person::isPaired);
+        } else if (isSearchingUnpaired && !isSearchingPaired) {
+            store.updateFilteredVolunteerList(Person -> !Person.isPaired());
+        }
+
         if (isSearchingNamePredicate) {
             store.updateFilteredVolunteerList(namePredicate);
         }
@@ -90,6 +109,11 @@ public class FindCommand extends Command {
     }
 
     private CommandResult searchBefriendeeOnly(PersonStore store) {
+        if (isSearchingPaired && !isSearchingUnpaired) {
+            store.updateFilteredBefriendeeList(Person::isPaired);
+        } else if (isSearchingUnpaired && !isSearchingPaired) {
+            store.updateFilteredBefriendeeList(Person -> !Person.isPaired());
+        }
         if (isSearchingNamePredicate) {
             store.updateFilteredBefriendeeList(namePredicate);
         }
@@ -128,6 +152,8 @@ public class FindCommand extends Command {
                 .add("tagPredicate", tagPredicate)
                 .add("isSearchingVolunteer", isSearchingVolunteer)
                 .add("isSearchingBefriendee", isSearchingBefriendee)
+                .add("isSearchingPaired", isSearchingPaired)
+                .add("isSearchingUnpaired", isSearchingUnpaired)
                 .toString();
     }
 }
