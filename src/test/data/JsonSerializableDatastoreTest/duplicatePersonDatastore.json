@@ -6,14 +6,16 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "role" : "befriendee",
-    "tags": [ "friends" ]
+    "tags": [ "friends" ],
+    "timeServed": "0"
   }, {
     "id" : "0",
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "role" : "befriendee",
-    "address": "4th street"
+    "address": "4th street",
+    "timeServed": "0"
   } ],
   "logs" : [ ]
 }

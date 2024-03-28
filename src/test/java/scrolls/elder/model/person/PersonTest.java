@@ -91,7 +91,8 @@ public class PersonTest {
                 + ", email=" + TypicalPersons.ALICE.getEmail() + ", address=" + TypicalPersons.ALICE.getAddress()
                 + ", tags=" + TypicalPersons.ALICE.getTags() + ", role=" + TypicalPersons.ALICE.getRole()
                 + ", pairedWithName=" + (TypicalPersons.ALICE.getPairedWithName().orElse(Name.getNone()))
-                + ", pairedWithId=" + (TypicalPersons.ALICE.getPairedWithId().orElse(-1)) + "}";
+                + ", pairedWithId=" + (TypicalPersons.ALICE.getPairedWithId().orElse(-1))
+                + ", timeServed=" + (TypicalPersons.ALICE.getTimeServed()) + "}";
         Assertions.assertEquals(expected, TypicalPersons.ALICE.toString());
     }
 }

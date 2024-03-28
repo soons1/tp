@@ -35,6 +35,7 @@ public class PersonBuilder {
     private Role role;
     private Optional<Name> pairedWithName;
     private Optional<Integer> pairedWithId;
+    private int timeServed;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -139,11 +140,19 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code timeServed} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTimeServed(int timeServed) {
+        this.timeServed = timeServed;
+        return this;
+    }
+
+    /**
      * Builds a Person based on the fields in the person builder
      */
     public Person build() {
         return PersonFactory.withIdFromParams(id, name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId);
+                pairedWithId, timeServed);
     }
 
 }

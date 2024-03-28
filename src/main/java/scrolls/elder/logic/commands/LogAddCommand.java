@@ -7,6 +7,8 @@ import static scrolls.elder.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.ToStringBuilder;
@@ -16,7 +18,14 @@ import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.log.Log;
+import scrolls.elder.model.person.Address;
+import scrolls.elder.model.person.Email;
+import scrolls.elder.model.person.Name;
 import scrolls.elder.model.person.Person;
+import scrolls.elder.model.person.PersonFactory;
+import scrolls.elder.model.person.Phone;
+import scrolls.elder.model.person.Role;
+import scrolls.elder.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -36,6 +45,8 @@ public class LogAddCommand extends Command {
         + PREFIX_REMARKS + "was a good session";
 
     public static final String MESSAGE_SUCCESS = "New log added!";
+    public static final String MESSAGE_NEGATIVE_DURATION = "Duration cannot be negative.";
+    public static final String MESSAGE_PERSONS_NOT_PAIRED = "The volunteer and befriendee are not paired.";
 
     /**
      * Contains data for the log to be added.
@@ -62,6 +73,10 @@ public class LogAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (duration < 0) {
+            throw new CommandException(MESSAGE_NEGATIVE_DURATION);
+        }
+
         PersonStore personStore = model.getMutableDatastore().getMutablePersonStore();
         LogStore logStore = model.getMutableDatastore().getMutableLogStore();
 
@@ -76,12 +91,40 @@ public class LogAddCommand extends Command {
         Person befriendee = lastShownBList.get(befriendeeIndex.getZeroBased());
         Person volunteer = lastShownVList.get(volunteerIndex.getZeroBased());
 
+        if (!befriendee.isPairedWith(volunteer) && !volunteer.isPairedWith(befriendee)) {
+            throw new CommandException(MESSAGE_PERSONS_NOT_PAIRED);
+        }
+
+        Person updatedBefriendee = createPersonWithTimeServed(befriendee, duration);
+        Person updatedVolunteer = createPersonWithTimeServed(volunteer, duration);
+
         Log toAdd =
             new Log(model.getDatastore(), volunteer.getPersonId(), befriendee.getPersonId(), duration, startDate,
                 remarks);
 
         logStore.addLog(toAdd);
+
+        personStore.setPerson(befriendee, updatedBefriendee);
+        personStore.setPerson(volunteer, updatedVolunteer);
+        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    private Person createPersonWithTimeServed(Person p, int duration) {
+        assert p != null;
+
+        Name name = p.getName();
+        Phone phone = p.getPhone();
+        Email email = p.getEmail();
+        Address address = p.getAddress();
+        Set<Tag> tags = p.getTags();
+        Role role = p.getRole();
+        Optional<Name> pairedWithName = p.getPairedWithName();
+        Optional<Integer> pairedWithId = p.getPairedWithId();
+        int updatedTimeServed = p.getTimeServed() + duration;
+
+        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
+            pairedWithId, updatedTimeServed);
     }
 
     @Override

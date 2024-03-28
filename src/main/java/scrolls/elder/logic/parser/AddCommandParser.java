@@ -70,15 +70,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         Role role = ParserUtil.parseRole(argMultimap.getValue(CliSyntax.PREFIX_ROLE).get());
         Optional<Name> pairedWithNone = Optional.empty();
         Optional<Integer> pairedWithNoID = Optional.empty();
+        int timeServed = 0;
 
         // temporary solution, delete after merging
         Person person = null;
 
         if (role.isVolunteer()) {
-            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID);
+            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, timeServed);
         } else {
             assert role.isBefriendee();
-            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID);
+            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, timeServed);
         }
 
         return new AddCommand(person);

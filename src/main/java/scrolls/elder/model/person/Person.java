@@ -29,12 +29,13 @@ public abstract class Person {
     protected final Set<Tag> tags = new HashSet<>();
     protected final Optional<Name> pairedWithName;
     protected final Optional<Integer> pairedWithId;
+    protected final int timeServed;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Role role,
-                  Optional<Name> pairedWithName, Optional<Integer> pairedWithId) {
+                  Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed) {
         CollectionUtil.requireAllNonNull(name, phone, email, address, tags, role, pairedWithName, pairedWithId);
         this.personId = PLACEHOLDER_ID;
         this.name = name;
@@ -45,6 +46,8 @@ public abstract class Person {
         this.role = role;
         this.pairedWithName = pairedWithName;
         this.pairedWithId = pairedWithId;
+        assert timeServed >= 0 : "Time served must be non-negative";
+        this.timeServed = timeServed;
     }
 
     /**
@@ -60,6 +63,7 @@ public abstract class Person {
         this.role = p.getRole();
         this.pairedWithName = p.getPairedWithName();
         this.pairedWithId = p.getPairedWithId();
+        this.timeServed = p.getTimeServed();
     }
 
     public int getPersonId() {
@@ -97,6 +101,9 @@ public abstract class Person {
     public Optional<Integer> getPairedWithId() {
         return pairedWithId;
     }
+    public int getTimeServed() {
+        return timeServed;
+    }
 
     public boolean isPairPresent(Person person) {
         return person.getPairedWithName().isPresent();
@@ -104,6 +111,10 @@ public abstract class Person {
 
     public boolean isPaired() {
         return pairedWithName.isPresent();
+    }
+
+    public boolean isPairedWith(Person otherPerson) {
+        return pairedWithId.isPresent() && pairedWithId.get() == otherPerson.getPersonId();
     }
 
     /**
@@ -150,13 +161,15 @@ public abstract class Person {
                 && tags.equals(otherPerson.tags)
                 && role.equals(otherPerson.role)
                 && pairedWithName.equals(otherPerson.pairedWithName)
-                && pairedWithId.equals(otherPerson.pairedWithId);
+                && pairedWithId.equals(otherPerson.pairedWithId)
+                && timeServed == otherPerson.timeServed;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(personId, name, phone, email, address, tags, role, pairedWithName, pairedWithId);
+        return Objects
+                .hash(personId, name, phone, email, address, tags, role, pairedWithName, pairedWithId, timeServed);
     }
 
     @Override
@@ -171,6 +184,7 @@ public abstract class Person {
                 .add("role", role)
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
+                .add("timeServed", timeServed)
                 .toString();
     }
 

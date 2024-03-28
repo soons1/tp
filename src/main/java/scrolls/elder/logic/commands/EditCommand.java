@@ -89,10 +89,11 @@ public class EditCommand extends Command {
         Role role = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Optional<Name> pairedWithName = personToEdit.getPairedWithName();
         Optional<Integer> pairedWithId = personToEdit.getPairedWithId();
+        int timeServed = personToEdit.getTimeServed();
 
         return PersonFactory.withIdFromParams(personToEdit.getPersonId(), updatedName, updatedPhone, updatedEmail,
                 updatedAddress, role, updatedTags,
-                pairedWithName, pairedWithId);
+                pairedWithName, pairedWithId, timeServed);
     }
 
     private static Person createEditedPair(Person editedPerson, Person originalPair) {
@@ -107,10 +108,11 @@ public class EditCommand extends Command {
         Role role = originalPair.getRole();
         Optional<Name> updatedPairedWithName = Optional.of(editedPerson.getName());
         Optional<Integer> updatedPairedWithID = Optional.of(editedPerson.getPersonId());
+        int timeServed = originalPair.getTimeServed();
 
         return PersonFactory.withIdFromParams(editedPerson.getPersonId(), updatedName, updatedPhone, updatedEmail,
                 updatedAddress, role, updatedTags,
-                updatedPairedWithName, updatedPairedWithID);
+                updatedPairedWithName, updatedPairedWithID, timeServed);
     }
 
     @Override
