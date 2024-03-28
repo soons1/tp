@@ -7,7 +7,7 @@ participant ":Model" as Model MODEL_COLOR
 participant ":DatastoreVersionStorage" as DatastoreVersionStorage MODEL_COLOR
 end box
 
-[-> Model : canUndo()
+[-> Model : canUndoDatastore()
 activate Model
 
 Model -> DatastoreVersionStorage : canUndo()

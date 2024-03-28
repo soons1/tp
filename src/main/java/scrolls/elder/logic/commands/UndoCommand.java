@@ -16,7 +16,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.getDatastoreVersionStorage().canUndo()) {
+        if (!model.canUndoDatastore()) {
             throw new CommandException(MESSAGE_UNDO_ERROR);
         }
 

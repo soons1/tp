@@ -90,4 +90,14 @@ public interface Model {
      */
     void redoChanges();
 
+    /**
+     * Returns a boolean value on whether undo operations can be carried out on the current datastore.
+     */
+    boolean canUndoDatastore();
+
+    /**
+     * Returns a boolean value on whether redo operations can be carried out on the current datastore.
+     */
+    boolean canRedoDatastore();
+
 }

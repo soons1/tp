@@ -116,6 +116,16 @@ public class ModelManager implements Model {
         this.setDatastore(nextDatastore);
     }
 
+    @Override
+    public boolean canUndoDatastore() {
+        return this.datastoreVersionStorage.canUndo();
+    }
+
+    @Override
+    public boolean canRedoDatastore() {
+        return this.datastoreVersionStorage.canRedo();
+    }
+
 
     //=========== Overrides ================================================================================
 
