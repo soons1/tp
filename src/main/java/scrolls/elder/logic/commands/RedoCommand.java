@@ -19,7 +19,9 @@ public class RedoCommand extends Command {
         if (!model.getDatastoreVersionStorage().canRedo()) {
             throw new CommandException(MESSAGE_REDO_ERROR);
         }
+
         model.redoChanges();
+        model.getDatastore().getPersonStore().updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
