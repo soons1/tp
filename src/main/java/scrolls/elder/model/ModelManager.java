@@ -92,24 +92,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public DatastoreVersionStorage getDatastoreVersionStorage() {
+        return datastoreVersionStorage;
+    }
+
+    @Override
     public void commitDatastore() {
         this.datastoreVersionStorage.commitDatastore(this.datastore);
     }
 
     @Override
-    public void undoChanges() throws InvalidRequestStateException {
-        if (!this.datastoreVersionStorage.canUndo()) {
-            throw new InvalidRequestStateException("There are no changes to undo");
-        }
+    public void undoChanges() {
+        assert this.datastoreVersionStorage.canUndo() : "Undo command cannot be carried out";
+
         ReadOnlyDatastore prevDatastore = this.datastoreVersionStorage.executeUndo();
         this.setDatastore(prevDatastore);
     }
 
     @Override
-    public void redoChanges() throws InvalidRequestStateException {
-        if (!this.datastoreVersionStorage.canRedo()) {
-            throw new InvalidRequestStateException("There are no undo operations to reverse");
-        }
+    public void redoChanges() {
+        assert this.datastoreVersionStorage.canRedo() : "Redo command cannot be carried out";
 
         ReadOnlyDatastore nextDatastore = this.datastoreVersionStorage.executeRedo();
         this.setDatastore(nextDatastore);

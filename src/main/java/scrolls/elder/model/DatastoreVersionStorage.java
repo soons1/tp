@@ -8,7 +8,7 @@ public class DatastoreVersionStorage {
 
     public DatastoreVersionStorage(ReadOnlyDatastore datastore) {
         this.datastoreVersions = new ArrayList<ReadOnlyDatastore>();
-        datastoreVersions.add(datastore);
+        datastoreVersions.add(new Datastore(datastore));
         this.pointer = 0;
     }
 
@@ -50,7 +50,16 @@ public class DatastoreVersionStorage {
     }
 
     public void commitDatastore(ReadOnlyDatastore datastore) {
-        this.datastoreVersions.add(datastore);
+        int size = this.datastoreVersions.size();
+
+        // If not at end of list, purge the data before adding new datastore snapshot
+        if (pointer < size - 1) {
+            for (int i = pointer + 1; i < size; i++) {
+                this.datastoreVersions.remove(i);
+            }
+        }
+
+        this.datastoreVersions.add(new Datastore(datastore));
         pointer++;
     }
 }

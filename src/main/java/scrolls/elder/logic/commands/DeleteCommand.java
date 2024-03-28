@@ -84,6 +84,7 @@ public class DeleteCommand extends Command {
         }
 
         store.removePerson(personToDelete);
+        model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 

@@ -68,6 +68,11 @@ public interface Model {
     void setDatastore(ReadOnlyDatastore datastore);
 
     /**
+     * Returns a view of the DatastoreVersionStorage
+     */
+    DatastoreVersionStorage getDatastoreVersionStorage();
+
+    /**
      * Commits Datastore to the DatastoreVersionStorage with the cuurent data in {@code datastore}.
      */
     void commitDatastore();

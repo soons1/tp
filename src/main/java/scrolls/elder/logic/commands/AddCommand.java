@@ -66,6 +66,7 @@ public class AddCommand extends Command {
         }
 
         store.addPerson(toAdd);
+        model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
