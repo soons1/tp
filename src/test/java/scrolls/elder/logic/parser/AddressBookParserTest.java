@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ import scrolls.elder.logic.parser.exceptions.ParseException;
 import scrolls.elder.model.person.NameContainsKeywordsPredicate;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.Role;
+import scrolls.elder.model.person.TagListContainsTagsPredicate;
 import scrolls.elder.testutil.Assert;
 import scrolls.elder.testutil.EditPersonDescriptorBuilder;
 import scrolls.elder.testutil.PersonBuilder;
@@ -102,8 +104,10 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(
-                new FindCommand(new NameContainsKeywordsPredicate(keywords), true, true),
-                                    command);
+                new FindCommand(
+                        new NameContainsKeywordsPredicate(keywords),
+                        new TagListContainsTagsPredicate(Collections.emptySet()),
+                        true, true), command);
     }
 
     @Test

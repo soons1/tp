@@ -4,10 +4,17 @@ import static scrolls.elder.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import scrolls.elder.logic.commands.FindCommand;
 import scrolls.elder.logic.parser.exceptions.ParseException;
 import scrolls.elder.model.person.NameContainsKeywordsPredicate;
+import scrolls.elder.model.person.TagListContainsTagsPredicate;
+import scrolls.elder.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -33,29 +40,40 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        // Handle Role Parsing
         FindType findType = parseForRoles(trimmedArgs.split("\\s+"));
-
         String newArgs = args.replace("r/volunteer", "").replace("r/befriendee", "");
         String newTrimmedArgs = newArgs.trim();
-
         if (newTrimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] newNameKeywords = newTrimmedArgs.split("\\s+");
+        // Handle Tag Parsing
+        String[] keywordsWithoutRoles = newTrimmedArgs.split("\\s+");
+        TagListContainsTagsPredicate tagPredicate = parseForTags(keywordsWithoutRoles);;
 
+        // Handle Name Parsing
+        List<String> nameKeywordList = new ArrayList<>();
+        for (String keyword : keywordsWithoutRoles) {
+            if (!isValidTagName(keyword) && !keyword.trim().equals("")) {
+                nameKeywordList.add(keyword.trim());
+            }
+        }
+        NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(nameKeywordList);
+
+
+        // Return FindCommand
         if (findType.equals(FindType.SEARCH_BOTH)) {
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(newNameKeywords)),
-                    true, true);
+            return new FindCommand(namePredicate, tagPredicate, true, true);
+
         } else if (findType.equals(FindType.SEARCH_VOLUNTEER_ONLY)) {
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(newNameKeywords)),
-                    true, false);
+            return new FindCommand(namePredicate, tagPredicate, true, false);
+
         } else {
             assert findType.equals(FindType.SEARCH_BEFRIENDEE_ONLY);
 
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(newNameKeywords)),
-                    false, true);
+            return new FindCommand(namePredicate, tagPredicate, false, true);
         }
 
     }
@@ -89,6 +107,24 @@ public class FindCommandParser implements Parser<FindCommand> {
             return FindType.SEARCH_BOTH;
         }
 
+    }
+
+    private static TagListContainsTagsPredicate parseForTags(String[] tagKeywords) {
+        Set<Tag> tagList = new HashSet<>();
+
+        for (String tagName : tagKeywords) {
+            if (isValidTagName(tagName)) {
+                String pureTagName = tagName.substring(2);
+                tagList.add(new Tag(pureTagName));
+            }
+        }
+
+        return new TagListContainsTagsPredicate(tagList);
+    }
+
+    private static boolean isValidTagName(String test) {
+        final String tagValidationRegex = "^t/.+$";
+        return test.matches(tagValidationRegex);
     }
 
 }

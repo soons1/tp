@@ -50,7 +50,8 @@ public class TypicalPersons {
     public static final Person FIONA = new PersonBuilder().withId(5).withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").withRole("befriendee").build();
     public static final Person GEORGE = new PersonBuilder().withId(6).withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").withRole("befriendee").build();
+            .withEmail("anna@example.com").withAddress("4th street").withRole("befriendee")
+            .withTags("exConvict").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withId(7).withName("Hoon Meier").withPhone("8482424")
@@ -88,5 +89,13 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalVolunteerPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
+    }
+
+    public static List<Person> getTypicalBefriendeePersons() {
+        return new ArrayList<>(Arrays.asList(ELLE, FIONA, GEORGE));
     }
 }
