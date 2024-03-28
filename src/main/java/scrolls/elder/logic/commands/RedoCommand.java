@@ -1,9 +1,9 @@
 package scrolls.elder.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Reverses the effect of a previous undo operation on the Datastore.

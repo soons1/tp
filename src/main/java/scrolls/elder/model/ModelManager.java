@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import com.sun.jdi.request.InvalidRequestStateException;
 import scrolls.elder.commons.core.GuiSettings;
 import scrolls.elder.commons.core.LogsCenter;
 import scrolls.elder.commons.util.CollectionUtil;
