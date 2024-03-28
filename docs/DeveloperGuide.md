@@ -155,6 +155,34 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+### Pair feature
+
+#### Implementation
+
+The pair mechanism is facilitated by updating the `pairedWithName` and `pairedWithId` fields of the `Person` object. Two paired `Person`s will have their `pairedWithName` and `pairedWithId` fields updated to reflect the `name` and `personId` of the `Person` they are paired with.
+
+The `name` is saved to facilitate easy identification of the paired `Person` when displaying the `Person` object. The `personId` is saved to facilitate easy retrieval of the paired `Person` object when needed.
+
+The `PairCommand` class is responsible for pairing two persons, and the `UnpairCommand` class is responsible for unpairing two persons. The `PairCommand` and `UnpairCommand` classes are executed by the `Logic` component.
+
+The following sequence diagram shows how an undo operation goes through the `Logic` component:
+
+![PairSequenceDiagram](images/PairSequenceDiagram-Logic.png)
+
+#### Design considerations:
+
+**Aspect: What attribute(s) should be saved in the `Person` object:**
+
+* **Alternative 1 (current choice):** Save the `name` and `personId` of the paired `Person`.
+    * Pros: Might need extra steps to search for the paired `Person` as only the `name` and `personId` are saved.
+    * Cons: Uses less memory.
+
+* **Alternative 2:** Save the paired `Person` within the `Person` object.
+  itself.
+    * Pros: Easy to access and manipulate the paired `Person`.
+    * Cons: Uses more memory and includes redundant information.
+
 ### Undo/redo feature
 
 #### Implementation
