@@ -3,6 +3,8 @@ package scrolls.elder.logic.commands;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandFailure;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +18,6 @@ import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalDatastore;
 import scrolls.elder.testutil.TypicalIndexes;
 import scrolls.elder.testutil.TypicalPersons;
-
-import java.util.Optional;
 
 public class RedoCommandTest {
     private Model model;
