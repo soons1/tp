@@ -66,7 +66,7 @@ public class AddCommand extends Command {
         }
 
         store.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)));
     }
 
     @Override

@@ -37,7 +37,7 @@ class UnpairCommandTest {
             new UnpairCommand(TypicalIndexes.INDEX_FIRST_PERSON, TypicalIndexes.INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(UnpairCommand.MESSAGE_UNPAIR_SUCCESS,
-            Messages.format(personToUnpair1), Messages.format(personToUnpair2));
+            Messages.formatPerson(personToUnpair1), Messages.formatPerson(personToUnpair2));
 
         Person afterUnpairingPerson1 = new PersonBuilder(personToUnpair1)
             .withPairedWithName(Optional.empty()).withPairedWithID(Optional.empty()).build();
