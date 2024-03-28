@@ -32,6 +32,14 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_bothRoleArg_throwsParseException() {
+        assertParseFailure(parser,
+                CommandTestUtil.ROLE_DESC_BEFRIENDEE + CommandTestUtil.ROLE_DESC_VOLUNTEER + " Alice Bob",
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+    }
+
+    @Test
     public void parse_validArgsFindAllPersons_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =

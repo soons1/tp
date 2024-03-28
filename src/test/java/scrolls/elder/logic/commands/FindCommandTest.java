@@ -67,10 +67,29 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate, true, true);
+
+        // Find within both volunteer and befriendee
+        FindCommand commandAll = new FindCommand(predicate, true, true);
         expectedPersonStore.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(commandAll, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), personStore.getFilteredPersonList());
+
+        // Find within volunteer only
+        FindCommand commandSearchVolunteer = new FindCommand(predicate, true, false);
+        expectedMessage = String.format(
+                Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 0, CommandTestUtil.VALID_ROLE_VOLUNTEER);
+        expectedPersonStore.updateFilteredVolunteerList(predicate);
+        assertCommandSuccess(commandSearchVolunteer, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), personStore.getFilteredVolunteerList());
+
+        // Find within befriendee only
+        FindCommand commandSearchBefriendee = new FindCommand(predicate, false, true);
+        expectedMessage = String.format(
+                Messages.MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE, 0, CommandTestUtil.VALID_ROLE_BEFRIENDEE);
+        expectedPersonStore.updateFilteredBefriendeeList(predicate);
+        assertCommandSuccess(commandSearchBefriendee, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), personStore.getFilteredBefriendeeList());
+
     }
 
     @Test
