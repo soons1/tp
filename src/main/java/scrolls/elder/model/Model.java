@@ -3,6 +3,7 @@ package scrolls.elder.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import com.sun.jdi.request.InvalidRequestStateException;
 import scrolls.elder.commons.core.GuiSettings;
 import scrolls.elder.model.person.Person;
 
@@ -65,5 +66,22 @@ public interface Model {
      * Replaces Datastore with the data in {@code datastore}.
      */
     void setDatastore(ReadOnlyDatastore datastore);
+
+    /**
+     * Commits Datastore to the DatastoreVersionStorage with the cuurent data in {@code datastore}.
+     */
+    void commitDatastore();
+
+    /**
+     * Reverts the datastore to its previous state immediately before the current datastore state.
+     * @throws InvalidRequestStateException If there are no changes to undo.
+     */
+    void undoChanges() throws InvalidRequestStateException;
+
+    /**
+     * Reverses the effects of the most recent undo operation.
+     * @throws InvalidRequestStateException If there are no undo operations to reverse.
+     */
+    void redoChanges() throws InvalidRequestStateException ;
 
 }

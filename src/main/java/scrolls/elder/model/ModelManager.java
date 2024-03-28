@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import com.sun.jdi.request.InvalidRequestStateException;
 import scrolls.elder.commons.core.GuiSettings;
 import scrolls.elder.commons.core.LogsCenter;
 import scrolls.elder.commons.util.CollectionUtil;
@@ -17,6 +18,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final Datastore datastore;
+    private final DatastoreVersionStorage datastoreVersionStorage;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -28,6 +30,7 @@ public class ModelManager implements Model {
 
         this.datastore = new Datastore(datastore);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.datastoreVersionStorage = new DatastoreVersionStorage(this.datastore);
     }
 
     /**
@@ -86,6 +89,30 @@ public class ModelManager implements Model {
     @Override
     public void setDatastore(ReadOnlyDatastore d) {
         datastore.resetData(d);
+    }
+
+    @Override
+    public void commitDatastore() {
+        this.datastoreVersionStorage.commitDatastore(this.datastore);
+    }
+
+    @Override
+    public void undoChanges() throws InvalidRequestStateException {
+        if (!this.datastoreVersionStorage.canUndo()) {
+            throw new InvalidRequestStateException("There are no changes to undo");
+        }
+        ReadOnlyDatastore prevDatastore = this.datastoreVersionStorage.executeUndo();
+        this.setDatastore(prevDatastore);
+    }
+
+    @Override
+    public void redoChanges() throws InvalidRequestStateException {
+        if (!this.datastoreVersionStorage.canRedo()) {
+            throw new InvalidRequestStateException("There are no undo operations to reverse");
+        }
+
+        ReadOnlyDatastore nextDatastore = this.datastoreVersionStorage.executeRedo();
+        this.setDatastore(nextDatastore);
     }
 
 
