@@ -86,14 +86,15 @@ public class EditCommand extends Command {
         Role role = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
         Optional<Name> pairedWithName = personToEdit.getPairedWithName();
         Optional<Integer> pairedWithId = personToEdit.getPairedWithId();
+        int timeServed = personToEdit.getTimeServed();
 
         Person p;
         if (role.isVolunteer()) {
             p = new Volunteer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    pairedWithName, pairedWithId);
+                    pairedWithName, pairedWithId, timeServed);
         } else {
             p = new Befriendee(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    pairedWithName, pairedWithId);
+                    pairedWithName, pairedWithId, timeServed);
         }
         p.setId(personToEdit.getId());
         return p;
@@ -111,14 +112,15 @@ public class EditCommand extends Command {
         Role role = originalPair.getRole();
         Optional<Name> updatedPairedWithName = Optional.of(editedPerson.getName());
         Optional<Integer> updatedPairedWithID = Optional.of(editedPerson.getId());
+        int timeServed = originalPair.getTimeServed();
 
         Person p;
         if (role.isVolunteer()) {
             p = new Volunteer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    updatedPairedWithName, updatedPairedWithID);
+                    updatedPairedWithName, updatedPairedWithID, timeServed);
         } else {
             p = new Befriendee(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    updatedPairedWithName, updatedPairedWithID);
+                    updatedPairedWithName, updatedPairedWithID, timeServed);
         }
 
         p.setId(originalPair.getId());

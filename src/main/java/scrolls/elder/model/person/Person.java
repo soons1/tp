@@ -28,12 +28,13 @@ public abstract class Person {
     protected final Set<Tag> tags = new HashSet<>();
     protected final Optional<Name> pairedWithName;
     protected final Optional<Integer> pairedWithId;
+    protected int timeServed;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Role role,
-                  Optional<Name> pairedWithName, Optional<Integer> pairedWithId) {
+                  Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed) {
         CollectionUtil.requireAllNonNull(name, phone, email, address, tags, role, pairedWithName, pairedWithId);
         this.name = name;
         this.phone = phone;
@@ -43,6 +44,7 @@ public abstract class Person {
         this.role = role;
         this.pairedWithName = pairedWithName;
         this.pairedWithId = pairedWithId;
+        this.timeServed = timeServed;
     }
 
     public int getId() {
@@ -83,6 +85,10 @@ public abstract class Person {
 
     public Optional<Integer> getPairedWithId() {
         return pairedWithId;
+    }
+
+    public int getTimeServed() {
+        return timeServed;
     }
 
     public boolean isPairPresent(Person person) {
@@ -135,7 +141,8 @@ public abstract class Person {
                 && tags.equals(otherPerson.tags)
                 && role.equals(otherPerson.role)
                 && pairedWithName.equals(otherPerson.pairedWithName)
-                && pairedWithId.equals(otherPerson.pairedWithId);
+                && pairedWithId.equals(otherPerson.pairedWithId)
+                && timeServed == otherPerson.timeServed;
     }
 
     @Override
@@ -156,6 +163,7 @@ public abstract class Person {
                 .add("role", role)
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
+                .add("timeServed", timeServed)
                 .toString();
     }
 

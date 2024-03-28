@@ -145,14 +145,15 @@ public class PairCommand extends Command {
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
         Role role = personToEdit.getRole();
+        int timeServed = personToEdit.getTimeServed();
 
         Person p;
         if (role.isVolunteer()) {
             p = new Volunteer(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    updatedPairName, updatedPairID);
+                    updatedPairName, updatedPairID, timeServed);
         } else {
             p = new Befriendee(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                    updatedPairName, updatedPairID);
+                    updatedPairName, updatedPairID, timeServed);
         }
         p.setId(personToEdit.getId());
         return p;

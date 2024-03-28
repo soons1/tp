@@ -37,6 +37,7 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String pairedWithName;
     private final String pairedWithId;
+    private final String timeServed;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -51,7 +52,8 @@ class JsonAdaptedPerson {
             @JsonProperty("role") String role,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("pairedWithName") String pairedWithName,
-            @JsonProperty("pairedWithId") String pairedWithId) {
+            @JsonProperty("pairedWithId") String pairedWithId,
+            @JsonProperty("timeServed") String timeServed) {
 
         this.id = id;
         this.name = name;
@@ -64,6 +66,7 @@ class JsonAdaptedPerson {
             this.tags.addAll(tags);
         }
         this.pairedWithId = pairedWithId;
+        this.timeServed = timeServed;
     }
 
     /**
@@ -81,6 +84,7 @@ class JsonAdaptedPerson {
                 .collect(Collectors.toList()));
         pairedWithName = source.getPairedWithName().map(p -> p.fullName).orElse(null);
         pairedWithId = source.getPairedWithId().map(Object::toString).orElse(null);
+        timeServed = Integer.toString(source.getTimeServed());
     }
 
     /**
@@ -146,15 +150,16 @@ class JsonAdaptedPerson {
             modelRole = new Role(role);
         }
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        final int modelTimeServed = Integer.parseInt(timeServed);
 
         Person p;
         if (modelRole.isVolunteer()) {
             p = new Volunteer(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed);
         } else {
             assert modelRole.isBefriendee();
             p = new Befriendee(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed);
         }
         p.setId(modelId);
 

@@ -36,6 +36,7 @@ public class PersonBuilder {
     private Role role;
     private Optional<Name> pairedWithName;
     private Optional<Integer> pairedWithId;
+    private int timeServed;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -139,15 +140,20 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withTimeServed(int timeServed) {
+        this.timeServed = timeServed;
+        return this;
+    }
+
     /**
      * Builds a Person based on the fields in the person builder
      */
     public Person build() {
         Person person;
         if (role.isVolunteer()) {
-            person = new Volunteer(name, phone, email, address, tags, pairedWithName, pairedWithId);
+            person = new Volunteer(name, phone, email, address, tags, pairedWithName, pairedWithId, timeServed);
         } else {
-            person = new Befriendee(name, phone, email, address, tags, pairedWithName, pairedWithId);
+            person = new Befriendee(name, phone, email, address, tags, pairedWithName, pairedWithId, timeServed);
         }
         person.setId(id);
         return person;

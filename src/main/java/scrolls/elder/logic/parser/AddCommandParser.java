@@ -75,10 +75,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Person person = null;
 
         if (role.isVolunteer()) {
-            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID);
+            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, 0);
         } else {
             assert role.isBefriendee();
-            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID);
+            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, 0);
         }
 
         return new AddCommand(person);
