@@ -108,7 +108,6 @@ public class LogAddCommand extends Command {
         personStore.setPerson(volunteer, updatedVolunteer);
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
         model.commitDatastore();
-      
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

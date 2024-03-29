@@ -132,7 +132,7 @@ The `Model` component,
 Contains the `PersonStore`:
 
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-  
+
 Contains the `LogStore`:
 
 * stores the currently 'selected' `Log` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -229,7 +229,7 @@ Please note that the `volunteerId` and `befriendeeId` must correspond to existin
 
 #### Implementation
 
-The edit log feature allows user to modify the details of an existing log entry in the address book. 
+The edit log feature allows user to modify the details of an existing log entry in the address book.
 
 The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
 
@@ -245,10 +245,10 @@ The `LogEditCommand` class is executed by the `Logic` component.
 * **Alternative 1 (current choice):** The `volunteerId`, `befriendeeId`, `startdate`, `duration` and `remarks` of the
     `Log` can be edited.
     * Pros: Provides flexibility for users to update various attributes of a log entry.
-    * Cons: Accidental edits when editing contact ids in `Log` may lead to cascading effects in other 
+    * Cons: Accidental edits when editing contact ids in `Log` may lead to cascading effects in other
       attributes displayed, such as timeServed in volunteer contacts.
 
-* **Alternative 2:** The `startdate`, `duration` and `remarks` of the `Log` can be edited, 
+* **Alternative 2:** The `startdate`, `duration` and `remarks` of the `Log` can be edited,
     while the `volunteerId`, `befriendeeId` is kept immutable.
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
     * Cons: Restricts the flexibility of the `LogEdit` feature

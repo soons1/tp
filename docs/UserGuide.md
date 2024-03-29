@@ -46,7 +46,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
 ![Ui](images/Ui.png)
 
-   
+
 Once you've completed these steps, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 
 
@@ -64,8 +64,8 @@ Here are some commands to get you started:
 
    * `exit` : Exits the app.
 
-   * Refer to the [Features](#features) below for details of each command. 
- 
+   * Refer to the [Features](#features) below for details of each command.
+
 Great! Now that you're familiar with the fundamental commands and have successfully launched Elder Scrolls, let's delve deeper into its intricacies and explore its advanced functionalities.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -158,7 +158,7 @@ Use the `list` command to reset your view after using the `find` command.
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find r/volunteer John` returns only the `John Doe` present in the volunteer list. 
+* `find r/volunteer John` returns only the `John Doe` present in the volunteer list.
 * `find alex david` returns: <br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
