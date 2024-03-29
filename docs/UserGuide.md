@@ -150,6 +150,7 @@ The order in which the role, tags or pair flag is specified does not matter.
 
 Format: `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...`
 
+* An alias for the command is `search`.
 * The search is **case-insensitive**. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
 * If the **role** is specified, the search will be limited to the specified respective List. The other list remains unaffected.
 * If a **pairing status** is specified, the search will narrow down to either paired or non-paired persons. 
