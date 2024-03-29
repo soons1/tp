@@ -16,12 +16,13 @@ import scrolls.elder.model.person.TagListContainsTagsPredicate;
  */
 public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD_FIND = "find";
+    public static final String COMMAND_WORD_SEARCH = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_FIND + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive), displays them in the respective lists with index numbers.\n"
             + "Parameters: [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD_FIND + " alice bob charlie";
 
     private final NameContainsKeywordsPredicate namePredicate;
 
