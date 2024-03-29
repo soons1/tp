@@ -45,7 +45,6 @@ Before getting started with Elder Scrolls, let's ensure everything is set up cor
 A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
 
 ![Ui](images/Ui.png)
-
    
 Once you've completed these steps, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 

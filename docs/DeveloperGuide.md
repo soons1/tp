@@ -173,8 +173,7 @@ It constructs a `NameContainsKeywordsPredicate` object to filter individuals bas
 * **Return `FindCommand` Object**: Finally, the parser returns the constructed `FindCommand` object, encapsulating the parsed search criteria, for further execution.
 
 ##### `FindCommand` Class
-The find command finds all persons whose names contain any of the given keywords, supports searches in separate Volunteer and Befriendee lists, search by tags, and by pairing status. 
-The `FindCommand` class is responsible for executing the find operation based on parsed user input.
+The find command finds all persons whose names contain any of the given keywords, supports searches in separate Volunteer and Befriendee lists, search by tags, and by pairing status. The `FindCommand` class is responsible for executing the find operation based on parsed user input.
 
 * **Command Execution:** The `execute()` method overrides the parent class Command method to perform the actual find operation.
 It retrieves the PersonStore from the model to access the list of persons.
@@ -248,9 +247,7 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 #### Implementation
 
-The edit log feature allows user to modify the details of an existing log entry in the address book. 
-
-The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
+The edit log feature allows user to modify the details of an existing log entry in the address book. The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
 
 The `LogEditCommand` class is responsible for editing the details of a log entry,
 and the `LogEditCommandParser` class is responsible for parsing the user input to create a `LogEditCommand` object.
@@ -266,7 +263,6 @@ The `LogEditCommand` class is executed by the `Logic` component.
     * Pros: Provides flexibility for users to update various attributes of a log entry.
     * Cons: Accidental edits when editing contact ids in `Log` may lead to cascading effects in other 
       attributes displayed, such as timeServed in volunteer contacts.
-
 * **Alternative 2:** The `startdate`, `duration` and `remarks` of the `Log` can be edited, 
     while the `volunteerId`, `befriendeeId` is kept immutable.
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
