@@ -1,0 +1,105 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute FindCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":FindCommand" as FindCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+participant ":PersonStore" as PersonStore MODEL_COLOR
+end box
+
+activate FindCommand
+
+'get PersonStore'
+FindCommand -> Model : getMutableDatastore()
+activate Model
+Model --> FindCommand : Datastore
+deactivate Model
+
+FindCommand -> Datastore : getPersonStore()
+activate Datastore
+Datastore --> FindCommand : PersonStore
+deactivate Datastore
+
+
+alt isSearchingVolunteer && isSearchingBefriendee
+    FindCommand -> FindCommand : searchAllPersons()
+    activate FindCommand #FFBBBB
+    opt isSearchingPaired
+        FindCommand -> PersonStore : updateFilteredPersonList(Person::isPaired)
+        activate PersonStore
+        deactivate PersonStore
+    end
+    opt isSearchingName
+        FindCommand -> PersonStore : updateFilteredPersonList(namePredicate)
+        activate PersonStore
+        deactivate PersonStore
+
+    end
+    opt isSearchingTag
+        FindCommand -> PersonStore : updateFilteredPersonList(tagPredicate)
+        activate PersonStore
+        deactivate PersonStore
+        deactivate FindCommand
+    end
+
+else isSearchingVolunteer
+    FindCommand -> FindCommand : searchVolunteerOnly()
+    activate FindCommand #b0e396
+    opt isSearchingPaired
+        FindCommand -> PersonStore : updateFilteredVolunteerList(Person::isPaired)
+        activate PersonStore
+        deactivate PersonStore
+    end
+    opt isSearchingName
+        FindCommand -> PersonStore : updateFilteredVolunteerList(namePredicate)
+        activate PersonStore
+        deactivate PersonStore
+    end
+    opt isSearchingTag
+        FindCommand -> PersonStore : updateFilteredVolunteerList(tagPredicate)
+        activate PersonStore
+        deactivate PersonStore
+        deactivate FindCommand
+    end
+
+else else
+
+    FindCommand -> FindCommand : searchBefriendeeOnly()
+    activate FindCommand #96ace3
+
+    opt isSearchingPaired
+        FindCommand -> PersonStore : updateFilteredBefriendeeList(Person::isPaired)
+        activate PersonStore
+        deactivate PersonStore
+    end
+    opt isSearchingName
+        FindCommand -> PersonStore : updateFilteredBefriendeeList(namePredicate)
+        activate PersonStore
+        deactivate PersonStore
+    end
+    opt isSearchingTag
+        FindCommand -> PersonStore : updateFilteredBefriendeeList(tagPredicate)
+        activate PersonStore
+        deactivate PersonStore
+        deactivate FindCommand
+    end
+
+end
+
+create CommandResult
+FindCommand -> CommandResult
+activate CommandResult
+CommandResult --> FindCommand
+deactivate CommandResult
+
+<-- FindCommand : result
+
+@enduml

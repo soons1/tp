@@ -187,6 +187,11 @@ The message is formatted using the Messages class constants.
 * **Error Handling:** The class throws a CommandException if the search operation fails due to an invalid search predicate or an empty search result.
 * **Equality Check:** The `equals()` method is overridden to compare two `FindCommand` objects based on their search predicates and flags.
 
+The following sequence diagram shows how a Find operation goes through the `Logic` component:
+
+![FindSequenceDiagram1](images/FindSequenceDiagram.png)
+![FindSequenceDiagram2](images/FindSequenceDiagram2.png)
+
 
 #### Design Considerations
 
