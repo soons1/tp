@@ -7,6 +7,9 @@ import scrolls.elder.commons.core.GuiSettings;
 import scrolls.elder.logic.commands.CommandResult;
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.logic.parser.exceptions.ParseException;
+import scrolls.elder.model.Datastore;
+import scrolls.elder.model.ReadOnlyDatastore;
+import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;
 
 /**
@@ -30,6 +33,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredBefriendeeList();
+
+    /** Returns an unmodifiable view of the filtered list of logs */
+    ObservableList<Log> getLogList();
+
+    /** Returns the datastore of the model */
+    ReadOnlyDatastore getDatastore();
 
     /**
      * Returns the user prefs' address book file path.

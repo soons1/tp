@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import scrolls.elder.commons.util.ToStringBuilder;
+import scrolls.elder.model.person.Name;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.PersonFactory;
 import scrolls.elder.model.person.UniquePersonList;
@@ -135,6 +136,15 @@ public class PersonStore implements ReadOnlyPersonStore {
      */
     public Person getPersonFromID(int id) {
         return persons.getPersonFromID(id);
+    }
+
+    /**
+     * Returns the person's name with the given ID.
+     */
+    @Override
+    public Name getNameFromID(int id) {
+        Person target = persons.getPersonFromID(id);
+        return target.getName();
     }
 
     /**

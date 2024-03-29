@@ -14,6 +14,8 @@ import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.logic.parser.AddressBookParser;
 import scrolls.elder.logic.parser.exceptions.ParseException;
 import scrolls.elder.model.Model;
+import scrolls.elder.model.ReadOnlyDatastore;
+import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.storage.Storage;
 
@@ -73,6 +75,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredBefriendeeList() {
         return model.getDatastore().getPersonStore().getFilteredBefriendeeList();
+    }
+
+    @Override
+    public ObservableList<Log> getLogList() {
+        return model.getDatastore().getLogStore().getLogList();
+    }
+
+    @Override
+    public ReadOnlyDatastore getDatastore() {
+        return model.getDatastore();
     }
 
     @Override
