@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import scrolls.elder.commons.core.GuiSettings;
-import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;
 
 /**
