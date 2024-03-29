@@ -115,17 +115,27 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/src/main/java/scrolls/elder/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="600" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores all in-memory application data (i.e., `Datastore` and `UserPref` objects)
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `Datastore` object that represents the functional data in an application. This is exposed to the outside as a `ReadOnlyDatastore` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+#### Datastore
+
+Contains the `PersonStore`:
+
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+  
+Contains the `LogStore`:
+
+* stores the currently 'selected' `Log` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Log>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
@@ -136,18 +146,18 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/master/src/main/java/scrolls/elder/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save both application data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from both `DatastoreStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `scrolls.elder.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -182,6 +192,38 @@ The following sequence diagram shows how an undo operation goes through the `Log
   itself.
     * Pros: Easy to access and manipulate the paired `Person`.
     * Cons: Uses more memory and includes redundant information.
+
+### Add Log feature
+
+#### Implementation
+
+The Add Log feature allows users to add a new log entry to the application.
+
+The `LogAddCommand` class is responsible for creating a new log entry, and the `LogAddCommandParser` class is responsible for parsing the user input to create a `LogAddCommand` object.
+
+The `LogAddCommand` class is executed by the `Logic` component.
+
+#### Design Considerations
+
+**Aspect: Whether to use unique `logId` for each `Log` object:**
+
+* **Alternative 1 (current choice):** The `logId` is automatically generated for each `Log` object, ensuring that each log entry has a unique identifier.
+    * Pros: Ensures that each log entry is uniquely identified.
+    * Cons: Adds complexity to the implementation of the `LogStore` (e.g., maintaining a `logIdSequence` to generate unique `logId` values)
+
+* **Alternative 2:** The `logId` is not used, and the `Log` object is identified by its position in the list of logs.
+    * Pros: Simplifies the process of adding a log entry.
+    * Cons: May lead to confusion if log entries are deleted or reordered.
+
+Here's an example of how you can use the Add Log feature:
+
+1. To add a log entry, use the `addlog` command followed by the `volunteerId`, `befriendeeId`, `startdate`, `duration` and `remarks`. For example, `addlog v/1 b/2 s/2022-03-01-10:00 d/2 r/Visited Mr. Tan`.
+
+2. The application will create a new log entry with the provided details and add it to the list of logs.
+
+3. If the command is successful, the application will display a message indicating that the log entry has been added.
+
+Please note that the `volunteerId` and `befriendeeId` must correspond to existing volunteers and befriendees in the application. The `startdate` should be in the format `YYYY-MM-DD` and the `duration` should be the number of hours the visit lasted. The `remarks` field is optional and can be used to add any additional notes about the visit.
 
 ### Edit log feature
 
