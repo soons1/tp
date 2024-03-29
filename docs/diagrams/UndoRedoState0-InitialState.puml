@@ -4,19 +4,18 @@ skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 skinparam ClassBackgroundColor #FFFFAA
 
-title After command "clear"
+title Initial state
 
-package States <<rectangle>> {
+package States {
     class State1 as "<u>ds0:Datastore</u>"
     class State2 as "<u>ds1:Datastore</u>"
-    class State3 as "<u>ds3:Datastore</u>"
+    class State3 as "<u>ds2:Datastore</u>"
 }
-
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
+hide State2
+hide State3
 
 class Pointer as "Current State" #FFFFFF
-
-Pointer -up-> State3
-note right on link: State ds2 deleted.
+Pointer -up-> State1
 @end

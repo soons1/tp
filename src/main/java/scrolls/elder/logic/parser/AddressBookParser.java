@@ -18,7 +18,10 @@ import scrolls.elder.logic.commands.FindCommand;
 import scrolls.elder.logic.commands.HelpCommand;
 import scrolls.elder.logic.commands.ListCommand;
 import scrolls.elder.logic.commands.LogAddCommand;
+import scrolls.elder.logic.commands.LogEditCommand;
 import scrolls.elder.logic.commands.PairCommand;
+import scrolls.elder.logic.commands.RedoCommand;
+import scrolls.elder.logic.commands.UndoCommand;
 import scrolls.elder.logic.commands.UnpairCommand;
 import scrolls.elder.logic.parser.exceptions.ParseException;
 
@@ -91,6 +94,15 @@ public class AddressBookParser {
 
         case LogAddCommand.COMMAND_WORD:
             return new LogAddCommandParser().parse(arguments);
+
+        case LogEditCommand.COMMAND_WORD:
+            return new LogEditCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

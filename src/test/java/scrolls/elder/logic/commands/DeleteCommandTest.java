@@ -54,7 +54,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_SECOND_PERSON, ROLE_VOLUNTEER);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-            Messages.format(personToDelete));
+            Messages.formatPerson(personToDelete));
 
         expectedPersonStore.removePerson(personToDelete);
 
@@ -79,7 +79,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_PERSON, ROLE_VOLUNTEER);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-            Messages.format(personToDelete));
+            Messages.formatPerson(personToDelete));
 
         expectedPersonStore.removePerson(personToDelete);
         showNoPerson(expectedPersonStore);
@@ -119,7 +119,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_SECOND_PERSON, ROLE_BEFRIENDEE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-            Messages.format(personToDelete));
+            Messages.formatPerson(personToDelete));
 
         Model expectedModel = new ModelManager(model.getDatastore(), new UserPrefs());
         expectedModel.getMutableDatastore().getMutablePersonStore().removePerson(personToDelete);

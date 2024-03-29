@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
         expectedModel.getMutableDatastore().getMutablePersonStore().addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+                String.format(AddCommand.MESSAGE_SUCCESS, Messages.formatPerson(validPerson)),
                 expectedModel);
     }
 

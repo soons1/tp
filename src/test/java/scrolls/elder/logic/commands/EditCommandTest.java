@@ -46,7 +46,8 @@ public class EditCommandTest {
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
         expectedPersonStore.setPerson(expectedPersonStore.getFilteredVolunteerList().get(1), editedPerson);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -58,7 +59,8 @@ public class EditCommandTest {
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
         expectedPersonStore.setPerson(expectedPersonStore.getFilteredBefriendeeList().get(0), editedPerson);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -83,7 +85,8 @@ public class EditCommandTest {
                 .withRole(CommandTestUtil.VALID_ROLE_VOLUNTEER).build();
         EditCommand editCommand = new EditCommand(indexSecondPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
         expectedPersonStore.setPerson(
             expectedPersonStore.getFilteredVolunteerList().get(indexSecondPerson.getZeroBased()), editedPerson);
 
@@ -98,7 +101,8 @@ public class EditCommandTest {
         Person editedPerson = model.getDatastore().getPersonStore().getFilteredVolunteerList()
             .get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -124,7 +128,8 @@ public class EditCommandTest {
             new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
                 .withRole(CommandTestUtil.VALID_ROLE_VOLUNTEER).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
         expectedPersonStore.setPerson(expectedPersonStore.getFilteredVolunteerList().get(1), editedPerson);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -146,7 +151,8 @@ public class EditCommandTest {
                 .withRole(CommandTestUtil.VALID_ROLE_BEFRIENDEE)
                 .build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
         expectedPersonStore.setPerson(expectedPersonStore.getFilteredBefriendeeList().get(1), editedPerson);
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
