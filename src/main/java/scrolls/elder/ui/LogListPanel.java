@@ -1,5 +1,6 @@
 package scrolls.elder.ui;
 
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import scrolls.elder.model.log.Log;
  * Panel containing the list of logs.
  */
 public class LogListPanel extends UiPart<Region> {
+    public static final Predicate<Log> PREDICATE_SHOW_ALL_LOGS = unused -> true;
     private static final String FXML = "LogListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LogListPanel.class);
 
@@ -32,7 +34,7 @@ public class LogListPanel extends UiPart<Region> {
         super(FXML);
 
         this.datastore = datastore;
-        ObservableList<Log> logList = datastore.getLogStore().getLogList();
+        ObservableList<Log> logList = datastore.getLogStore().getFilteredLogList();
         logListView.setItems(logList);
         logListView.setCellFactory(listView -> new LogListPanel.LogListViewCell());
     }

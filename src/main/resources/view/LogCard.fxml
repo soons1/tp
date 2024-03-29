@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -31,7 +30,7 @@
                 <padding>
                     <Insets top="10" right="0" bottom="0" left="0" />
                 </padding>
-                <Label fx:id="volunteer" styleClass="cell_small_label" text="\$volunteer" style="-fx-padding: "/>
+                <Label fx:id="volunteer" styleClass="cell_small_label" text="\$volunteer"/>
                 <Label fx:id="befriendee" styleClass="cell_small_label" text="\$befriendee" />
             </VBox>
             <VBox>

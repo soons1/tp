@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import scrolls.elder.model.person.Name;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.Volunteer;
 import scrolls.elder.model.person.exceptions.DuplicatePersonException;
@@ -184,6 +185,11 @@ public class PersonStoreTest {
 
         @Override
         public ObservableList<Person> getFilteredBefriendeeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Name getNameFromID(int id) {
             throw new AssertionError("This method should not be called.");
         }
 

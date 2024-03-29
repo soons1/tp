@@ -11,9 +11,10 @@ public class LogTest {
 
     @Test
     public void toStringMethod() {
-        String expectedToStringAliceToElle = String.format("%s{Log ID=%d, Volunteer ID=%d, Befriendee ID=%d, "
+        String expectedToStringAliceToElle = String.format("%s{Log ID=%d, Title=%s, Volunteer ID=%d, Befriendee ID=%d, "
                 + "Duration=%s, Start Date=%s, Remarks=%s}", Log.class.getCanonicalName(),
-            TypicalLogs.LOG_ALICE_TO_ELLE.getLogId(), TypicalLogs.LOG_ALICE_TO_ELLE.getVolunteerId(),
+            TypicalLogs.LOG_ALICE_TO_ELLE.getLogId(), TypicalLogs.LOG_ALICE_TO_ELLE.getLogTitle(),
+            TypicalLogs.LOG_ALICE_TO_ELLE.getVolunteerId(),
             TypicalLogs.LOG_ALICE_TO_ELLE.getBefriendeeId(), TypicalLogs.LOG_ALICE_TO_ELLE.getDuration(),
             TypicalLogs.LOG_ALICE_TO_ELLE.getStartDate(), TypicalLogs.LOG_ALICE_TO_ELLE.getRemarks());
 

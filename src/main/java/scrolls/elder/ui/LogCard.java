@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import scrolls.elder.model.Datastore;
 import scrolls.elder.model.ReadOnlyDatastore;
 import scrolls.elder.model.log.Log;
 
@@ -59,7 +58,7 @@ public class LogCard extends UiPart<Region> {
         String befriendeeName = datastore.getPersonStore().getNameFromID(log.getBefriendeeId()).fullName;
 
         id.setText(displayedIndex + ". ");
-        title.setText("Dummy title");
+        title.setText(log.getLogTitle());
         befriendee.setText("Befriendee: " + befriendeeName);
         volunteer.setText("Volunteer: " + volunteerName);
         date.setText(dateFormatter.format(log.getStartDate()));
