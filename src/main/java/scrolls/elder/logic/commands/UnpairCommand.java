@@ -106,6 +106,7 @@ public class UnpairCommand extends Command {
         store.setPerson(personToUnpair1, newPerson1);
         store.setPerson(personToUnpair2, newPerson2);
 
+        model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
         return new CommandResult(
                 String.format(

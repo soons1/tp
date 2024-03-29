@@ -81,6 +81,7 @@ public class LogAddCommand extends Command {
                 remarks);
 
         logStore.addLog(toAdd);
+        model.commitDatastore();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

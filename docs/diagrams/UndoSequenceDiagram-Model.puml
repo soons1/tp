@@ -4,20 +4,26 @@ skinparam ArrowFontStyle plain
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":DatastoreVersionStorage" as DatastoreVersionStorage MODEL_COLOR
 end box
 
-[-> Model : undoAddressBook()
+[-> Model : canUndoDatastore()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> DatastoreVersionStorage : canUndo()
+activate DatastoreVersionStorage
+DatastoreVersionStorage --> Model
+[<-- Model
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+[-> Model : undoChanges()
+Model -> DatastoreVersionStorage : executeUndo()
+DatastoreVersionStorage --> Model : prevDatastore
+deactivate DatastoreVersionStorage
+
+Model -> Model : setDataStore(prevDatastore)
 
 [<-- Model
+
 deactivate Model
 
 @enduml
