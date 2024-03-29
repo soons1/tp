@@ -150,8 +150,9 @@ public class EditCommand extends Command {
         }
 
         store.setPerson(personToEdit, editedPerson);
+        model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson)));
     }
 
     @Override

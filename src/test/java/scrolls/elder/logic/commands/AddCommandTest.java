@@ -44,7 +44,7 @@ public class AddCommandTest {
 
         AddCommand addCommand = new AddCommand(validPerson);
 
-        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson));
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.formatPerson(validPerson));
         expectedPersonStore.addPerson(new PersonBuilder().build());
 
         CommandTestUtil.assertCommandSuccess(addCommand, model, expectedMessage, expectedModel);
@@ -80,4 +80,5 @@ public class AddCommandTest {
         String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + TypicalPersons.ALICE + "}";
         assertEquals(expected, addCommand.toString());
     }
+
 }

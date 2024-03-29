@@ -5,12 +5,17 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model as ModelPackage <<Rectangle>>{
-Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
+Class "<<interface>>\nReadOnlyDatastore" as ReadOnlyDatastore
+Class "<<interface>>\nReadOnlyPersonStore" as ReadOnlyPersonStore
+Class "<<interface>>\nReadOnlyLogStore" as ReadOnlyLogStore
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
-Class AddressBook
+Class Datastore
 Class ModelManager
 Class UserPrefs
+
+Class PersonStore
+Class LogStore
 
 Class UniquePersonList
 Class "{abstract}\nPerson" as Person
@@ -21,6 +26,8 @@ Class Phone
 Class Tag
 Class Role
 
+Class Log
+
 Class Volunteer
 Class Befriendee
 
@@ -30,16 +37,26 @@ Class I #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Datastore .up.|> ReadOnlyDatastore
+PersonStore .up.|> ReadOnlyPersonStore
+LogStore .up.|> ReadOnlyLogStore
+
+ReadOnlyPersonStore .up.> ReadOnlyDatastore
+ReadOnlyLogStore .up.> ReadOnlyDatastore
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
+Model .left.> ReadOnlyDatastore
+ModelManager -left-> "1" Datastore
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
+Datastore *-down-> "1" PersonStore
+Datastore *-down-> "1" LogStore
+
+LogStore *--> "*" Log
+
+PersonStore *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
@@ -51,13 +68,14 @@ Person *--> Role
 Volunteer .up.|> Person
 Befriendee .up.|> Person
 
-Volunteer"0..1" -- "0..1"Befriendee: pairedWith
 
 Volunteer -[hidden]right--> Befriendee
 
-Person -[hidden]down--> Volunteer
-Person -[hidden]down--> Befriendee
+Person -[hidden]right--> Volunteer
+Person -[hidden]right--> Befriendee
 
+ReadOnlyPersonStore -[hidden]right--> Datastore
+ReadOnlyLogStore -[hidden]right--> ReadOnlyPersonStore
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
@@ -66,7 +84,9 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
+Volunteer"0..1" - "0..1"Befriendee: pairedWith
+(Volunteer, Befriendee) .. Log
+Befriendee -[hidden]down Volunteer
 
-
-ModelManager --> "~* filtered" Person
+'ModelManager --> "~* filtered" Person
 @enduml

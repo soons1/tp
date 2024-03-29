@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javafx.collections.ObservableList;
 import scrolls.elder.commons.util.AppUtil;
+import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.model.ReadOnlyDatastore;
 import scrolls.elder.model.person.Person;
 
@@ -29,7 +30,7 @@ public class Log {
      * Creates a log with all given fields.
      */
     @JsonCreator
-    private Log(@JsonProperty("logId") int logId, @JsonProperty("volunteerId") int volunteerId,
+    public Log(@JsonProperty("logId") int logId, @JsonProperty("volunteerId") int volunteerId,
                @JsonProperty("befriendeeId") int befriendeeId, @JsonProperty("duration") int duration,
                @JsonProperty("startDate") Date startDate, @JsonProperty("remarks") String remarks) {
         this.logId = logId;
@@ -135,7 +136,13 @@ public class Log {
 
     @Override
     public String toString() {
-        return String.format("Log{Volunteer ID=%d, Befriendee ID=%d, Duration=%d, Start Date=%s, Remarks=%s}",
-            volunteerId, befriendeeId, duration, startDate.toString(), remarks);
+        return new ToStringBuilder(this)
+            .add("Log ID", logId)
+            .add("Volunteer ID", volunteerId)
+            .add("Befriendee ID", befriendeeId)
+            .add("Duration", duration)
+            .add("Start Date", startDate)
+            .add("Remarks", remarks)
+            .toString();
     }
 }

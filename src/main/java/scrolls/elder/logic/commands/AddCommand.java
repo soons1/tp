@@ -66,7 +66,9 @@ public class AddCommand extends Command {
         }
 
         store.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        model.commitDatastore();
+        model.getDatastore().getPersonStore().updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)));
     }
 
     @Override

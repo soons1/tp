@@ -47,7 +47,7 @@ class PairCommandTest {
             new PairCommand(TypicalIndexes.INDEX_SECOND_PERSON, TypicalIndexes.INDEX_SECOND_PERSON);
 
         String expectedMessage = String.format(PairCommand.MESSAGE_PAIR_SUCCESS,
-            Messages.format(befriendeeToPair), Messages.format(volunteerToPair));
+            Messages.formatPerson(befriendeeToPair), Messages.formatPerson(volunteerToPair));
         Person afterPairingPerson1 = new PersonBuilder(befriendeeToPair)
             .withPairedWithName(Optional.of(volunteerToPair.getName()))
             .withPairedWithID(Optional.of(volunteerToPair.getPersonId())).build();
