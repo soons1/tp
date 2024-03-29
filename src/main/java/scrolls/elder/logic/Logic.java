@@ -7,7 +7,6 @@ import scrolls.elder.commons.core.GuiSettings;
 import scrolls.elder.logic.commands.CommandResult;
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.logic.parser.exceptions.ParseException;
-import scrolls.elder.model.Datastore;
 import scrolls.elder.model.ReadOnlyDatastore;
 import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;

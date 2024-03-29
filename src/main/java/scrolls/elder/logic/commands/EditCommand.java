@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.CollectionUtil;
 import scrolls.elder.commons.util.ToStringBuilder;

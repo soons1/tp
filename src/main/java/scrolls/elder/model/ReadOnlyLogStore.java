@@ -1,10 +1,9 @@
 package scrolls.elder.model;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import scrolls.elder.model.log.Log;
-import scrolls.elder.model.person.Person;
 
-import java.util.function.Predicate;
 
 /**
  * Unmodifiable view of the log store.

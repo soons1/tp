@@ -9,9 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import scrolls.elder.commons.core.LogsCenter;
-import scrolls.elder.model.Datastore;
 import scrolls.elder.model.ReadOnlyDatastore;
-import scrolls.elder.model.ReadOnlyPersonStore;
 import scrolls.elder.model.log.Log;
 
 /**

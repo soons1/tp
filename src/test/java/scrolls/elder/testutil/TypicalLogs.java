@@ -34,11 +34,11 @@ public class TypicalLogs {
 
         calendar.set(2024, Calendar.MARCH, 7);
         final Date marchSeventh = calendar.getTime();
-        LOG_ALICE_TO_ELLE = new Log(datastore, "House visit",0, 4, 2, marchSeventh, "Was great!");
+        LOG_ALICE_TO_ELLE = new Log(datastore, "House visit", 0, 4, 2, marchSeventh, "Was great!");
 
         calendar.set(2024, Calendar.APRIL, 8);
         final Date aprilEighth = calendar.getTime();
-        Log tempLog = new Log(datastore, "Icebreaker",1, 5, 3, aprilEighth, "Was okay.");
+        Log tempLog = new Log(datastore, "Icebreaker", 1, 5, 3, aprilEighth, "Was okay.");
         LOG_BENSON_TO_FIONA = new Log(1, tempLog);
     }
 
