@@ -17,6 +17,7 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final Datastore datastore;
+    private final DatastoreVersionStorage datastoreVersionStorage;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
 
         this.datastore = new Datastore(datastore);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.datastoreVersionStorage = new DatastoreVersionStorage(this.datastore);
     }
 
     /**
@@ -86,6 +88,42 @@ public class ModelManager implements Model {
     @Override
     public void setDatastore(ReadOnlyDatastore d) {
         datastore.resetData(d);
+    }
+
+    @Override
+    public DatastoreVersionStorage getDatastoreVersionStorage() {
+        return datastoreVersionStorage;
+    }
+
+    @Override
+    public void commitDatastore() {
+        this.datastoreVersionStorage.commitDatastore(this.datastore);
+    }
+
+    @Override
+    public void undoChanges() {
+        assert this.datastoreVersionStorage.canUndo() : "Undo command cannot be carried out";
+
+        ReadOnlyDatastore prevDatastore = this.datastoreVersionStorage.executeUndo();
+        this.setDatastore(prevDatastore);
+    }
+
+    @Override
+    public void redoChanges() {
+        assert this.datastoreVersionStorage.canRedo() : "Redo command cannot be carried out";
+
+        ReadOnlyDatastore nextDatastore = this.datastoreVersionStorage.executeRedo();
+        this.setDatastore(nextDatastore);
+    }
+
+    @Override
+    public boolean canUndoDatastore() {
+        return this.datastoreVersionStorage.canUndo();
+    }
+
+    @Override
+    public boolean canRedoDatastore() {
+        return this.datastoreVersionStorage.canRedo();
     }
 
 
