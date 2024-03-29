@@ -50,6 +50,7 @@ public class PersonBuilder {
         role = new Role(DEFAULT_VOLUNTEER_ROLE_STRING);
         pairedWithName = Optional.empty();
         pairedWithId = Optional.empty();
+        timeServed = 0;
     }
 
     /**
@@ -65,6 +66,7 @@ public class PersonBuilder {
         role = personToCopy.getRole();
         pairedWithName = personToCopy.getPairedWithName();
         pairedWithId = personToCopy.getPairedWithId();
+        timeServed = personToCopy.getTimeServed();
     }
 
     /**
