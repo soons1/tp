@@ -183,6 +183,34 @@ The following sequence diagram shows how an undo operation goes through the `Log
     * Pros: Easy to access and manipulate the paired `Person`.
     * Cons: Uses more memory and includes redundant information.
 
+### Edit log feature
+
+#### Implementation
+
+The edit log feature allows user to modify the details of an existing log entry in the address book. 
+
+The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
+
+The `LogEditCommand` class is responsible for editing the details of a log entry,
+and the `LogEditCommandParser` class is responsible for parsing the user input to create a `LogEditCommand` object.
+
+The `LogEditCommand` class is executed by the `Logic` component.
+
+#### Design Considerations
+
+**Aspect: What attribute(s) can be edited in the `Log` object:**
+
+* **Alternative 1 (current choice):** The `volunteerId`, `befriendeeId`, `startdate`, `duration` and `remarks` of the
+    `Log` can be edited.
+    * Pros: Provides flexibility for users to update various attributes of a log entry.
+    * Cons: Accidental edits when editing contact ids in `Log` may lead to cascading effects in other 
+      attributes displayed, such as timeServed in volunteer contacts.
+
+* **Alternative 2:** The `startdate`, `duration` and `remarks` of the `Log` can be edited, 
+    while the `volunteerId`, `befriendeeId` is kept immutable.
+    * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
+    * Cons: Restricts the flexibility of the `LogEdit` feature
+
 ### Undo/redo feature
 
 #### Implementation

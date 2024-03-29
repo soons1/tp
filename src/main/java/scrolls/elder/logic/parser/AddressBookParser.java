@@ -18,6 +18,7 @@ import scrolls.elder.logic.commands.FindCommand;
 import scrolls.elder.logic.commands.HelpCommand;
 import scrolls.elder.logic.commands.ListCommand;
 import scrolls.elder.logic.commands.LogAddCommand;
+import scrolls.elder.logic.commands.LogEditCommand;
 import scrolls.elder.logic.commands.PairCommand;
 import scrolls.elder.logic.commands.RedoCommand;
 import scrolls.elder.logic.commands.UndoCommand;
@@ -93,6 +94,9 @@ public class AddressBookParser {
 
         case LogAddCommand.COMMAND_WORD:
             return new LogAddCommandParser().parse(arguments);
+
+        case LogEditCommand.COMMAND_WORD:
+            return new LogEditCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

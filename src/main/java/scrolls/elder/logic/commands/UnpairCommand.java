@@ -110,7 +110,8 @@ public class UnpairCommand extends Command {
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
         return new CommandResult(
                 String.format(
-                        MESSAGE_UNPAIR_SUCCESS, Messages.format(personToUnpair1), Messages.format(personToUnpair2)));
+                        MESSAGE_UNPAIR_SUCCESS,
+                        Messages.formatPerson(personToUnpair1), Messages.formatPerson(personToUnpair2)));
     }
 
     @Override
