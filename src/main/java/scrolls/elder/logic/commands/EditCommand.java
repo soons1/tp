@@ -20,6 +20,7 @@ import scrolls.elder.commons.util.CollectionUtil;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.exceptions.CommandException;
+import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.person.Address;
@@ -117,6 +118,7 @@ public class EditCommand extends Command {
         requireNonNull(model);
 
         PersonStore store = model.getMutableDatastore().getMutablePersonStore();
+        LogStore logStore = model.getMutableDatastore().getMutableLogStore();
 
         if (editPersonDescriptor.getRole().isEmpty()) {
             throw new CommandException(MESSAGE_NO_ROLE);
@@ -147,6 +149,7 @@ public class EditCommand extends Command {
         store.setPerson(personToEdit, editedPerson);
         model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        logStore.updateFilteredLogList(logStore.PREDICATE_SHOW_ALL_LOGS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson)));
     }
 

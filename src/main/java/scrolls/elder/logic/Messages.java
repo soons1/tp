@@ -61,7 +61,9 @@ public class Messages {
      */
     public static String formatLog(Log log) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Volunteer ID: ")
+        builder.append("Title: ")
+                .append(log.getLogTitle())
+                .append("; Volunteer ID: ")
                 .append(log.getVolunteerId())
                 .append("; Befriendee ID: ")
                 .append(log.getBefriendeeId())

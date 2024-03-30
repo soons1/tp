@@ -31,12 +31,14 @@ public class LogAddCommandParser implements Parser<LogAddCommand> {
     public LogAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args,
+                CliSyntax.PREFIX_TITLE,
                 CliSyntax.PREFIX_START,
                 CliSyntax.PREFIX_DURATION,
                 CliSyntax.PREFIX_REMARKS);
 
         // Check for all Prefixes present
         if (!arePrefixesPresent(argMultimap,
+            CliSyntax.PREFIX_TITLE,
             CliSyntax.PREFIX_START, CliSyntax.PREFIX_DURATION,
             CliSyntax.PREFIX_REMARKS) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE));
@@ -53,11 +55,12 @@ public class LogAddCommandParser implements Parser<LogAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE), pe);
         }
 
+        String title = argMultimap.getValue(CliSyntax.PREFIX_TITLE).get().trim();
         Date start = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_START).get());
         int duration = ParserUtil.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DURATION).get());
         String remarks = argMultimap.getValue(CliSyntax.PREFIX_REMARKS).get().trim();
 
-        return new LogAddCommand(index1, index2, duration, start, remarks);
+        return new LogAddCommand(title, index1, index2, duration, start, remarks);
     }
 
 }
