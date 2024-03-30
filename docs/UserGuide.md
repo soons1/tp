@@ -45,7 +45,6 @@ Before getting started with Elder Scrolls, let's ensure everything is set up cor
 A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
 
 ![Ui](images/Ui.png)
-
    
 Once you've completed these steps, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 
@@ -113,13 +112,7 @@ A person can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe r/volunteer p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe r/befriendee t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-#### Listing all persons : `list`
-
-Shows a list of all persons in Elder Scrolls.
-
-Format: `list`
+* `add n/Betsy Crowe r/befriendee t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal t/homicide`
 
 #### Editing a person : `edit`
 
@@ -138,29 +131,46 @@ Examples:
 *  `edit 1 r/volunteer p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 r/befriendee n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+#### Listing all persons : `list`
+
+Shows a list of all persons in Elder Scrolls.
+
+Format: `list`
+
+* Persons are listed in the order they were added.
+* The list command is commonly used with the `find` command to reset the view after a search.
+
+
 #### Locating persons by name: `find`
 
 Find all persons whose names contain any of the given keywords. The find command also supports searches in the two
-separate Volunteer and Befriendee lists, if the role is specified. The order where the role is specified does not matter.
+separate Volunteer and Befriendee lists, if the role is specified. It also supports search by tags, and by pairing status.
+The order in which the role, tags or pair flag is specified does not matter.
 
-Format: `find [r/ROLE] KEYWORD [MORE_KEYWORDS]`
+Format: `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...`
 
-* The search is case-insensitive. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
-* If the role is specified, the search will be limited to the specified respective List. The other list remains unaffected.
-* Only the name is searched.
+* An alias for the command is `search`.
+* The search is **case-insensitive**. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
+* If the **role** is specified, the search will be limited to the specified respective List. The other list remains unaffected.
+* If a **pairing status** is specified, the search will narrow down to either paired or non-paired persons. 
+* Keyword only searches on name. Search via tag is also supported, by adding in appropriate tags..
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Pro-Tip:**
-Use the `list` command to reset your view after using the `find` command.
-</div>
-
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find r/volunteer John` returns only the `John Doe` present in the volunteer list. 
+* `find t/friend` returns all persons with the tag `friend`.
+* `find --paired` returns all persons who are paired.
+* Mix and match to customize your search! e.g. `find r/volunteer t/friend --paired John` returns all 
+paired volunteers with the tag `friend` and name `John`.
 * `find alex david` returns: <br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Pro-Tip:**
+Use the `list` command to reset your view after using the `find` command.
+</div>
 
 #### Deleting a person : `delete`
 

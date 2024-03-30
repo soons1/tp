@@ -165,6 +165,66 @@ Classes used by multiple components are in the `scrolls.elder.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Find feature
+
+#### Implementation
+
+##### `FindCommandParser` Class
+The `FindCommandParser` class is responsible for parsing user input and creating a corresponding `FindCommand` object for execution. The implementation involves several key steps:
+* **Role Parsing**: The parser first identifies the roles specified in the user input, such as "volunteer" or "befriendee", using predefined flags (`SEARCH_VOLUNTEER_FLAG` and `SEARCH_BEFRIENDEE_FLAG`).
+It determines whether the search should be restricted to a specific role, both roles, or neither.
+* **Pair Flag Parsing**: Next, the parser extracts any flags indicating whether the search should include paired or unpaired individuals.
+It determines whether the search should include paired individuals, unpaired individuals, both, or neither.
+* **Tag Parsing**: The parser then parses any tags specified in the user input, which are prefixed with a tag indicator (`t/`). Tags are extracted and used to create a `TagListContainsTagsPredicate` object for filtering.
+* **Name Parsing**: After extracting roles, pair flags, and tags, the parser processes the remaining input as potential name keywords for filtering.
+It constructs a `NameContainsKeywordsPredicate` object to filter individuals based on their names.
+* **Search Criteria Combination**: The parser combines the parsed search criteria (roles, pair flags, tags, and name keywords) into a single `FindCommand` object.
+* **Handling Search Exceptions**: The parser checks for any invalid command formats or missing input parameters and throws a `ParseException` if necessary.
+* **Return `FindCommand` Object**: Finally, the parser returns the constructed `FindCommand` object, encapsulating the parsed search criteria, for further execution.
+
+##### `FindCommand` Class
+The find command finds all persons whose names contain any of the given keywords, supports searches in separate Volunteer and Befriendee lists, search by tags, and by pairing status. The `FindCommand` class is responsible for executing the find operation based on parsed user input.
+
+* **Command Execution:** The `execute()` method overrides the parent class Command method to perform the actual find operation.
+It retrieves the PersonStore from the model to access the list of persons.
+* **Search Criteria:** The class contains boolean flags (`isSearchingVolunteer`, `isSearchingBefriendee`) to determine whether to search volunteers, befriendees, or both.
+Similar flags (`isSearchingPaired`, `isSearchingUnpaired`) are used to filter persons based on their pairing status.
+* **Search Methods:*** `searchAllPersons()`, `searchVolunteerOnly()`, and `searchBefriendeeOnly()` methods are used to perform searches based on the specified criteria.
+These methods update the filtered person list in the PersonStore based on the search predicates.
+* **Result Handling:** The search results are wrapped in a `CommandResult` object, which contains a message indicating the number of persons found.
+The message is formatted using the Messages class constants.
+* **Error Handling:** The class throws a CommandException if the search operation fails due to an invalid search predicate or an empty search result.
+* **Equality Check:** The `equals()` method is overridden to compare two `FindCommand` objects based on their search predicates and flags.
+
+The following sequence diagram shows how a Find operation goes through the `Logic` component:
+
+![FindSequenceDiagram1](images/FindSequenceDiagram.png)
+![FindSequenceDiagram2](images/FindSequenceDiagram2.png)
+
+
+#### Design Considerations
+
+##### **Aspect: Tag Parsing in FindCommandParser:**
+
+* **Alternative 1: (Current Choice):** Parsing tags separately from other search criteria.
+  * Pros: Allows users to specify additional search criteria based on tags.
+  * Cons: Requires additional parsing logic and potentially increases complexity in handling multiple search parameters.
+
+* **Alternative 2:** Incorporating tags into the main search query without separate parsing.
+  * Pros: Simplifies parsing logic by integrating tags directly into the search query.
+  * Cons: May limit flexibility in specifying tag-based search criteria or require more sophisticated parsing algorithms.
+
+##### **Aspect: Handling Search Criteria in FindCommand:**
+
+* **Alternative 1 (Current Choice)**: Implementing separate predicates for name and tag search criteria.
+  * Pros: Offers flexibility in defining and combining different search parameters.
+  * Cons: May lead to redundant filtering or increased complexity in managing multiple predicates.
+
+* **Alternative 2**: Consolidating search criteria into a single unified predicate.
+  * Pros: Simplifies filtering logic by reducing the number of separate predicates.
+    * Cons: May limit the flexibility to apply different search parameters independently or require more complex predicate structures.
+
+
 
 ### Pair feature
 
@@ -229,9 +289,7 @@ Please note that the `volunteerId` and `befriendeeId` must correspond to existin
 
 #### Implementation
 
-The edit log feature allows user to modify the details of an existing log entry in the address book. 
-
-The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
+The edit log feature allows user to modify the details of an existing log entry in the address book. The index of the log entry has to be edited is specified by the user in order to execute the `LogEditCommand`.
 
 The `LogEditCommand` class is responsible for editing the details of a log entry,
 and the `LogEditCommandParser` class is responsible for parsing the user input to create a `LogEditCommand` object.
@@ -247,7 +305,6 @@ The `LogEditCommand` class is executed by the `Logic` component.
     * Pros: Provides flexibility for users to update various attributes of a log entry.
     * Cons: Accidental edits when editing contact ids in `Log` may lead to cascading effects in other 
       attributes displayed, such as timeServed in volunteer contacts.
-
 * **Alternative 2:** The `startdate`, `duration` and `remarks` of the `Log` can be edited, 
     while the `volunteerId`, `befriendeeId` is kept immutable.
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
