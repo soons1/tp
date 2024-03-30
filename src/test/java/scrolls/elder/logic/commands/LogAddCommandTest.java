@@ -44,7 +44,7 @@ class LogAddCommandTest {
                 personStore.getFilteredBefriendeeList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
         Person volunteer =
                 personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
-        LogAddCommand logAddCommand = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand = new LogAddCommand("test1", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 1,
                 new Date(2023, 1, 1),
@@ -59,9 +59,8 @@ class LogAddCommandTest {
         PersonStore personStore = expectedModel.getMutableDatastore().getMutablePersonStore();
         LogStore logStore = expectedModel.getMutableDatastore().getMutableLogStore();
         Log toAdd =
-                new Log(model.getDatastore(), volunteer.getPersonId(), befriendee.getPersonId(), 1,
-                        new Date(2023, 1, 1),
-                        "was a good session");
+                new Log(model.getDatastore(), "test1", volunteer.getPersonId(), befriendee.getPersonId(),
+                        1, new Date(2023, 1, 1), "was a good session");
         logStore.addLog(toAdd);
         personStore.setPerson(befriendee, afterLoggingBefriendee);
         personStore.setPerson(volunteer, afterLoggingVolunteer);
@@ -72,7 +71,7 @@ class LogAddCommandTest {
 
     @Test
     void execute_negativeDuration_throwsCommandException() {
-        LogAddCommand logAddCommand = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand = new LogAddCommand("test2", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 -1,
                 new Date(2023, 1, 1),
@@ -83,7 +82,7 @@ class LogAddCommandTest {
 
     @Test
     void execute_personsNotPaired_throwsCommandException() {
-        LogAddCommand logAddCommand = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand = new LogAddCommand("test3", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_SECOND_PERSON,
                 1,
                 new Date(2023, 1, 1),
@@ -94,12 +93,12 @@ class LogAddCommandTest {
 
     @Test
     void testEquals() {
-        LogAddCommand logAddCommand1 = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand1 = new LogAddCommand("test4-1", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 1,
                 new Date(2023, 1, 1),
                 "was a good session");
-        LogAddCommand logAddCommand2 = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand2 = new LogAddCommand("test4-2", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_SECOND_PERSON,
                 1,
                 new Date(2023, 1, 1),
@@ -109,7 +108,7 @@ class LogAddCommandTest {
         assertEquals(logAddCommand1, logAddCommand1);
 
         // same values -> returns true
-        LogAddCommand logAddCommand1Copy = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand1Copy = new LogAddCommand("test4-1", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 1,
                 new Date(2023, 1, 1),
@@ -128,13 +127,14 @@ class LogAddCommandTest {
 
     @Test
     void toStringMethod() {
-        LogAddCommand logAddCommand = new LogAddCommand(TypicalIndexes.INDEX_FIRST_PERSON,
+        LogAddCommand logAddCommand = new LogAddCommand("test5", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 1,
                 new Date(2023, 1, 1),
                 "was a good session");
         String expected = LogAddCommand.class.getCanonicalName()
-                + "{volunteerId=" + TypicalIndexes.INDEX_FIRST_PERSON
+                + "{title=" + "test5"
+                + ", volunteerId=" + TypicalIndexes.INDEX_FIRST_PERSON
                 + ", befriendeeId=" + TypicalIndexes.INDEX_FIRST_PERSON
                 + ", duration=" + Integer.toString(1)
                 + ", startDate=" + new Date(2023, 1, 1)

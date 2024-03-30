@@ -145,7 +145,7 @@ public class LogAddCommand extends Command {
         }
 
         LogAddCommand otherAddCommand = (LogAddCommand) other;
-        return otherAddCommand.title == title
+        return otherAddCommand.title.equals(title)
             && otherAddCommand.volunteerIndex == volunteerIndex
             && otherAddCommand.befriendeeIndex == befriendeeIndex
             && otherAddCommand.duration == duration
