@@ -14,14 +14,14 @@ public class PersonFactory {
      */
     public static Person fromParams(Name modelName, Phone modelPhone, Email modelEmail, Address modelAddress,
                                     Role modelRole, Set<Tag> modelTags, Optional<Name> modelPairedWithName,
-                                    Optional<Integer> modelPairedWithID) {
+                                    Optional<Integer> modelPairedWithID, int modelTimeServed) {
         if (modelRole.isVolunteer()) {
             return new Volunteer(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed);
         } else {
             assert modelRole.isBefriendee();
             return new Befriendee(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed);
         }
     }
 
@@ -31,9 +31,9 @@ public class PersonFactory {
     public static Person withIdFromParams(int id, Name modelName, Phone modelPhone, Email modelEmail,
                                           Address modelAddress,
                                           Role modelRole, Set<Tag> modelTags, Optional<Name> modelPairedWithName,
-                                          Optional<Integer> modelPairedWithID) {
+                                          Optional<Integer> modelPairedWithID, int modelTimeServed) {
         return withIdFromPerson(id, fromParams(modelName, modelPhone, modelEmail, modelAddress,
-                modelRole, modelTags, modelPairedWithName, modelPairedWithID));
+                modelRole, modelTags, modelPairedWithName, modelPairedWithID, modelTimeServed));
     }
 
     /**

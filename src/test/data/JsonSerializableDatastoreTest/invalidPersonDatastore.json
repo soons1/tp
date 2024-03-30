@@ -5,7 +5,8 @@
     "phone": "9482424",
     "email": "invalid@email!3e",
     "address": "4th street",
-    "role" : "befriendee"
+    "role" : "befriendee",
+    "timeServed": "0"
   } ],
   "logs" : [ ]
 }

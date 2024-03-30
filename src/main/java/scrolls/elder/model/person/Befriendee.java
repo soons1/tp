@@ -12,8 +12,8 @@ import scrolls.elder.model.tag.Tag;
  */
 public class Befriendee extends Person {
     public Befriendee(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                      Optional<Name> pairedWithName, Optional<Integer> pairedWithId) {
-        super(name, phone, email, address, tags, new Role("befriendee"), pairedWithName, pairedWithId);
+                      Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed) {
+        super(name, phone, email, address, tags, new Role("befriendee"), pairedWithName, pairedWithId, timeServed);
     }
 
     /**
@@ -57,7 +57,8 @@ public class Befriendee extends Person {
                 && address.equals(otherBefriendee.address)
                 && tags.equals(otherBefriendee.tags)
                 && pairedWithName.equals(otherBefriendee.pairedWithName)
-                && pairedWithId.equals(otherBefriendee.pairedWithId);
+                && pairedWithId.equals(otherBefriendee.pairedWithId)
+                && timeServed == otherBefriendee.timeServed;
     }
 
     @Override
@@ -71,6 +72,7 @@ public class Befriendee extends Person {
                 .add("role", role)
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
+                .add("timeServed", timeServed)
                 .toString();
     }
 }

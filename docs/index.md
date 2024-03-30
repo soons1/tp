@@ -17,7 +17,7 @@ title: Elder Scrolls
 </div>
 
 
-**Elder Scrolls is a desktop volunteer management system application for managing both volunteers, and befriendees.** 
+**Elder Scrolls is a desktop volunteer management system application for managing both volunteers, and befriendees.**
 While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
 

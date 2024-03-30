@@ -73,9 +73,10 @@ public class PairCommand extends Command {
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
         Role role = personToEdit.getRole();
+        int updatedTimeServed = personToEdit.getTimeServed();
 
         return PersonFactory.withIdFromParams(personId, updatedName, updatedPhone, updatedEmail, updatedAddress, role,
-                updatedTags, updatedPairName, updatedPairID);
+                updatedTags, updatedPairName, updatedPairID, updatedTimeServed);
     }
 
     @Override

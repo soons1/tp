@@ -35,6 +35,7 @@ public class PersonBuilder {
     private Role role;
     private Optional<Name> pairedWithName;
     private Optional<Integer> pairedWithId;
+    private int timeServed;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -49,6 +50,7 @@ public class PersonBuilder {
         role = new Role(DEFAULT_VOLUNTEER_ROLE_STRING);
         pairedWithName = Optional.empty();
         pairedWithId = Optional.empty();
+        timeServed = 0;
     }
 
     /**
@@ -64,6 +66,7 @@ public class PersonBuilder {
         role = personToCopy.getRole();
         pairedWithName = personToCopy.getPairedWithName();
         pairedWithId = personToCopy.getPairedWithId();
+        timeServed = personToCopy.getTimeServed();
     }
 
     /**
@@ -139,11 +142,19 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code timeServed} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTimeServed(int timeServed) {
+        this.timeServed = timeServed;
+        return this;
+    }
+
+    /**
      * Builds a Person based on the fields in the person builder
      */
     public Person build() {
         return PersonFactory.withIdFromParams(id, name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId);
+                pairedWithId, timeServed);
     }
 
 }
