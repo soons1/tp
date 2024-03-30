@@ -68,7 +68,7 @@ public class EditCommandTest {
 
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredVolunteerList_success() {
 
         Index indexSecondPerson = Index.fromOneBased(2);
         Person secondPerson = personStore.getFilteredVolunteerList().get(indexSecondPerson.getZeroBased());
@@ -105,6 +105,13 @@ public class EditCommandTest {
                 EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson));
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noRoleNoFieldsSpecifiedUnfilteredVolunteerList_failure() {
+        EditCommand.EditPersonDescriptor epd = new EditCommand.EditPersonDescriptor();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, epd);
+        CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NO_ROLE);
     }
 
     @Test

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_DURATION;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_START;
+import static scrolls.elder.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Date;
 import java.util.List;
@@ -32,10 +33,12 @@ public class LogEditCommand extends Command {
             + "by the log index number used in the displayed log list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: LOG_INDEX (must be a positive integer) "
+            + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_START + "START_DATE (yyyy-MM-dd)] "
             + "[" + PREFIX_DURATION + "DURATION (in hours)] "
             + "[" + PREFIX_REMARKS + "REMARKS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_TITLE + "Icebreaker session"
             + PREFIX_START + "2021-03-01 "
             + PREFIX_DURATION + "2 "
             + PREFIX_REMARKS + "was a good session";
@@ -81,11 +84,13 @@ public class LogEditCommand extends Command {
         } else {
             befriendeeId = logToEdit.getBefriendeeId();
         }
-        int duration = editLogDescriptor.getDuration().orElse(logToEdit.getDuration());
+
+        String title = editLogDescriptor.getTitle().orElse(logToEdit.getLogTitle());
+        Integer duration = editLogDescriptor.getDuration().orElse(logToEdit.getDuration());
         Date startDate = editLogDescriptor.getStartDate().orElse(logToEdit.getStartDate());
         String remarks = editLogDescriptor.getRemarks().orElse(logToEdit.getRemarks());
 
-        return new Log(logToEdit.getLogId(), volunteerId, befriendeeId, duration, startDate, remarks);
+        return new Log(logToEdit.getLogId(), title, volunteerId, befriendeeId, duration, startDate, remarks);
     }
 
     @Override
@@ -113,6 +118,7 @@ public class LogEditCommand extends Command {
         }
 
         store.setLog(editedLog);
+        model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }
 
@@ -145,9 +151,10 @@ public class LogEditCommand extends Command {
      * corresponding field value of the log.
      */
     public static class EditLogDescriptor {
+        private String title;
         private Index volunteerIndex;
         private Index befriendeeIndex;
-        private int duration;
+        private Integer duration;
         private Date startDate;
         private String remarks;
 
@@ -159,6 +166,7 @@ public class LogEditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditLogDescriptor(EditLogDescriptor toCopy) {
+            setTitle(toCopy.title);
             setVolunteerIndex(toCopy.volunteerIndex);
             setBefriendeeIndex(toCopy.befriendeeIndex);
             setDuration(toCopy.duration);
@@ -170,7 +178,15 @@ public class LogEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(volunteerIndex, befriendeeIndex, duration, startDate, remarks);
+            return CollectionUtil.isAnyNonNull(title, volunteerIndex, befriendeeIndex, duration, startDate, remarks);
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public Optional<String> getTitle() {
+            return Optional.ofNullable(title);
         }
 
         public void setVolunteerIndex(Index volunteerIndex) {
@@ -189,7 +205,7 @@ public class LogEditCommand extends Command {
             return Optional.ofNullable(befriendeeIndex);
         }
 
-        public void setDuration(int duration) {
+        public void setDuration(Integer duration) {
             this.duration = duration;
         }
 
@@ -224,7 +240,8 @@ public class LogEditCommand extends Command {
             }
 
             EditLogDescriptor otherEditLogDescriptor = (EditLogDescriptor) other;
-            return Objects.equals(volunteerIndex, otherEditLogDescriptor.volunteerIndex)
+            return Objects.equals(title, otherEditLogDescriptor.title)
+                    && Objects.equals(volunteerIndex, otherEditLogDescriptor.volunteerIndex)
                     && Objects.equals(befriendeeIndex, otherEditLogDescriptor.befriendeeIndex)
                     && Objects.equals(duration, otherEditLogDescriptor.duration)
                     && Objects.equals(startDate, otherEditLogDescriptor.startDate)
@@ -234,6 +251,7 @@ public class LogEditCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("title", title)
                     .add("volunteerIndex", volunteerIndex)
                     .add("befriendeeIndex", befriendeeIndex)
                     .add("duration", duration)

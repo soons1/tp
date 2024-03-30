@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Elder Scrolls" minWidth="700" minHeight="600" onCloseRequest="#handleExit">
+         title="Elder Scrolls" minWidth="1100" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -47,7 +47,7 @@
           </padding>
         </StackPane>
 
-        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" minWidth="680" prefWidth="1000">
+        <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" minWidth="1020" prefWidth="1200">
           <VBox fx:id="befriendeeList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
           HBox.hgrow="ALWAYS">
             <padding>
@@ -64,6 +64,15 @@
             </padding>
             <Label text="Volunteers"/>
             <StackPane fx:id="volunteerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="logList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
+                HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <Label text="Logs"/>
+            <StackPane fx:id="logListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </HBox>
 

@@ -4,6 +4,7 @@ import static scrolls.elder.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_DURATION;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_START;
+import static scrolls.elder.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.logic.commands.LogEditCommand;
@@ -22,7 +23,7 @@ public class LogEditCommandParser implements Parser<LogEditCommand> {
      */
     public LogEditCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_START, PREFIX_DURATION, PREFIX_REMARKS);
+                PREFIX_TITLE, PREFIX_START, PREFIX_DURATION, PREFIX_REMARKS);
 
         Index index;
 
@@ -33,10 +34,13 @@ public class LogEditCommandParser implements Parser<LogEditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogEditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_START, PREFIX_DURATION, PREFIX_REMARKS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_START, PREFIX_DURATION, PREFIX_REMARKS);
 
         LogEditCommand.EditLogDescriptor editLogDescriptor = new LogEditCommand.EditLogDescriptor();
 
+        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
+            editLogDescriptor.setTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        }
         if (argMultimap.getValue(PREFIX_START).isPresent()) {
             editLogDescriptor.setStartDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_START).get()));
         }
@@ -50,6 +54,8 @@ public class LogEditCommandParser implements Parser<LogEditCommand> {
         if (!editLogDescriptor.isAnyFieldEdited()) {
             throw new ParseException(LogEditCommand.MESSAGE_NOT_EDITED);
         }
+
+        LogEditCommand test = new LogEditCommand(index, editLogDescriptor);
 
         return new LogEditCommand(index, editLogDescriptor);
     }

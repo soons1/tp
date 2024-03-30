@@ -3,11 +3,13 @@ package scrolls.elder.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.model.log.Log;
 
@@ -17,8 +19,11 @@ import scrolls.elder.model.log.Log;
  * instance.
  */
 public class LogStore implements ReadOnlyLogStore {
+    public static final Predicate<Log> PREDICATE_SHOW_ALL_LOGS = unused -> true;
     private final ObservableMap<Integer, Log> logs;
     private final ObservableList<Log> logList;
+
+    private final FilteredList<Log> filteredLogList;
 
     /**
      * The sequence number that determines the ID of the next log to be added.
@@ -32,6 +37,7 @@ public class LogStore implements ReadOnlyLogStore {
         this.logIdSequence = 0;
         this.logs = FXCollections.observableHashMap();
         this.logList = FXCollections.observableArrayList();
+        this.filteredLogList = new FilteredList<>(logList);
 
         // Set up links between the ObservableList used for rendering and the backing ObservableMap
         MapChangeListener<? super Integer, ? super Log> listener = change -> {
@@ -58,6 +64,17 @@ public class LogStore implements ReadOnlyLogStore {
     @Override
     public ObservableList<Log> getLogList() {
         return FXCollections.unmodifiableObservableList(logList);
+    }
+
+    @Override
+    public ObservableList<Log> getFilteredLogList() {
+        return filteredLogList;
+    }
+
+    @Override
+    public void updateFilteredLogList(Predicate<Log> predicate) {
+        requireNonNull(predicate);
+        filteredLogList.setPredicate(predicate);
     }
 
     /**

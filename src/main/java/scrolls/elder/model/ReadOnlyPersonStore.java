@@ -3,6 +3,7 @@ package scrolls.elder.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import scrolls.elder.model.person.Name;
 import scrolls.elder.model.person.Person;
 
 /**
@@ -32,6 +33,11 @@ public interface ReadOnlyPersonStore {
      * To update this view, see {@link #updateFilteredPersonList(Predicate)}
      */
     ObservableList<Person> getFilteredBefriendeeList();
+
+    /**
+     * Returns the name of the person in the list with the given id.
+     */
+    Name getNameFromID(int id);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

@@ -54,7 +54,7 @@ public class TypicalPersons {
             .withTimeServed(0).build();
     public static final Person GEORGE = new PersonBuilder().withId(6).withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withRole("befriendee")
-            .withTimeServed(0).build();
+            .withTimeServed(0).withTags("exConvict").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withId(7).withName("Hoon Meier").withPhone("8482424")
@@ -94,5 +94,21 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalVolunteerPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
+    }
+
+    public static List<Person> getTypicalBefriendeePersons() {
+        return new ArrayList<>(Arrays.asList(ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getPairedPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, ELLE));
+    }
+
+    public static List<Person> getUnpairedPersons() {
+        return new ArrayList<>(Arrays.asList(BENSON, CARL, DANIEL, FIONA, GEORGE));
     }
 }

@@ -20,6 +20,7 @@ public class Log {
     public static final String MESSAGE_INVALID_ID = "The volunteer ID or befriendee ID is invalid.";
     public static final int PLACEHOLDER_ID = -1;
     private final int logId;
+    private final String title;
     private final int volunteerId;
     private final int befriendeeId;
     private final int duration;
@@ -30,10 +31,12 @@ public class Log {
      * Creates a log with all given fields.
      */
     @JsonCreator
-    public Log(@JsonProperty("logId") int logId, @JsonProperty("volunteerId") int volunteerId,
+    public Log(@JsonProperty("logId") int logId, @JsonProperty("title") String title,
+               @JsonProperty("volunteerId") int volunteerId,
                @JsonProperty("befriendeeId") int befriendeeId, @JsonProperty("duration") int duration,
                @JsonProperty("startDate") Date startDate, @JsonProperty("remarks") String remarks) {
         this.logId = logId;
+        this.title = title;
         this.volunteerId = volunteerId;
         this.befriendeeId = befriendeeId;
         this.duration = duration;
@@ -44,10 +47,11 @@ public class Log {
     /**
      * Creates a log with the given volunteer ID and befriendee ID.
      */
-    public Log(ReadOnlyDatastore datastore, int volunteerId, int befriendeeId, int duration, Date startDate,
-               String remarks) {
+    public Log(ReadOnlyDatastore datastore, String title, int volunteerId, int befriendeeId, int duration,
+               Date startDate, String remarks) {
         AppUtil.checkArgument(areValidIds(datastore, volunteerId, befriendeeId), MESSAGE_INVALID_ID);
         this.logId = PLACEHOLDER_ID;
+        this.title = title;
         this.volunteerId = volunteerId;
         this.befriendeeId = befriendeeId;
         this.duration = duration;
@@ -60,6 +64,7 @@ public class Log {
      */
     public Log(int logId, Log log) {
         this.logId = logId;
+        this.title = log.title;
         this.volunteerId = log.volunteerId;
         this.befriendeeId = log.befriendeeId;
         this.duration = log.duration;
@@ -89,6 +94,10 @@ public class Log {
 
     public int getLogId() {
         return logId;
+    }
+
+    public String getLogTitle() {
+        return title;
     }
 
     public int getVolunteerId() {
@@ -122,7 +131,8 @@ public class Log {
         }
 
         Log otherLog = (Log) other;
-        return volunteerId == otherLog.volunteerId
+        return title == otherLog.title
+            && volunteerId == otherLog.volunteerId
             && befriendeeId == otherLog.befriendeeId
             && duration == otherLog.duration
             && startDate.equals(otherLog.startDate)
@@ -131,13 +141,14 @@ public class Log {
 
     @Override
     public int hashCode() {
-        return Objects.hash(volunteerId, befriendeeId, duration, startDate, remarks);
+        return Objects.hash(title, volunteerId, befriendeeId, duration, startDate, remarks);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .add("Log ID", logId)
+            .add("Title", title)
             .add("Volunteer ID", volunteerId)
             .add("Befriendee ID", befriendeeId)
             .add("Duration", duration)

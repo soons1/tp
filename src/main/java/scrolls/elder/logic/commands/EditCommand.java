@@ -20,6 +20,7 @@ import scrolls.elder.commons.util.CollectionUtil;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.exceptions.CommandException;
+import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.person.Address;
@@ -56,7 +57,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_NO_ROLE = "Role must be specified for indexing when editing a person.";
 
     private final Index index;
@@ -120,6 +120,7 @@ public class EditCommand extends Command {
         requireNonNull(model);
 
         PersonStore store = model.getMutableDatastore().getMutablePersonStore();
+        LogStore logStore = model.getMutableDatastore().getMutableLogStore();
 
         if (editPersonDescriptor.getRole().isEmpty()) {
             throw new CommandException(MESSAGE_NO_ROLE);
@@ -139,9 +140,7 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && store.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
+        assert editedPerson.isSamePerson(personToEdit) : "Edited person should be the same person";
 
         if (editedPerson.isPaired()) {
             Person pairedWith = store.getPersonFromID(editedPerson.getPairedWithId().get());
@@ -152,6 +151,7 @@ public class EditCommand extends Command {
         store.setPerson(personToEdit, editedPerson);
         model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        logStore.updateFilteredLogList(logStore.PREDICATE_SHOW_ALL_LOGS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson)));
     }
 

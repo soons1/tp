@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_DURATION;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_START;
+import static scrolls.elder.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Date;
 import java.util.List;
@@ -36,10 +37,12 @@ public class LogAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a log to the address book. "
         + "Parameters: INDEX1 INDEX2 "
+        + PREFIX_TITLE + "TITLE "
         + PREFIX_START + "START_DATE (yyyy-MM-dd) "
         + PREFIX_DURATION + "DURATION (in hours) "
         + PREFIX_REMARKS + "REMARKS "
         + "Example: " + COMMAND_WORD + " 1 2 "
+        + PREFIX_TITLE + "Icebreaker session"
         + PREFIX_START + "2021-03-01 "
         + PREFIX_DURATION + "2 "
         + PREFIX_REMARKS + "was a good session";
@@ -52,6 +55,7 @@ public class LogAddCommand extends Command {
      * Contains data for the log to be added.
      * Does not contain the final log ID.
      */
+    private final String title;
     private final Index volunteerIndex;
     private final Index befriendeeIndex;
     private final int duration;
@@ -61,7 +65,9 @@ public class LogAddCommand extends Command {
     /**
      * Creates an LogAddCommand to add the specified {@code Log}
      */
-    public LogAddCommand(Index volunteerIndex, Index befriendeeIndex, int duration, Date startDate, String remarks) {
+    public LogAddCommand(String title, Index volunteerIndex, Index befriendeeIndex, int duration,
+                         Date startDate, String remarks) {
+        this.title = title;
         this.volunteerIndex = volunteerIndex;
         this.befriendeeIndex = befriendeeIndex;
         this.duration = duration;
@@ -99,7 +105,7 @@ public class LogAddCommand extends Command {
         Person updatedVolunteer = createPersonWithTimeServed(volunteer, duration);
 
         Log toAdd =
-            new Log(model.getDatastore(), volunteer.getPersonId(), befriendee.getPersonId(), duration, startDate,
+            new Log(model.getDatastore(), title, volunteer.getPersonId(), befriendee.getPersonId(), duration, startDate,
                 remarks);
 
         logStore.addLog(toAdd);
@@ -139,7 +145,8 @@ public class LogAddCommand extends Command {
         }
 
         LogAddCommand otherAddCommand = (LogAddCommand) other;
-        return otherAddCommand.volunteerIndex == volunteerIndex
+        return otherAddCommand.title == title
+            && otherAddCommand.volunteerIndex == volunteerIndex
             && otherAddCommand.befriendeeIndex == befriendeeIndex
             && otherAddCommand.duration == duration
             && otherAddCommand.startDate.equals(startDate)
@@ -149,6 +156,7 @@ public class LogAddCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+            .add("title", title)
             .add("volunteerId", volunteerIndex)
             .add("befriendeeId", befriendeeIndex)
             .add("duration", duration)
