@@ -121,7 +121,7 @@ class LogAddCommandTest {
         // null -> returns false
         assertNotEquals(null, logAddCommand1);
 
-        // different person -> returns false
+        // different command -> returns false
         assertNotEquals(logAddCommand1, logAddCommand2);
     }
 
