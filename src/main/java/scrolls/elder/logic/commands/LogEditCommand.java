@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.CollectionUtil;
@@ -18,8 +19,16 @@ import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
+import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.log.Log;
-
+import scrolls.elder.model.person.Address;
+import scrolls.elder.model.person.Email;
+import scrolls.elder.model.person.Name;
+import scrolls.elder.model.person.Person;
+import scrolls.elder.model.person.PersonFactory;
+import scrolls.elder.model.person.Phone;
+import scrolls.elder.model.person.Role;
+import scrolls.elder.model.tag.Tag;
 
 
 /**
@@ -46,7 +55,6 @@ public class LogEditCommand extends Command {
     public static final String MESSAGE_EDIT_LOG_SUCCESS = "Edited Log successfully: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_NEGATIVE_DURATION = "Duration cannot be negative.";
-    public static final String MESSAGE_PERSONS_NOT_PAIRED = "The volunteer and befriendee are not paired.";
 
     private final Index index;
     private final EditLogDescriptor editLogDescriptor;
@@ -97,10 +105,11 @@ public class LogEditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        PersonStore personStore = model.getMutableDatastore().getMutablePersonStore();
         LogStore store = model.getMutableDatastore().getMutableLogStore();
 
         List<Log> lastShownList = store.getLogList();
-
+        List<Person> lastShownPList = personStore.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LOG_DISPLAYED_INDEX);
@@ -110,16 +119,44 @@ public class LogEditCommand extends Command {
         Log editedLog = createEditedLog(logToEdit, editLogDescriptor);
 
         if (!logToEdit.areValidIds(model.getDatastore(), editedLog.getVolunteerId(), editedLog.getBefriendeeId())) {
-            throw new CommandException(MESSAGE_PERSONS_NOT_PAIRED);
+            throw new CommandException(Log.MESSAGE_INVALID_ID);
         }
 
         if (editedLog.getDuration() < 0) {
             throw new CommandException(MESSAGE_NEGATIVE_DURATION);
         }
 
+        int durationDiff = editedLog.getDuration() - logToEdit.getDuration();
+        if (durationDiff != 0) {
+            Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
+            Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
+            Person updatedBefriendee = createPersonWithTimeServed(befriendee, durationDiff);
+            Person updatedVolunteer = createPersonWithTimeServed(volunteer, durationDiff);
+            personStore.setPerson(befriendee, updatedBefriendee);
+            personStore.setPerson(volunteer, updatedVolunteer);
+            personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        }
+
         store.setLog(editedLog);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
+    }
+
+    private Person createPersonWithTimeServed(Person p, int duration) {
+        assert p != null;
+
+        Name name = p.getName();
+        Phone phone = p.getPhone();
+        Email email = p.getEmail();
+        Address address = p.getAddress();
+        Set<Tag> tags = p.getTags();
+        Role role = p.getRole();
+        Optional<Name> pairedWithName = p.getPairedWithName();
+        Optional<Integer> pairedWithId = p.getPairedWithId();
+        int updatedTimeServed = p.getTimeServed() + duration;
+
+        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
+                pairedWithId, updatedTimeServed);
     }
 
     @Override
