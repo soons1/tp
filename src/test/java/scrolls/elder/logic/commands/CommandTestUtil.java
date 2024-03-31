@@ -9,8 +9,10 @@ import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.logic.parser.CliSyntax;
 import scrolls.elder.model.Datastore;
+import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
+import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.NameContainsKeywordsPredicate;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.testutil.Assert;
@@ -166,4 +168,15 @@ public class CommandTestUtil {
         assertEquals(1, personStore.getFilteredBefriendeeList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the log at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showLogAtIndex(LogStore logStore, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < logStore.getFilteredLogList().size());
+
+        Log log = logStore.getFilteredLogList().get(targetIndex.getZeroBased());
+
+        assertEquals(1, logStore.getFilteredLogList().size());
+    }
 }
