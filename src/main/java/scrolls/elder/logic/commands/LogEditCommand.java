@@ -101,7 +101,6 @@ public class LogEditCommand extends Command {
 
         List<Log> lastShownList = store.getLogList();
 
-
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LOG_DISPLAYED_INDEX);
         }
