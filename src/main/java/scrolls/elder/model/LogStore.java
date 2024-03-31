@@ -2,6 +2,7 @@ package scrolls.elder.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -21,8 +22,8 @@ import scrolls.elder.model.log.Log;
 public class LogStore implements ReadOnlyLogStore {
     public static final Predicate<Log> PREDICATE_SHOW_ALL_LOGS = unused -> true;
     private final ObservableMap<Integer, Log> logs;
+    private final ObservableMap<Integer, ArrayList<Integer>> normalisedLogsByPerson;
     private final ObservableList<Log> logList;
-
     private final FilteredList<Log> filteredLogList;
 
     /**
@@ -35,17 +36,32 @@ public class LogStore implements ReadOnlyLogStore {
      */
     public LogStore() {
         this.logIdSequence = 0;
+
         this.logs = FXCollections.observableHashMap();
+        this.normalisedLogsByPerson = FXCollections.observableHashMap();
+
         this.logList = FXCollections.observableArrayList();
         this.filteredLogList = new FilteredList<>(logList);
 
-        // Set up links between the ObservableList used for rendering and the backing ObservableMap
+        // Binds the backing Map to:
+        // - The main ObservableList of logs
+        // - The normalised map of logs by person
         MapChangeListener<? super Integer, ? super Log> listener = change -> {
             if (change.wasRemoved()) {
                 logList.remove(change.getValueRemoved());
+
+                deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getVolunteerId(),
+                    change.getValueRemoved().getLogId());
+                deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getBefriendeeId(),
+                    change.getValueRemoved().getLogId());
             }
             if (change.wasAdded()) {
                 logList.add(change.getValueAdded());
+
+                deepAddId(normalisedLogsByPerson, change.getValueAdded().getVolunteerId(),
+                    change.getValueAdded().getLogId());
+                deepAddId(normalisedLogsByPerson, change.getValueAdded().getBefriendeeId(),
+                    change.getValueAdded().getLogId());
             }
         };
         logs.addListener(listener);
@@ -75,6 +91,24 @@ public class LogStore implements ReadOnlyLogStore {
     public void updateFilteredLogList(Predicate<Log> predicate) {
         requireNonNull(predicate);
         filteredLogList.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLogListByPersonId(Integer personId) {
+        // Reset when no filter is applied
+        if (personId == null) {
+            logList.setAll(logs.values());
+            return;
+        }
+
+        // Filter by personId
+        logList.clear();
+        normalisedLogsByPerson.get(personId).forEach(logId -> {
+            Log log = logs.get(logId);
+            if (log != null) {
+                logList.add(log);
+            }
+        });
     }
 
     /**
@@ -157,6 +191,28 @@ public class LogStore implements ReadOnlyLogStore {
      */
     public void removeLog(int idToRemove) {
         logs.remove(idToRemove);
+    }
+
+    /**
+     * Adds a logId to the normalised map.
+     * Must replace the entire list to trigger the listener.
+     */
+    private void deepAddId(ObservableMap<Integer, ArrayList<Integer>> map, int key, int value) {
+        ArrayList<Integer> oldList = map.getOrDefault(key, new ArrayList<>());
+        ArrayList<Integer> temp = new ArrayList<>(oldList);
+        temp.add(value);
+        map.put(key, temp);
+    }
+
+    /**
+     * Removes a logId from the normalised map.
+     * Must replace the entire list to trigger the listener.
+     */
+    private void deepRemoveId(ObservableMap<Integer, ArrayList<Integer>> map, int key, int value) {
+        ArrayList<Integer> oldList = map.getOrDefault(key, new ArrayList<>());
+        ArrayList<Integer> temp = new ArrayList<>(oldList);
+        temp.remove(value);
+        map.put(key, temp);
     }
 
     //// Overrides
