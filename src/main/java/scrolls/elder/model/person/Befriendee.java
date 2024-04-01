@@ -56,6 +56,7 @@ public class Befriendee extends Person {
             return false;
         }
 
+        // TODO figure out how to assert equals for date, without GitHub actions acting up
         Befriendee otherBefriendee = (Befriendee) other;
         return name.equals(otherBefriendee.name)
                 && phone.equals(otherBefriendee.phone)

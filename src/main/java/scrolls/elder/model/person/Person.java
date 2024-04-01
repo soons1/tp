@@ -188,6 +188,7 @@ public abstract class Person {
             return false;
         }
 
+        // TODO figure out how to assert equals for date, without GitHub actions acting up
         Person otherPerson = (Person) other;
         return personId == otherPerson.personId
                 && name.equals(otherPerson.name)
