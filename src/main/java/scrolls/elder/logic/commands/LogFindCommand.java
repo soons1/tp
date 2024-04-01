@@ -30,6 +30,8 @@ public class LogFindCommand extends Command {
         + "Example: " + COMMAND_WORD_LOGFIND + " 1 "
         + PREFIX_ROLE + "volunteer";
 
+    // Sample Format: logfind 1 r/volunteer
+
     public static final String MESSAGE_SUCCESS = "Logs found!";
 
     public static final String MESSAGE_FINDLOG_PERSON_ERROR = "Unable to find logs: ";
