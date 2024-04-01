@@ -20,7 +20,7 @@ public interface ReadOnlyLogStore {
     /**
      * Returns an unmodifiable view of the log list.
      * This Log List is affected by personID filtering operations.
-     * However, it is not affected by Predicate<Log> filtering operations.
+     * However, it is not affected by Predicate&lt;Log&gt; filtering operations.
      */
     ObservableList<Log> getLogList();
 
@@ -32,7 +32,7 @@ public interface ReadOnlyLogStore {
 
     /**
      * Updates the filter of the filtered log list to filter by the given {@code predicate}.
-     * Predicate<Log> filters are independent of PersonID filters.
+     * Predicate&lt;Log&gt; filters are independent of PersonID filters.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLogList(Predicate<Log> predicate);

@@ -3,6 +3,8 @@ package scrolls.elder.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import java.util.List;
+
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.logic.Messages;
@@ -13,8 +15,9 @@ import scrolls.elder.model.ReadOnlyPersonStore;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.Role;
 
-import java.util.List;
-
+/**
+ * Finds an existing logs related to specified Person in the address book.
+ */
 public class LogFindCommand extends Command {
 
     public static final String COMMAND_WORD_LOGFIND = "logfind";
@@ -34,6 +37,10 @@ public class LogFindCommand extends Command {
     private final Role role;
     private final Index targetIndex;
 
+    /**
+     * @param targetIndex             of the specified person in the filtered list
+     * @param role                   of the person to differentiate between volunteer and befriendee
+     */
     public LogFindCommand(Index targetIndex, Role role) {
         this.targetIndex = targetIndex;
         this.role = role;
