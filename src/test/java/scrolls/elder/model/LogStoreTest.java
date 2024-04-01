@@ -100,6 +100,26 @@ public class LogStoreTest {
     }
 
     @Test
+    public void updateFilteredLogListByPersonId_updateFilter_success() {
+        logStore.addLogWithId(TypicalLogs.LOG_ALICE_TO_ELLE);
+        logStore.addLogWithId(TypicalLogs.LOG_BENSON_TO_FIONA);
+
+        // Initial filtering
+        logStore.updateFilteredLogListByPersonId(TypicalLogs.LOG_ALICE_TO_ELLE.getVolunteerId());
+        assertEquals(1, logStore.getFilteredLogList().size());
+        assertTrue(logStore.getFilteredLogList().contains(TypicalLogs.LOG_ALICE_TO_ELLE));
+
+        // Filter is updated after CRUD
+        logStore.removeLog(TypicalLogs.LOG_ALICE_TO_ELLE.getLogId());
+        assertEquals(0, logStore.getFilteredLogList().size());
+        assertFalse(logStore.getFilteredLogList().contains(TypicalLogs.LOG_ALICE_TO_ELLE));
+
+        // Filter is reset
+        logStore.updateFilteredLogListByPersonId(null);
+        assertEquals(1, logStore.getFilteredLogList().size());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = LogStore.class.getCanonicalName() + "{logs=" + logStore.getLogList() + "}";
         assertEquals(expected, logStore.toString());

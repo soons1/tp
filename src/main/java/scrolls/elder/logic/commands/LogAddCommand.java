@@ -40,9 +40,9 @@ public class LogAddCommand extends Command {
         + PREFIX_TITLE + "TITLE "
         + PREFIX_START + "START_DATE (yyyy-MM-dd) "
         + PREFIX_DURATION + "DURATION (in hours) "
-        + PREFIX_REMARKS + "REMARKS "
+        + PREFIX_REMARKS + "REMARKS\n"
         + "Example: " + COMMAND_WORD + " 1 2 "
-        + PREFIX_TITLE + "Icebreaker session"
+        + PREFIX_TITLE + "Icebreaker session "
         + PREFIX_START + "2021-03-01 "
         + PREFIX_DURATION + "2 "
         + PREFIX_REMARKS + "was a good session";

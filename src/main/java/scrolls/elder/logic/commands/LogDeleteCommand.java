@@ -3,6 +3,8 @@ package scrolls.elder.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.ToStringBuilder;
@@ -10,7 +12,10 @@ import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
+import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.log.Log;
+import scrolls.elder.model.person.*;
+import scrolls.elder.model.tag.Tag;
 
 
 /**
@@ -48,8 +53,10 @@ public class LogDeleteCommand extends Command {
         requireNonNull(model);
 
         LogStore logStore = model.getMutableDatastore().getMutableLogStore();
+        PersonStore personStore = model.getMutableDatastore().getMutablePersonStore();
 
         List<Log> lastShownList = logStore.getLogList();
+        List<Person> lastShownPList = personStore.getPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_DELETE_LOG_ERROR + Messages.MESSAGE_INVALID_LOG_DISPLAYED_INDEX);
@@ -58,9 +65,37 @@ public class LogDeleteCommand extends Command {
         Log logToDelete = lastShownList.get(targetIndex.getZeroBased());
         int logIdToDelete = logToDelete.getLogId();
 
+        // Update the timeServed of the volunteer and befriendee
+        Person volunteer = lastShownPList.get(logToDelete.getVolunteerId());
+        Person befriendee = lastShownPList.get(logToDelete.getBefriendeeId());
+
+        int durationToDelete = logToDelete.getDuration();
+        Person updatedVolunteer = updatePersonWithNewTimeServed(volunteer, durationToDelete);
+        Person updatedBefriendee = updatePersonWithNewTimeServed(befriendee, durationToDelete);
+        personStore.setPerson(volunteer, updatedVolunteer);
+        personStore.setPerson(befriendee, updatedBefriendee);
+        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+
         logStore.removeLog(logIdToDelete);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_DELETE_LOG_SUCCESS, Messages.formatLog(logToDelete)));
+    }
+
+    private Person updatePersonWithNewTimeServed(Person p, int duration) {
+        assert p != null;
+
+        Name name = p.getName();
+        Phone phone = p.getPhone();
+        Email email = p.getEmail();
+        Address address = p.getAddress();
+        Set<Tag> tags = p.getTags();
+        Role role = p.getRole();
+        Optional<Name> pairedWithName = p.getPairedWithName();
+        Optional<Integer> pairedWithId = p.getPairedWithId();
+        int updatedTimeServed = p.getTimeServed() - duration;
+
+        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
+                pairedWithId, updatedTimeServed);
     }
 
     @Override
