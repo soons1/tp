@@ -1,4 +1,5 @@
 package scrolls.elder.model;
+
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ public interface ReadOnlyLogStore {
 
     /**
      * Updates the filter of the filtered log list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLogList(Predicate<Log> predicate);
@@ -30,4 +32,12 @@ public interface ReadOnlyLogStore {
      * {@code logId} must exist in the store.
      */
     Log getLogById(int logId);
+
+    /**
+     * Updates the log list to filter by the given {@code personId}.
+     * Supply null to reset the filter.
+     * This filter will persist for all filtering done with {@link LogStore#updateFilteredLogList}.
+     */
+    void updateFilteredLogListByPersonId(Integer personId);
+
 }
