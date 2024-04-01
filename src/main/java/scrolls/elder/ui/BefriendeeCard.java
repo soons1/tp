@@ -32,6 +32,7 @@ public class BefriendeeCard extends UiPart<Region> {
     private DateFormat dateFormatter;
     private final String style = "-fx-font-family: \"Segoe UI\";"
             + "-fx-font-size: 13px;";
+    private final String noLogStyle = "-fx-background-color: #696969;";
 
     @FXML
     private HBox cardPane;
@@ -84,6 +85,7 @@ public class BefriendeeCard extends UiPart<Region> {
         } else {
             Label noLog = new Label("No logs currently in Elder Scrolls");
             noLog.setStyle(style);
+            latestLog.setStyle(noLogStyle);
             latestLog.getChildren().add(noLog);
         }
     }

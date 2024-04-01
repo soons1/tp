@@ -33,6 +33,8 @@ public class VolunteerCard extends UiPart<Region> {
     private final String style = "-fx-font-family: \"Segoe UI\";"
             + "-fx-font-size: 13px;";
 
+    private final String noLogStyle = "-fx-background-color: #696969;";
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -88,6 +90,7 @@ public class VolunteerCard extends UiPart<Region> {
         } else {
             Label noLog = new Label("No logs currently in Elder Scrolls");
             noLog.setStyle(style);
+            latestLog.setStyle(noLogStyle);
             latestLog.getChildren().add(noLog);
         }
     }
