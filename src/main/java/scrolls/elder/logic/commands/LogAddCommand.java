@@ -36,16 +36,17 @@ public class LogAddCommand extends Command {
     public static final String COMMAND_WORD = "logadd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a log to the address book. "
-        + "Parameters: INDEX1 INDEX2 "
+        + "Parameters: BEFRIENDEE_INDEX VOLUNTEER_INDEX "
         + PREFIX_TITLE + "TITLE "
         + PREFIX_START + "START_DATE (yyyy-MM-dd) "
         + PREFIX_DURATION + "DURATION (in hours) "
         + PREFIX_REMARKS + "REMARKS "
+        + "\n"
         + "Example: " + COMMAND_WORD + " 1 2 "
-        + PREFIX_TITLE + "Icebreaker session"
+        + PREFIX_TITLE + "Icebreaker session "
         + PREFIX_START + "2021-03-01 "
         + PREFIX_DURATION + "2 "
-        + PREFIX_REMARKS + "was a good session";
+        + PREFIX_REMARKS + "was a good session ";
 
     public static final String MESSAGE_SUCCESS = "New log added!";
     public static final String MESSAGE_NEGATIVE_DURATION = "Duration cannot be negative.";
@@ -65,7 +66,7 @@ public class LogAddCommand extends Command {
     /**
      * Creates an LogAddCommand to add the specified {@code Log}
      */
-    public LogAddCommand(String title, Index volunteerIndex, Index befriendeeIndex, int duration,
+    public LogAddCommand(String title, Index befriendeeIndex, Index volunteerIndex, int duration,
                          Date startDate, String remarks) {
         this.title = title;
         this.volunteerIndex = volunteerIndex;
@@ -112,7 +113,7 @@ public class LogAddCommand extends Command {
 
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
-        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.commitDatastore();
         return new CommandResult(MESSAGE_SUCCESS);
     }

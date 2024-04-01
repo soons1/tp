@@ -47,10 +47,10 @@ public class LogEditCommand extends Command {
             + "[" + PREFIX_DURATION + "DURATION (in hours)] "
             + "[" + PREFIX_REMARKS + "REMARKS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TITLE + "Icebreaker session"
+            + PREFIX_TITLE + "Icebreaker session "
             + PREFIX_START + "2021-03-01 "
             + PREFIX_DURATION + "2 "
-            + PREFIX_REMARKS + "was a good session";
+            + PREFIX_REMARKS + "was a good session ";
 
     public static final String MESSAGE_EDIT_LOG_SUCCESS = "Edited Log successfully: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -134,7 +134,7 @@ public class LogEditCommand extends Command {
             Person updatedVolunteer = createPersonWithTimeServed(volunteer, durationDiff);
             personStore.setPerson(befriendee, updatedBefriendee);
             personStore.setPerson(volunteer, updatedVolunteer);
-            personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+            personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         }
 
         store.setLog(editedLog);
