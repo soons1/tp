@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,20 +49,21 @@ class LogAddCommandTest {
         LogAddCommand logAddCommand = new LogAddCommand("test1", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
                 1,
-                new Date(2023, 1, 1),
+                new GregorianCalendar(2023, Calendar.JANUARY, 1).getTime(),
                 "was a good session");
 
         String expectedMessage = LogAddCommand.MESSAGE_SUCCESS;
         Person afterLoggingBefriendee = new PersonBuilder(befriendee)
-                .withTimeServed(1).build();
+                .withTimeServed(3).build();
         Person afterLoggingVolunteer = new PersonBuilder(volunteer)
-                .withTimeServed(1).build();
+                .withTimeServed(3).build();
 
         PersonStore personStore = expectedModel.getMutableDatastore().getMutablePersonStore();
         LogStore logStore = expectedModel.getMutableDatastore().getMutableLogStore();
         Log toAdd =
                 new Log(model.getDatastore(), "test1", volunteer.getPersonId(), befriendee.getPersonId(),
-                        1, new Date(2023, 1, 1), "was a good session");
+                        1, new GregorianCalendar(2023, Calendar.JANUARY, 1).getTime(),
+                        "was a good session");
         logStore.addLog(toAdd);
         personStore.setPerson(befriendee, afterLoggingBefriendee);
         personStore.setPerson(volunteer, afterLoggingVolunteer);

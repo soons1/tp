@@ -79,7 +79,7 @@ public class Befriendee extends Person {
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
                 .add("timeServed", timeServed)
-                .add("latestLogDate", latestLogDate.orElse(new Date()))
+                .add("latestLogDate", latestLogDate.orElse(new Date(0)))
                 .add("latestLogTitle", latestLogTitle.orElse("None"))
                 .add("latestLogPartner", latestLogPartner.orElse(Name.getNone()))
                 .toString();

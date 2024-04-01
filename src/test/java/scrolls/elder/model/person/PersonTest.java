@@ -14,6 +14,8 @@ import scrolls.elder.testutil.Assert;
 import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalPersons;
 
+import java.util.Date;
+
 public class PersonTest {
 
     @Test
@@ -92,7 +94,10 @@ public class PersonTest {
                 + ", tags=" + TypicalPersons.ALICE.getTags() + ", role=" + TypicalPersons.ALICE.getRole()
                 + ", pairedWithName=" + (TypicalPersons.ALICE.getPairedWithName().orElse(Name.getNone()))
                 + ", pairedWithId=" + (TypicalPersons.ALICE.getPairedWithId().orElse(-1))
-                + ", timeServed=" + (TypicalPersons.ALICE.getTimeServed()) + "}";
+                + ", timeServed=" + (TypicalPersons.ALICE.getTimeServed())
+                + ", latestLogDate=" + (TypicalPersons.ALICE.getLatestLogDate().orElse(new Date(0)))
+                + ", latestLogTitle=" + (TypicalPersons.ALICE.getLatestLogTitle().orElse("None"))
+                + ", latestLogPartner=" + (TypicalPersons.ALICE.getLatestLogPartner().orElse(Name.getNone())) + "}";
         Assertions.assertEquals(expected, TypicalPersons.ALICE.toString());
     }
 }
