@@ -73,6 +73,42 @@ class LogAddCommandTest {
     }
 
     @Test
+    void execute_validLogAddCommandNewLatestLog_success() {
+        Person befriendee =
+                personStore.getFilteredBefriendeeList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
+        Person volunteer =
+                personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
+        LogAddCommand logAddCommand = new LogAddCommand("test1", TypicalIndexes.INDEX_FIRST_PERSON,
+                TypicalIndexes.INDEX_FIRST_PERSON,
+                1,
+                new GregorianCalendar(2024, Calendar.APRIL, 1).getTime(),
+                "was a good session");
+
+        String expectedMessage = LogAddCommand.MESSAGE_SUCCESS;
+        Person afterLoggingBefriendee = new PersonBuilder(befriendee)
+                .withTimeServed(3)
+                .withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 1))
+                .withLatestLogTitle("test1").withLatestLogPartner("Alice Pauline").build();
+
+        Person afterLoggingVolunteer = new PersonBuilder(volunteer)
+                .withTimeServed(3).withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 1))
+                .withLatestLogTitle("test1").withLatestLogPartner("Elle Meyer").build();
+
+        PersonStore personStore = expectedModel.getMutableDatastore().getMutablePersonStore();
+        LogStore logStore = expectedModel.getMutableDatastore().getMutableLogStore();
+        Log toAdd =
+                new Log(model.getDatastore(), "test1", volunteer.getPersonId(), befriendee.getPersonId(),
+                        1, new GregorianCalendar(2024, Calendar.APRIL, 1).getTime(),
+                        "was a good session");
+        logStore.addLog(toAdd);
+        personStore.setPerson(befriendee, afterLoggingBefriendee);
+        personStore.setPerson(volunteer, afterLoggingVolunteer);
+        expectedModel.commitDatastore();
+
+        assertCommandSuccess(logAddCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     void execute_negativeDuration_throwsCommandException() {
         LogAddCommand logAddCommand = new LogAddCommand("test2", TypicalIndexes.INDEX_FIRST_PERSON,
                 TypicalIndexes.INDEX_FIRST_PERSON,
