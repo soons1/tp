@@ -199,7 +199,7 @@ public abstract class Person {
                 && pairedWithName.equals(otherPerson.pairedWithName)
                 && pairedWithId.equals(otherPerson.pairedWithId)
                 && timeServed == otherPerson.timeServed
-//                && latestLogDate.equals(otherPerson.latestLogDate)
+                //                && latestLogDate.equals(otherPerson.latestLogDate)
                 && latestLogTitle.equals(otherPerson.latestLogTitle)
                 && latestLogPartner.equals(otherPerson.latestLogPartner);
     }

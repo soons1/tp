@@ -65,7 +65,7 @@ public class Volunteer extends Person {
                 && pairedWithName.equals(otherVolunteer.pairedWithName)
                 && pairedWithId.equals(otherVolunteer.pairedWithId)
                 && timeServed == otherVolunteer.timeServed
-//                && latestLogDate.equals(otherVolunteer.latestLogDate)
+                //                && latestLogDate.equals(otherVolunteer.latestLogDate)
                 && latestLogTitle.equals(otherVolunteer.latestLogTitle)
                 && latestLogPartner.equals(otherVolunteer.latestLogPartner);
     }
