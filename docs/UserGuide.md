@@ -131,6 +131,34 @@ Examples:
 *  `edit 1 r/volunteer p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 r/befriendee n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+#### Pairing a befriendee and volunteer : `pair`
+
+Pairs an existing befriendee and volunteer in Elder Scrolls.
+
+Format: `pair INDEX1 INDEX2`
+
+* The index refers to the index number shown in the displayed person list.
+* The Person at `INDEX1` must be a volunteer and the Person at `INDEX2` must be a befriendee.
+* Neither of the two Persons must be paired, if they are, they must be unpaired before pairing again.
+
+Examples:
+*  `pair 1 2` Pairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
+*  `pair 3 3` Pairs the befriendee at Index 3 of the befriendee list and the volunteer at Index 3 of the volunteer list.
+
+#### Unpairing a befriendee and volunteer : `unpair`
+
+Pairs an existing befriendee and volunteer in Elder Scrolls.
+
+Format: `unpair INDEX1 INDEX2`
+
+* The index refers to the index number shown in the displayed person list.
+* The Person at `INDEX1` must be a volunteer and the Person at `INDEX2` must be a befriendee.
+* The befriendee and volunteer must be paired with each other before they can be unpaired.
+
+Examples:
+*  `unpair 1 2` Unpairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
+*  `unpair 3 3` Unpairs the befriendee at Index 3 of the befriendee list and the volunteer at Index 3 of the volunteer list.
+
 #### Listing all persons : `list`
 
 Shows a list of all persons in Elder Scrolls.
@@ -183,14 +211,33 @@ Format: `delete INDEX r/ROLE`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2 r/volunteer` deletes the 2nd volunteer in the address book.
-* `find Betsy` followed by `delete 1 r/befriendee` deletes the 1st befriendee in the results of the `find` command.
+* `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the address book.
+* `find Betsy` followed by `delete 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
 
 ### 3.2 Log Management
 
-To be continued...
+#### Adding a log : `logadd`
+
+Adds a log between a pair of befriendee and volunteer.
+
+Format: `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`
+
+* The index refers to the index number shown in the displayed person list.
+* The Person at `INDEX1` must be a befriendee and the Person at `INDEX2` must be a volunteer.
+* The two Persons must be paired before a log can be added.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The `START_DATE` must be in the format `YYYY-MM-DD`.
+* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
+* `logadd 2 3 t/Shopping s/2020-09-09 d/2 r/bought groceries` Adds a log between the befriendee at Index 2 and the volunteer at Index 3 with the title `Shopping`, start date `2020-09-09`, duration `2` and remarks `bought groceries`.
+
+//TODO: Add logedit, logdelete, logfind
 
 ### 3.3 Other Commands: Help and Exiting
+
+//TODO: Add redo, undo
 
 #### Viewing help : `help`
 
@@ -236,7 +283,6 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Elder Scrolls home folder.
 
-
 ## **7. Known issues**
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
@@ -248,9 +294,14 @@ _Details coming soon ..._
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
 **Edit** | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Pair** | `pair INDEX1 INDEX2`<br> e.g., `pair 1 2`
+**Unpair** | `unpair INDEX1 INDEX2`<br> e.g., `unpair 1 2`
+**Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**LogAdd** | `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
+**Clear** | `clear`
 **Help** | `help`
+
+## **9. Glossary**
