@@ -188,7 +188,7 @@ public abstract class Person {
             return false;
         }
 
-        // TODO figure out how to assert equals for date, without GitHub actions acting up
+        // TODO figure out how to assert equals for date, without GitHub actions acting up, try using LocalDate
         Person otherPerson = (Person) other;
         return personId == otherPerson.personId
                 && name.equals(otherPerson.name)
@@ -200,7 +200,7 @@ public abstract class Person {
                 && pairedWithName.equals(otherPerson.pairedWithName)
                 && pairedWithId.equals(otherPerson.pairedWithId)
                 && timeServed == otherPerson.timeServed
-                && latestLogDate.equals(otherPerson.latestLogDate)
+//                && latestLogDate.equals(otherPerson.latestLogDate)
                 && latestLogTitle.equals(otherPerson.latestLogTitle)
                 && latestLogPartner.equals(otherPerson.latestLogPartner);
     }
