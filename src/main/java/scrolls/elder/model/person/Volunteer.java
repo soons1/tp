@@ -7,13 +7,14 @@ import java.util.Set;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.model.tag.Tag;
 
-import javax.swing.text.html.Option;
-
 /**
  * Represents a Volunteer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Volunteer extends Person {
+    /**
+     * Creates a volunteer with the data from the relevant parameters
+     */
     public Volunteer(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                      Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
                      Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {

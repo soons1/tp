@@ -1,7 +1,7 @@
 package scrolls.elder.model.util;
 
-import java.util.Date;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;

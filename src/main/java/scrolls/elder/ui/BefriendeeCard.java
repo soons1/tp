@@ -10,7 +10,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import scrolls.elder.model.ReadOnlyDatastore;
 import scrolls.elder.model.person.Person;
 
 /**

@@ -7,6 +7,8 @@ import static scrolls.elder.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,8 @@ import scrolls.elder.testutil.Assert;
 import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalPersons;
 
-import java.util.Date;
+
+
 
 public class PersonTest {
 

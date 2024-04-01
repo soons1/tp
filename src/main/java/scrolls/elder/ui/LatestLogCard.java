@@ -7,7 +7,6 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Name;
 
 /**

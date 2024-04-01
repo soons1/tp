@@ -12,6 +12,9 @@ import scrolls.elder.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Befriendee extends Person {
+    /**
+     * Creates a befriendee with the data from the relevant parameters
+     */
     public Befriendee(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                       Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
                       Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {

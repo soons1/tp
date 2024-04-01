@@ -1,7 +1,5 @@
 package scrolls.elder.storage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +27,6 @@ import scrolls.elder.model.tag.Tag;
 class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-    public static final DateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
 
     private final String id;
     private final String name;
