@@ -120,7 +120,7 @@ public class PairCommand extends Command {
         store.setPerson(personToPair1, newPerson1);
         store.setPerson(personToPair2, newPerson2);
         model.commitDatastore();
-        store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(
                 String.format(MESSAGE_PAIR_SUCCESS,
