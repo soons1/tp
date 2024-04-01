@@ -100,7 +100,8 @@ public class AddressBookParser {
         case LogEditCommand.COMMAND_WORD:
             return new LogEditCommandParser().parse(arguments);
 
-        case LogFindCommand.COMMAND_WORD:
+        case LogFindCommand.COMMAND_WORD_LOGFIND:
+        case LogFindCommand.COMMAND_WORD_FINDLOG:
             return new LogFindCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
