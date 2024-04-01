@@ -1,5 +1,6 @@
 package scrolls.elder.model.person;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -12,8 +13,10 @@ import scrolls.elder.model.tag.Tag;
  */
 public class Befriendee extends Person {
     public Befriendee(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                      Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed) {
-        super(name, phone, email, address, tags, new Role("befriendee"), pairedWithName, pairedWithId, timeServed);
+                      Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
+                      Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {
+        super(name, phone, email, address, tags, new Role("befriendee"), pairedWithName, pairedWithId,
+                timeServed, latestLogDate, latestLogTitle, latestLogPartner);
     }
 
     /**
@@ -58,7 +61,10 @@ public class Befriendee extends Person {
                 && tags.equals(otherBefriendee.tags)
                 && pairedWithName.equals(otherBefriendee.pairedWithName)
                 && pairedWithId.equals(otherBefriendee.pairedWithId)
-                && timeServed == otherBefriendee.timeServed;
+                && timeServed == otherBefriendee.timeServed
+                && latestLogDate.equals(otherBefriendee.latestLogDate)
+                && latestLogTitle.equals(otherBefriendee.latestLogTitle)
+                && latestLogPartner.equals(otherBefriendee.latestLogPartner);
     }
 
     @Override
@@ -73,6 +79,9 @@ public class Befriendee extends Person {
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
                 .add("timeServed", timeServed)
+                .add("latestLogDate", latestLogDate.orElse(new Date()))
+                .add("latestLogTitle", latestLogTitle.orElse("None"))
+                .add("latestLogPartner", latestLogPartner.orElse(Name.getNone()))
                 .toString();
     }
 }

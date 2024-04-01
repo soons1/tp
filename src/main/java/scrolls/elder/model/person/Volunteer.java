@@ -1,10 +1,13 @@
 package scrolls.elder.model.person;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.model.tag.Tag;
+
+import javax.swing.text.html.Option;
 
 /**
  * Represents a Volunteer in the address book.
@@ -12,8 +15,10 @@ import scrolls.elder.model.tag.Tag;
  */
 public class Volunteer extends Person {
     public Volunteer(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                     Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed) {
-        super(name, phone, email, address, tags, new Role("volunteer"), pairedWithName, pairedWithId, timeServed);
+                     Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
+                     Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {
+        super(name, phone, email, address, tags, new Role("volunteer"), pairedWithName, pairedWithId,
+                timeServed, latestLogDate, latestLogTitle, latestLogPartner);
     }
 
     /**
@@ -58,7 +63,10 @@ public class Volunteer extends Person {
                 && tags.equals(otherVolunteer.tags)
                 && pairedWithName.equals(otherVolunteer.pairedWithName)
                 && pairedWithId.equals(otherVolunteer.pairedWithId)
-                && timeServed == otherVolunteer.timeServed;
+                && timeServed == otherVolunteer.timeServed
+                && latestLogDate.equals(otherVolunteer.latestLogDate)
+                && latestLogTitle.equals(otherVolunteer.latestLogTitle)
+                && latestLogPartner.equals(otherVolunteer.latestLogPartner);
     }
 
     @Override
@@ -73,6 +81,9 @@ public class Volunteer extends Person {
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
                 .add("timeServed", timeServed)
+                .add("latestLogDate", latestLogDate.orElse(new Date()))
+                .add("latestLogTitle", latestLogTitle.orElse("None"))
+                .add("latestLogPartner", latestLogPartner.orElse(Name.getNone()))
                 .toString();
     }
 }

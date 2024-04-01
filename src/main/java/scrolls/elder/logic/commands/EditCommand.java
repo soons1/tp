@@ -9,6 +9,7 @@ import static scrolls.elder.logic.parser.CliSyntax.PREFIX_ROLE;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -90,10 +91,13 @@ public class EditCommand extends Command {
         Optional<Name> pairedWithName = personToEdit.getPairedWithName();
         Optional<Integer> pairedWithId = personToEdit.getPairedWithId();
         int timeServed = personToEdit.getTimeServed();
+        Optional<Date> latestLogDate = personToEdit.getLatestLogDate();
+        Optional<String> latestLogTitle = personToEdit.getLatestLogTitle();
+        Optional<Name> latestLogPartner = personToEdit.getLatestLogPartner();
 
         return PersonFactory.withIdFromParams(personToEdit.getPersonId(), updatedName, updatedPhone, updatedEmail,
-                updatedAddress, role, updatedTags,
-                pairedWithName, pairedWithId, timeServed);
+                updatedAddress, role, updatedTags, pairedWithName, pairedWithId, timeServed,
+                latestLogDate, latestLogTitle, latestLogPartner);
     }
 
     private static Person createEditedPair(Person editedPerson, Person originalPair) {
@@ -109,10 +113,14 @@ public class EditCommand extends Command {
         Optional<Name> updatedPairedWithName = Optional.of(editedPerson.getName());
         Optional<Integer> updatedPairedWithID = Optional.of(editedPerson.getPersonId());
         int timeServed = originalPair.getTimeServed();
+        Optional<Date> updatedLatestLogDate = originalPair.getLatestLogDate();
+        Optional<String> updatedLatestLogTitle = originalPair.getLatestLogTitle();
+        Optional<Name> updatedLatestLogPartner = originalPair.getLatestLogPartner();
 
         return PersonFactory.withIdFromParams(editedPerson.getPersonId(), updatedName, updatedPhone, updatedEmail,
                 updatedAddress, role, updatedTags,
-                updatedPairedWithName, updatedPairedWithID, timeServed);
+                updatedPairedWithName, updatedPairedWithID, timeServed, updatedLatestLogDate,
+                updatedLatestLogTitle, updatedLatestLogPartner);
     }
 
     @Override

@@ -24,4 +24,10 @@ public interface ReadOnlyLogStore {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLogList(Predicate<Log> predicate);
+
+    /**
+     * Returns the log with the given ID.
+     * {@code logId} must exist in the store.
+     */
+    Log getLogById(int logId);
 }

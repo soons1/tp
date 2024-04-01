@@ -15,6 +15,8 @@ import static scrolls.elder.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +34,17 @@ public class TypicalPersons {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253").withRole("volunteer")
             .withTags("friends").withPairedWithName(Optional.of(new Name("Elle Meyer")))
-            .withPairedWithID(Optional.of(4)).withTimeServed(0).build();
+            .withPairedWithID(Optional.of(4)).withTimeServed(0)
+            .withLatestLogDate(new GregorianCalendar(2024, Calendar.MARCH, 7))
+            .withLatestLogTitle("House visit")
+            .withLatestLogPartner("Elle Meyer").build();
     public static final Person BENSON = new PersonBuilder().withId(1).withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25").withRole("volunteer")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").withTimeServed(0).build();
+            .withTags("owesMoney", "friends").withTimeServed(0)
+            .withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 8))
+            .withLatestLogTitle("Icebreaker")
+            .withLatestLogPartner("Fiona Kunz").build();
     public static final Person CARL = new PersonBuilder().withId(2).withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withRole("volunteer")
             .withTimeServed(0).build();
@@ -48,10 +56,15 @@ public class TypicalPersons {
     public static final Person ELLE = new PersonBuilder().withId(4).withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").withRole("befriendee")
             .withPairedWithName(Optional.of(ALICE.getName())).withPairedWithID(Optional.of(0))
-            .withTimeServed(0).build();
+            .withTimeServed(0)
+            .withLatestLogDate(new GregorianCalendar(2024, Calendar.MARCH, 7))
+            .withLatestLogTitle("House visit")
+            .withLatestLogPartner("Alice Pauline").build();
     public static final Person FIONA = new PersonBuilder().withId(5).withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").withRole("befriendee")
-            .withTimeServed(0).build();
+            .withTimeServed(0).withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 8))
+            .withLatestLogTitle("Icebreaker")
+            .withLatestLogPartner("Benson Meier").build();
     public static final Person GEORGE = new PersonBuilder().withId(6).withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withRole("befriendee")
             .withTimeServed(0).withTags("exConvict").build();
