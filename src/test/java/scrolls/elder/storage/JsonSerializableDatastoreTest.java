@@ -26,7 +26,12 @@ public class JsonSerializableDatastoreTest {
             JsonSerializableDatastore.class).get();
         Datastore datastoreFromFile = dataFromFile.toModelType();
         Datastore typicalPersonsDatastore = TypicalDatastore.getTypicalDatastore();
-        assertEquals(datastoreFromFile, typicalPersonsDatastore);
+        assertEquals(datastoreFromFile.getLogStore(), typicalPersonsDatastore.getLogStore());
+
+        assertEquals(datastoreFromFile.getPersonStore().toString(),
+                typicalPersonsDatastore.getPersonStore().toString());
+
+        assertEquals(datastoreFromFile.getPersonStore(), typicalPersonsDatastore.getPersonStore());
     }
 
     @Test
