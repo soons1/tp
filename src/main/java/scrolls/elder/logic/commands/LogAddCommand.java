@@ -157,8 +157,8 @@ public class LogAddCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
             .add("title", title)
-            .add("volunteerId", volunteerIndex)
-            .add("befriendeeId", befriendeeIndex)
+            .add("volunteerIndex", volunteerIndex)
+            .add("befriendeeIndex", befriendeeIndex)
             .add("duration", duration)
             .add("startDate", startDate)
             .add("remarks", remarks)
