@@ -7,9 +7,9 @@ import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.commons.util.ToStringBuilder;
 import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.exceptions.CommandException;
-import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
-import scrolls.elder.model.PersonStore;
+import scrolls.elder.model.ReadOnlyLogStore;
+import scrolls.elder.model.ReadOnlyPersonStore;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.Role;
 
@@ -17,12 +17,14 @@ import java.util.List;
 
 public class LogFindCommand extends Command {
 
-    public static final String COMMAND_WORD = "logfind";
+    public static final String COMMAND_WORD_LOGFIND = "logfind";
+    public static final String COMMAND_WORD_FINDLOG = "findlog";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds logs by person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD_LOGFIND + ": Finds logs by person. "
         + "Parameters: INDEX "
         + PREFIX_ROLE + "ROLE "
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "\n"
+        + "Example: " + COMMAND_WORD_LOGFIND + " 1 "
         + PREFIX_ROLE + "volunteer";
 
     public static final String MESSAGE_SUCCESS = "Logs found!";
@@ -41,8 +43,8 @@ public class LogFindCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        PersonStore personStore = model.getMutableDatastore().getMutablePersonStore();
-        LogStore logStore = model.getMutableDatastore().getMutableLogStore();
+        ReadOnlyPersonStore personStore = model.getDatastore().getPersonStore();
+        ReadOnlyLogStore logStore = model.getDatastore().getLogStore();
 
         List<Person> lastShownList;
         if (role.isVolunteer()) {

@@ -50,7 +50,8 @@ class JsonSerializableDatastore {
                 .stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
-        logs.addAll(source.getLogStore().getLogList());
+
+        logs.addAll(source.getLogStore().getUnfilteredAllLogsList());
     }
 
     /**
