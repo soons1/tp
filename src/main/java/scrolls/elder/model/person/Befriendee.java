@@ -66,7 +66,7 @@ public class Befriendee extends Person {
                 && pairedWithName.equals(otherBefriendee.pairedWithName)
                 && pairedWithId.equals(otherBefriendee.pairedWithId)
                 && timeServed == otherBefriendee.timeServed
-                //                && latestLogDate.equals(otherBefriendee.latestLogDate)
+                && latestLogDate.equals(otherBefriendee.latestLogDate)
                 && latestLogTitle.equals(otherBefriendee.latestLogTitle)
                 && latestLogPartner.equals(otherBefriendee.latestLogPartner);
     }
