@@ -18,30 +18,30 @@
         <Insets top="5" right="5" bottom="10" left="15" />
       </padding>
       <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
+        <Label fx:id="id" styleClass="list-cell-big-label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" text="\$first" styleClass="list-cell-big-label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="pairedWith" styleClass="cell_small_label" text="\$pairedWith" />
-      <Label fx:id="timeServed" styleClass="cell_small_label" text="\$timeServed" />
+      <Label fx:id="phone" styleClass="list-cell-small-label" text="\$phone" />
+      <Label fx:id="address" styleClass="list-cell-small-label" text="\$address" />
+      <Label fx:id="email" styleClass="list-cell-small-label" text="\$email" />
+      <Label fx:id="pairedWith" styleClass="list-cell-small-label" text="\$pairedWith" />
+      <Label fx:id="timeServed" styleClass="list-cell-small-label" text="\$timeServed" />
       <VBox>
         <padding>
           <Insets top="5" right="0" bottom="0" left="0" />
         </padding>
       </VBox>
-      <VBox fx:id="latestLog" styleClass="latest_log_vbox">
+      <VBox fx:id="latestLog" styleClass="latest-log-card">
         <padding>
           <Insets top="0" right="5" bottom="0" left="5" />
         </padding>
-        <Label fx:id="mostRecentLog" styleClass="cell_medium_label" text="Most recent log:" />
+        <Label fx:id="mostRecentLog" styleClass="list-cell-medium-label" text="Most recent log:" />
       </VBox>
     </VBox>
   </GridPane>
