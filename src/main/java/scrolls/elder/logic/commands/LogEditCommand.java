@@ -126,6 +126,8 @@ public class LogEditCommand extends Command {
             throw new CommandException(MESSAGE_NEGATIVE_DURATION);
         }
 
+        int durationDiff = editedLog.getDuration() - logToEdit.getDuration();
+
         Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
         Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
 
