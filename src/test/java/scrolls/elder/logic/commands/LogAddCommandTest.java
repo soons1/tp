@@ -173,8 +173,8 @@ class LogAddCommandTest {
                 "was a good session");
         String expected = LogAddCommand.class.getCanonicalName()
                 + "{title=" + "test5"
-                + ", volunteerId=" + TypicalIndexes.INDEX_FIRST_PERSON
-                + ", befriendeeId=" + TypicalIndexes.INDEX_FIRST_PERSON
+                + ", volunteerIndex=" + TypicalIndexes.INDEX_FIRST_PERSON
+                + ", befriendeeIndex=" + TypicalIndexes.INDEX_FIRST_PERSON
                 + ", duration=" + Integer.toString(1)
                 + ", startDate=" + new Date(2023, 1, 1)
                 + ", remarks=" + "was a good session" + "}";

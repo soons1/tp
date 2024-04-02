@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import com.sun.jdi.request.InvalidRequestStateException;
 
 import scrolls.elder.commons.core.GuiSettings;
+import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;
 
 /**
@@ -15,7 +16,8 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Log> PREDICATE_SHOW_ALL_LOGS = unused -> true;
 
     //// UserPrefs getters and setters
 

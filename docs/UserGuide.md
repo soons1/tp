@@ -233,7 +233,19 @@ Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
 * `logadd 2 3 t/Shopping s/2020-09-09 d/2 r/bought groceries` Adds a log between the befriendee at Index 2 and the volunteer at Index 3 with the title `Shopping`, start date `2020-09-09`, duration `2` and remarks `bought groceries`.
 
-//TODO: Add logedit, logdelete, logfind
+[//]: # (TODO: Add logedit, logdelete)
+
+#### Finding a log associated with a person: `logfind`
+
+Find all logs associated with a person.
+
+Format: `logfind INDEX r/ROLE`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `logfind 1 r/befriendee` returns all logs associated with the befriendee at Index 1.
 
 ### 3.3 Other Commands: Help and Exiting
 
@@ -298,9 +310,10 @@ Action | Format, Examples
 **Pair** | `pair INDEX1 INDEX2`<br> e.g., `pair 1 2`
 **Unpair** | `unpair INDEX1 INDEX2`<br> e.g., `unpair 1 2`
 **Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
 **List** | `list`
 **LogAdd** | `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
+**LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
 **Clear** | `clear`
 **Help** | `help`
 
