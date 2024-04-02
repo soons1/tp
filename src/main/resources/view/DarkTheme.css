@@ -132,6 +132,21 @@
     -fx-text-fill: #010504;
 }
 
+.cell_medium_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
+.latest_log_vbox {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+    -fx-background-color: derive(#415239, 20%);
+    -fx-background-radius: 5px;
+    -fx-padding: 10, 5, 5, 0;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }

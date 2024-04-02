@@ -50,7 +50,7 @@ public class LogEditCommand extends Command {
             + PREFIX_TITLE + "Icebreaker session "
             + PREFIX_START + "2021-03-01 "
             + PREFIX_DURATION + "2 "
-            + PREFIX_REMARKS + "was a good session";
+            + PREFIX_REMARKS + "was a good session ";
 
     public static final String MESSAGE_EDIT_LOG_SUCCESS = "Edited Log successfully: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -127,22 +127,22 @@ public class LogEditCommand extends Command {
         }
 
         int durationDiff = editedLog.getDuration() - logToEdit.getDuration();
-        if (durationDiff != 0) {
-            Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
-            Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
-            Person updatedBefriendee = createPersonWithTimeServed(befriendee, durationDiff);
-            Person updatedVolunteer = createPersonWithTimeServed(volunteer, durationDiff);
-            personStore.setPerson(befriendee, updatedBefriendee);
-            personStore.setPerson(volunteer, updatedVolunteer);
-            personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
-        }
+
+        Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
+        Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
+
+        Person updatedBefriendee = createUpdatedPerson(befriendee, durationDiff, editedLog, volunteer);
+        Person updatedVolunteer = createUpdatedPerson(volunteer, durationDiff, editedLog, befriendee);
+        personStore.setPerson(befriendee, updatedBefriendee);
+        personStore.setPerson(volunteer, updatedVolunteer);
+        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         store.setLog(editedLog);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }
 
-    private Person createPersonWithTimeServed(Person p, int duration) {
+    private Person createUpdatedPerson(Person p, int duration, Log editedLog, Person otherPerson) {
         assert p != null;
 
         Name name = p.getName();
@@ -154,9 +154,35 @@ public class LogEditCommand extends Command {
         Optional<Name> pairedWithName = p.getPairedWithName();
         Optional<Integer> pairedWithId = p.getPairedWithId();
         int updatedTimeServed = p.getTimeServed() + duration;
+        Optional<Date> latestLogDate = p.getLatestLogDate();
+        Optional<String> latestLogTitle = p.getLatestLogTitle();
+        Optional<Name> latestLogPartner = p.getLatestLogPartner();
+
+        // New toAdd is latest log
+        if (isNewLatestLog(p, editedLog)) {
+            latestLogDate = Optional.of(editedLog.getStartDate());
+            latestLogTitle = Optional.of(editedLog.getLogTitle());
+            latestLogPartner = Optional.of(otherPerson.getName());
+        }
 
         return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, updatedTimeServed);
+                pairedWithId, updatedTimeServed, latestLogDate, latestLogTitle, latestLogPartner);
+    }
+
+    private boolean isNewLatestLog(Person person, Log toAdd) {
+        Date toAddDate = toAdd.getStartDate();
+
+        if (person.isLatestLogPresent()) {
+            Date latestLogDate = person.getLatestLogDate().get();
+
+            if (!toAddDate.before(latestLogDate)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

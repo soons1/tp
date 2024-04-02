@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
@@ -76,6 +77,12 @@ public class LogStore implements ReadOnlyLogStore {
     }
 
     //// Collection-level getters and setters
+    @Override
+    public ObservableList<Log> getUnfilteredAllLogsList() {
+        return logs.values()
+                .stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), FXCollections::observableArrayList));
+    }
 
     @Override
     public ObservableList<Log> getLogList() {
@@ -103,6 +110,12 @@ public class LogStore implements ReadOnlyLogStore {
 
         // Filter by personId
         logList.clear();
+
+        // if logs do not exist
+        if (normalisedLogsByPerson.get(personId) == null || normalisedLogsByPerson.get(personId).isEmpty()) {
+            return;
+        }
+
         normalisedLogsByPerson.get(personId).forEach(logId -> {
             Log log = logs.get(logId);
             if (log != null) {
@@ -167,10 +180,7 @@ public class LogStore implements ReadOnlyLogStore {
         }
     }
 
-    /**
-     * Returns the log with the given ID.
-     * {@code logId} must exist in the store.
-     */
+    @Override
     public Log getLogById(int logId) {
         return logs.get(logId);
     }

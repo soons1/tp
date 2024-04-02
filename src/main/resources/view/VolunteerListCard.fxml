@@ -15,7 +15,7 @@
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets top="5" right="5" bottom="10" left="15" />
       </padding>
       <HBox spacing="5" alignment="CENTER_LEFT">
         <Label fx:id="id" styleClass="cell_big_label">
@@ -32,6 +32,17 @@
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       <Label fx:id="pairedWith" styleClass="cell_small_label" text="\$pairedWith" />
       <Label fx:id="timeServed" styleClass="cell_small_label" text="\$timeServed" />
+      <VBox>
+        <padding>
+          <Insets top="5" right="0" bottom="0" left="0" />
+        </padding>
+      </VBox>
+      <VBox fx:id="latestLog" styleClass="latest_log_vbox">
+        <padding>
+          <Insets top="0" right="5" bottom="0" left="5" />
+        </padding>
+        <Label fx:id="mostRecentLog" styleClass="cell_medium_label" text="Most recent log:" />
+      </VBox>
     </VBox>
   </GridPane>
 </HBox>

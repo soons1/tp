@@ -2,6 +2,7 @@ package scrolls.elder.logic.parser;
 
 import static scrolls.elder.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -71,15 +72,20 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<Name> pairedWithNone = Optional.empty();
         Optional<Integer> pairedWithNoID = Optional.empty();
         int timeServed = 0;
+        Optional<Date> latestLogDate = Optional.empty();
+        Optional<String> latestLogTitle = Optional.empty();
+        Optional<Name> latestLogPartner = Optional.empty();
 
         // temporary solution, delete after merging
         Person person = null;
 
         if (role.isVolunteer()) {
-            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, timeServed);
+            person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID,
+                    timeServed, latestLogDate, latestLogTitle, latestLogPartner);
         } else {
             assert role.isBefriendee();
-            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID, timeServed);
+            person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID,
+                    timeServed, latestLogDate, latestLogTitle, latestLogPartner);
         }
 
         return new AddCommand(person);

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandFailure;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import scrolls.elder.commons.core.index.Index;
@@ -31,12 +32,18 @@ class LogDeleteCommandTest {
     private Model expectedModel;
     private LogStore expectedLogStore;
 
-    @Test
+    @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalDatastore.getTypicalDatastore(), new UserPrefs());
         logStore = model.getMutableDatastore().getMutableLogStore();
-        expectedModel = new ModelManager(new Datastore(), new UserPrefs());
+        expectedModel = new ModelManager(TypicalDatastore.getTypicalDatastore(), new UserPrefs());
         expectedLogStore = expectedModel.getMutableDatastore().getMutableLogStore();
+
+        logStore.addLog(TypicalLogs.LOG_ALICE_TO_ELLE);
+        expectedLogStore.addLog(TypicalLogs.LOG_ALICE_TO_ELLE);
+
+        logStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA);
+        expectedLogStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA);
     }
 
     @Test
@@ -50,14 +57,17 @@ class LogDeleteCommandTest {
 
     @Test
     void execute_validIndexList_success() {
-        logStore.addLogWithId(TypicalLogs.LOG_BENSON_TO_FIONA);
-        Index indexLastLog = Index.fromOneBased(logStore.getLogList().size());
-        LogDeleteCommand logDeleteCommand = new LogDeleteCommand(indexLastLog);
-        Log logToDelete = logStore.getLogList().get(indexLastLog.getZeroBased());
+
+//        logStore.addLogWithId(TypicalLogs.LOG_BENSON_TO_FIONA);
+//        Index indexLastLog = Index.fromOneBased(logStore.getLogList().size());
+//        LogDeleteCommand logDeleteCommand = new LogDeleteCommand(indexLastLog);
+        Log logToDelete = logStore.getFilteredLogList().get(TypicalIndexes.INDEX_FIRST_LOG.getZeroBased());
+        LogDeleteCommand logDeleteCommand = new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG);
         String expectedMessage = String.format(LogDeleteCommand.MESSAGE_DELETE_LOG_SUCCESS,
                 Messages.formatLog(logToDelete));
+
         expectedLogStore.removeLog(logToDelete.getLogId());
-        expectedModel.commitDatastore();
+//        expectedModel.commitDatastore();
         assertCommandSuccess(logDeleteCommand, model, expectedMessage, expectedModel);
     }
 

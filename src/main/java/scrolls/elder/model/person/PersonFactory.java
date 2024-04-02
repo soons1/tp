@@ -1,5 +1,6 @@
 package scrolls.elder.model.person;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -14,14 +15,18 @@ public class PersonFactory {
      */
     public static Person fromParams(Name modelName, Phone modelPhone, Email modelEmail, Address modelAddress,
                                     Role modelRole, Set<Tag> modelTags, Optional<Name> modelPairedWithName,
-                                    Optional<Integer> modelPairedWithID, int modelTimeServed) {
+                                    Optional<Integer> modelPairedWithID, int modelTimeServed,
+                                    Optional<Date> modelLatestLogDate, Optional<String> modelLatestLogTitle,
+                                    Optional<Name> modelLatestLogPartner) {
         if (modelRole.isVolunteer()) {
             return new Volunteer(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID, modelTimeServed);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed, modelLatestLogDate,
+                    modelLatestLogTitle, modelLatestLogPartner);
         } else {
             assert modelRole.isBefriendee();
             return new Befriendee(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-                    modelPairedWithName, modelPairedWithID, modelTimeServed);
+                    modelPairedWithName, modelPairedWithID, modelTimeServed, modelLatestLogDate,
+                    modelLatestLogTitle, modelLatestLogPartner);
         }
     }
 
@@ -31,9 +36,12 @@ public class PersonFactory {
     public static Person withIdFromParams(int id, Name modelName, Phone modelPhone, Email modelEmail,
                                           Address modelAddress,
                                           Role modelRole, Set<Tag> modelTags, Optional<Name> modelPairedWithName,
-                                          Optional<Integer> modelPairedWithID, int modelTimeServed) {
+                                          Optional<Integer> modelPairedWithID, int modelTimeServed,
+                                          Optional<Date> modelLatestLogDate, Optional<String> modelLatestLogTitle,
+                                          Optional<Name> modelLatestLogPartner) {
         return withIdFromPerson(id, fromParams(modelName, modelPhone, modelEmail, modelAddress,
-                modelRole, modelTags, modelPairedWithName, modelPairedWithID, modelTimeServed));
+                modelRole, modelTags, modelPairedWithName, modelPairedWithID, modelTimeServed,
+                modelLatestLogDate, modelLatestLogTitle, modelLatestLogPartner));
     }
 
     /**
