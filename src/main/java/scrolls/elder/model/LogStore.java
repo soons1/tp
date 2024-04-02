@@ -159,6 +159,7 @@ public class LogStore implements ReadOnlyLogStore {
     /**
      * Adds a log to the store.
      * Any relational validation (i.e., volunteerId) should be done before calling this method.
+     * Returns the log id for the newly added log.
      */
     public Integer addLog(Log newLog) {
         requireNonNull(newLog);
