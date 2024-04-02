@@ -180,10 +180,7 @@ public class LogStore implements ReadOnlyLogStore {
         }
     }
 
-    /**
-     * Returns the log with the given ID.
-     * {@code logId} must exist in the store.
-     */
+    @Override
     public Log getLogById(int logId) {
         return logs.get(logId);
     }

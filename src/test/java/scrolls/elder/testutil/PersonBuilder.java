@@ -1,5 +1,7 @@
 package scrolls.elder.testutil;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -36,6 +38,9 @@ public class PersonBuilder {
     private Optional<Name> pairedWithName;
     private Optional<Integer> pairedWithId;
     private int timeServed;
+    private Optional<Date> latestLogDate;
+    private Optional<String> latestLogTitle;
+    private Optional<Name> latestLogPartner;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -51,6 +56,9 @@ public class PersonBuilder {
         pairedWithName = Optional.empty();
         pairedWithId = Optional.empty();
         timeServed = 0;
+        latestLogDate = Optional.empty();
+        latestLogTitle = Optional.empty();
+        latestLogPartner = Optional.empty();
     }
 
     /**
@@ -67,6 +75,9 @@ public class PersonBuilder {
         pairedWithName = personToCopy.getPairedWithName();
         pairedWithId = personToCopy.getPairedWithId();
         timeServed = personToCopy.getTimeServed();
+        latestLogDate = personToCopy.getLatestLogDate();
+        latestLogTitle = personToCopy.getLatestLogTitle();
+        latestLogPartner = personToCopy.getLatestLogPartner();
     }
 
     /**
@@ -150,11 +161,36 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code latestLogDate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLatestLogDate(GregorianCalendar latestLogDate) {
+        this.latestLogDate = Optional.of(latestLogDate.getTime());
+        return this;
+    }
+
+    /**
+     * Sets the {@code latestLogTitle} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLatestLogTitle(String latestLogTitle) {
+        this.latestLogTitle = Optional.of(latestLogTitle);
+        return this;
+    }
+
+    /**
+     * Sets the {@code latestLogTitle} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLatestLogPartner(String latestLogPartner) {
+        this.latestLogPartner = Optional.of(new Name(latestLogPartner));
+        return this;
+    }
+
+
+    /**
      * Builds a Person based on the fields in the person builder
      */
     public Person build() {
         return PersonFactory.withIdFromParams(id, name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, timeServed);
+                pairedWithId, timeServed, latestLogDate, latestLogTitle, latestLogPartner);
     }
 
 }

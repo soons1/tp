@@ -47,7 +47,7 @@ public class LogCard extends UiPart<Region> {
     private Label remarks;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code LogCode} with the given {@code Log} and index to display.
      */
     public LogCard(Log log, int displayedIndex, ReadOnlyDatastore datastore) {
         super(FXML);

@@ -102,14 +102,15 @@ public class LogAddCommand extends Command {
             throw new CommandException(MESSAGE_PERSONS_NOT_PAIRED);
         }
 
-        Person updatedBefriendee = createPersonWithTimeServed(befriendee, duration);
-        Person updatedVolunteer = createPersonWithTimeServed(volunteer, duration);
-
         Log toAdd =
-            new Log(model.getDatastore(), title, volunteer.getPersonId(), befriendee.getPersonId(), duration, startDate,
-                remarks);
+                new Log(model.getDatastore(), title, volunteer.getPersonId(), befriendee.getPersonId(),
+                        duration, startDate, remarks);
 
         logStore.addLog(toAdd);
+
+        // create updated persons
+        Person updatedBefriendee = createUpdatedPerson(befriendee, duration, toAdd);
+        Person updatedVolunteer = createUpdatedPerson(volunteer, duration, toAdd);
 
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
@@ -118,7 +119,7 @@ public class LogAddCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    private Person createPersonWithTimeServed(Person p, int duration) {
+    private Person createUpdatedPerson(Person p, int duration, Log toAdd) {
         assert p != null;
 
         Name name = p.getName();
@@ -130,9 +131,55 @@ public class LogAddCommand extends Command {
         Optional<Name> pairedWithName = p.getPairedWithName();
         Optional<Integer> pairedWithId = p.getPairedWithId();
         int updatedTimeServed = p.getTimeServed() + duration;
+        Optional<Date> latestLogDate = p.getLatestLogDate();
+        Optional<String> latestLogTitle = p.getLatestLogTitle();
+        Optional<Name> latestLogPartner = p.getLatestLogPartner();
+
+        // New toAdd is latest log
+        if (isNewLatestLog(p, toAdd)) {
+            latestLogDate = Optional.of(toAdd.getStartDate());
+            latestLogTitle = Optional.of(toAdd.getLogTitle());
+            latestLogPartner = Optional.of(p.getPairedWithName().get());
+        }
 
         return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-            pairedWithId, updatedTimeServed);
+            pairedWithId, updatedTimeServed, latestLogDate, latestLogTitle, latestLogPartner);
+    }
+
+    private Person createUpdatedPerson(Person p, int duration) {
+        assert p != null;
+
+        Name name = p.getName();
+        Phone phone = p.getPhone();
+        Email email = p.getEmail();
+        Address address = p.getAddress();
+        Set<Tag> tags = p.getTags();
+        Role role = p.getRole();
+        Optional<Name> pairedWithName = p.getPairedWithName();
+        Optional<Integer> pairedWithId = p.getPairedWithId();
+        int updatedTimeServed = p.getTimeServed() + duration;
+        Optional<Date> latestLogDate = p.getLatestLogDate();
+        Optional<String> latestLogTitle = p.getLatestLogTitle();
+        Optional<Name> latestLogPartner = p.getLatestLogPartner();
+
+        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
+                pairedWithId, updatedTimeServed, latestLogDate, latestLogTitle, latestLogPartner);
+    }
+
+    private boolean isNewLatestLog(Person person, Log toAdd) {
+        Date toAddDate = toAdd.getStartDate();
+
+        if (person.isLatestLogPresent()) {
+            Date latestLogDate = person.getLatestLogDate().get();
+
+            if (!toAddDate.before(latestLogDate)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
