@@ -10,7 +10,10 @@
     "tags" : [ "friends" ],
     "pairedWithName" : "Elle Meyer",
     "pairedWithId" : "4",
-    "timeServed": "0"
+    "timeServed": "2",
+    "latestLogDate": "2024-03-06T16:00:00.000+00:00",
+    "latestLogTitle": "House visit",
+    "latestLogPartner": "Elle Meyer"
   }, {
     "id" : "1",
     "name" : "Benson Meier",
@@ -19,7 +22,10 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "role" : "volunteer",
     "tags" : [ "owesMoney", "friends" ],
-    "timeServed": "0"
+    "timeServed": "3",
+    "latestLogDate": "2024-04-07T16:00:00.000+00:00",
+    "latestLogTitle": "Icebreaker",
+    "latestLogPartner": "Fiona Kunz"
   }, {
     "id" : "2",
     "name" : "Carl Kurz",
@@ -48,7 +54,10 @@
     "tags" : [ ],
     "pairedWithName" : "Alice Pauline",
     "pairedWithId" : "0",
-    "timeServed": "0"
+    "timeServed": "2",
+    "latestLogDate": "2024-03-06T16:00:00.000+00:00",
+    "latestLogTitle": "House visit",
+    "latestLogPartner": "Alice Pauline"
   }, {
     "id" : "5",
     "name" : "Fiona Kunz",
@@ -57,7 +66,10 @@
     "address" : "little tokyo",
     "role" : "befriendee",
     "tags" : [ ],
-    "timeServed": "0"
+    "timeServed": "3",
+    "latestLogDate": "2024-04-07T16:00:00.000+00:00",
+    "latestLogTitle": "Icebreaker",
+    "latestLogPartner": "Benson Meier"
   }, {
     "id" : "6",
     "name" : "George Best",

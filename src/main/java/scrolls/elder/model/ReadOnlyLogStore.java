@@ -28,9 +28,16 @@ public interface ReadOnlyLogStore {
     void updateFilteredLogList(Predicate<Log> predicate);
 
     /**
+     * Returns the log with the given ID.
+     * {@code logId} must exist in the store.
+     */
+    Log getLogById(int logId);
+
+    /**
      * Updates the log list to filter by the given {@code personId}.
      * Supply null to reset the filter.
      * This filter will persist for all filtering done with {@link LogStore#updateFilteredLogList}.
      */
     void updateFilteredLogListByPersonId(Integer personId);
+
 }
