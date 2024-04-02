@@ -72,20 +72,18 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<Name> pairedWithNone = Optional.empty();
         Optional<Integer> pairedWithNoID = Optional.empty();
         int timeServed = 0;
-        Optional<Date> latestLogDate = Optional.empty();
-        Optional<String> latestLogTitle = Optional.empty();
-        Optional<Name> latestLogPartner = Optional.empty();
+        Optional<Integer> latestLogId = Optional.empty();
 
         // temporary solution, delete after merging
         Person person = null;
 
         if (role.isVolunteer()) {
             person = new Volunteer(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID,
-                    timeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                    timeServed, latestLogId);
         } else {
             assert role.isBefriendee();
             person = new Befriendee(name, phone, email, address, tagList, pairedWithNone, pairedWithNoID,
-                    timeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                    timeServed, latestLogId);
         }
 
         return new AddCommand(person);

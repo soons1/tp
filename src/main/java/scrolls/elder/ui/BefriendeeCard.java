@@ -10,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import scrolls.elder.model.ReadOnlyDatastore;
+import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Person;
 
 /**
@@ -30,6 +32,7 @@ public class BefriendeeCard extends UiPart<Region> {
     public final Person befriendee;
     private String dateFormatPattern = "dd MMM yyyy";
     private DateFormat dateFormatter;
+    private ReadOnlyDatastore datastore;
     private final String style = "-fx-font-family: \"Segoe UI\";"
             + "-fx-font-size: 13px;";
     private final String noLogStyle = "-fx-background-color: #696969;";
@@ -57,11 +60,11 @@ public class BefriendeeCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public BefriendeeCard(Person person, int displayedIndex) {
+    public BefriendeeCard(Person person, int displayedIndex, ReadOnlyDatastore datastore) {
         super(FXML);
         this.befriendee = person;
         dateFormatter = new SimpleDateFormat(dateFormatPattern);
-
+        this.datastore = datastore;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
@@ -74,10 +77,14 @@ public class BefriendeeCard extends UiPart<Region> {
 
         // If latest log is present, add new log summary card, else add no logs
         if (befriendee.isLatestLogPresent()) {
-            String latestLogDateString = dateFormatter.format(befriendee.getLatestLogDate().get());
-            Label logTitle = new Label(befriendee.getLatestLogTitle().get());
+            int latestLogId = befriendee.getLatestLogId().get();
+            Log latestLogInstance = datastore.getLogStore().getLogById(latestLogId);
+            String latestLogDateString = dateFormatter.format(latestLogInstance.getStartDate());
+            Label logTitle = new Label(latestLogInstance.getLogTitle());
             Label logDate = new Label(latestLogDateString);
-            Label logPartner = new Label("Volunteer: " + befriendee.getLatestLogPartner().get().fullName);
+            int partnerId = latestLogInstance.getVolunteerId();
+            String partnerName = datastore.getPersonStore().getNameFromID(partnerId).fullName;
+            Label logPartner = new Label("Volunteer: " + partnerName);
             logTitle.setStyle(style);
             logDate.setStyle(style);
             logPartner.setStyle(style);

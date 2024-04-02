@@ -1,7 +1,6 @@
 package scrolls.elder.model.person;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,16 +30,14 @@ public abstract class Person {
     protected final Optional<Name> pairedWithName;
     protected final Optional<Integer> pairedWithId;
     protected final int timeServed;
-    protected final Optional<Date> latestLogDate;
-    protected final Optional<String> latestLogTitle;
-    protected final Optional<Name> latestLogPartner;
+    protected final Optional<Integer> latestLogId;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Role role,
                   Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
-                  Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {
+                  Optional<Integer> latestLogId) {
         CollectionUtil.requireAllNonNull(name, phone, email, address, tags, role, pairedWithName, pairedWithId);
         this.personId = PLACEHOLDER_ID;
         this.name = name;
@@ -53,9 +50,7 @@ public abstract class Person {
         this.pairedWithId = pairedWithId;
         assert timeServed >= 0 : "Time served must be non-negative";
         this.timeServed = timeServed;
-        this.latestLogDate = latestLogDate;
-        this.latestLogTitle = latestLogTitle;
-        this.latestLogPartner = latestLogPartner;
+        this.latestLogId = latestLogId;
     }
 
     /**
@@ -72,9 +67,7 @@ public abstract class Person {
         this.pairedWithName = p.getPairedWithName();
         this.pairedWithId = p.getPairedWithId();
         this.timeServed = p.getTimeServed();
-        this.latestLogDate = p.getLatestLogDate();
-        this.latestLogTitle = p.getLatestLogTitle();
-        this.latestLogPartner = p.getLatestLogPartner();
+        this.latestLogId = p.getLatestLogId();
     }
 
     public int getPersonId() {
@@ -116,16 +109,8 @@ public abstract class Person {
         return timeServed;
     }
 
-    public Optional<Date> getLatestLogDate() {
-        return latestLogDate;
-    }
-
-    public Optional<String> getLatestLogTitle() {
-        return latestLogTitle;
-    }
-
-    public Optional<Name> getLatestLogPartner() {
-        return latestLogPartner;
+    public Optional<Integer> getLatestLogId() {
+        return latestLogId;
     }
 
     public boolean isPairPresent(Person person) {
@@ -156,7 +141,7 @@ public abstract class Person {
      * Returns true if all fields of the latest log are present
      */
     public boolean isLatestLogPresent() {
-        return latestLogDate.isPresent() && latestLogTitle.isPresent() && latestLogPartner.isPresent();
+        return latestLogId.isPresent();
     }
 
     /**
@@ -200,9 +185,7 @@ public abstract class Person {
                 && pairedWithName.equals(otherPerson.pairedWithName)
                 && pairedWithId.equals(otherPerson.pairedWithId)
                 && timeServed == otherPerson.timeServed
-                //  && latestLogDate.equals(otherPerson.latestLogDate)
-                && latestLogTitle.equals(otherPerson.latestLogTitle)
-                && latestLogPartner.equals(otherPerson.latestLogPartner);
+                && latestLogId.equals(latestLogId);
     }
 
     @Override
@@ -210,7 +193,7 @@ public abstract class Person {
         // use this method for custom fields hashing instead of implementing your own
         return Objects
                 .hash(personId, name, phone, email, address, tags, role, pairedWithName, pairedWithId,
-                        timeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                        timeServed, latestLogId);
     }
 
     // TODO potential issues with date
@@ -227,9 +210,7 @@ public abstract class Person {
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
                 .add("timeServed", timeServed)
-                .add("latestLogDate", latestLogDate.orElse(new Date(0)))
-                .add("latestLogTitle", latestLogTitle.orElse("None"))
-                .add("latestLogPartner", latestLogPartner.orElse(Name.getNone()))
+                .add("latestLogId", latestLogId.orElse(-1))
                 .toString();
     }
 
