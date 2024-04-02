@@ -1,6 +1,5 @@
 package scrolls.elder.model.person;
 
-import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 

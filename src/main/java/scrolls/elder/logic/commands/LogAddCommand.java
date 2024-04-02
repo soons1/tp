@@ -18,7 +18,6 @@ import scrolls.elder.logic.commands.exceptions.CommandException;
 import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
-import scrolls.elder.model.ReadOnlyLogStore;
 import scrolls.elder.model.log.Log;
 import scrolls.elder.model.person.Address;
 import scrolls.elder.model.person.Email;

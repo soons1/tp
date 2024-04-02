@@ -7,6 +7,7 @@ import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,14 +86,6 @@ class LogAddCommandTest {
                 "was a good session");
 
         String expectedMessage = LogAddCommand.MESSAGE_SUCCESS;
-        Person afterLoggingBefriendee = new PersonBuilder(befriendee)
-                .withTimeServed(3)
-                .withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 1))
-                .withLatestLogTitle("test1").withLatestLogPartner("Alice Pauline").build();
-
-        Person afterLoggingVolunteer = new PersonBuilder(volunteer)
-                .withTimeServed(3).withLatestLogDate(new GregorianCalendar(2024, Calendar.APRIL, 1))
-                .withLatestLogTitle("test1").withLatestLogPartner("Elle Meyer").build();
 
         PersonStore personStore = expectedModel.getMutableDatastore().getMutablePersonStore();
         LogStore logStore = expectedModel.getMutableDatastore().getMutableLogStore();
@@ -100,7 +93,15 @@ class LogAddCommandTest {
                 new Log(model.getDatastore(), "test1", volunteer.getPersonId(), befriendee.getPersonId(),
                         1, new GregorianCalendar(2024, Calendar.APRIL, 1).getTime(),
                         "was a good session");
-        logStore.addLog(toAdd);
+        Integer latestLogId = logStore.addLog(toAdd);
+
+        Person afterLoggingBefriendee = new PersonBuilder(befriendee)
+                .withTimeServed(3)
+                .withLatestLogId(Optional.of(latestLogId)).build();
+
+        Person afterLoggingVolunteer = new PersonBuilder(volunteer)
+                .withTimeServed(3).withLatestLogId(Optional.of(latestLogId)).build();
+
         personStore.setPerson(befriendee, afterLoggingBefriendee);
         personStore.setPerson(volunteer, afterLoggingVolunteer);
         expectedModel.commitDatastore();

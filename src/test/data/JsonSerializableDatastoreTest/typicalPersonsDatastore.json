@@ -11,9 +11,7 @@
     "pairedWithName" : "Elle Meyer",
     "pairedWithId" : "4",
     "timeServed": "2",
-    "latestLogDate": "2024-03-06T16:00:00.000+00:00",
-    "latestLogTitle": "House visit",
-    "latestLogPartner": "Elle Meyer"
+    "latestLogId": "0"
   }, {
     "id" : "1",
     "name" : "Benson Meier",
@@ -23,9 +21,7 @@
     "role" : "volunteer",
     "tags" : [ "owesMoney", "friends" ],
     "timeServed": "3",
-    "latestLogDate": "2024-04-07T16:00:00.000+00:00",
-    "latestLogTitle": "Icebreaker",
-    "latestLogPartner": "Fiona Kunz"
+    "latestLogId": "1"
   }, {
     "id" : "2",
     "name" : "Carl Kurz",
@@ -55,9 +51,7 @@
     "pairedWithName" : "Alice Pauline",
     "pairedWithId" : "0",
     "timeServed": "2",
-    "latestLogDate": "2024-03-06T16:00:00.000+00:00",
-    "latestLogTitle": "House visit",
-    "latestLogPartner": "Alice Pauline"
+    "latestLogId": "0"
   }, {
     "id" : "5",
     "name" : "Fiona Kunz",
@@ -67,9 +61,7 @@
     "role" : "befriendee",
     "tags" : [ ],
     "timeServed": "3",
-    "latestLogDate": "2024-04-07T16:00:00.000+00:00",
-    "latestLogTitle": "Icebreaker",
-    "latestLogPartner": "Benson Meier"
+    "latestLogId": "1"
   }, {
     "id" : "6",
     "name" : "George Best",

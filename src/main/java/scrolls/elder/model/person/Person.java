@@ -138,7 +138,7 @@ public abstract class Person {
     }
 
     /**
-     * Returns true if all fields of the latest log are present
+     * Returns true if the latest log id is present
      */
     public boolean isLatestLogPresent() {
         return latestLogId.isPresent();
@@ -173,7 +173,6 @@ public abstract class Person {
             return false;
         }
 
-        // TODO figure out how to assert equals for date, without GitHub actions acting up, try using LocalDate
         Person otherPerson = (Person) other;
         return personId == otherPerson.personId
                 && name.equals(otherPerson.name)
