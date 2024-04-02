@@ -135,7 +135,7 @@ public class LogEditCommand extends Command {
         Person updatedVolunteer = createUpdatedPerson(volunteer, durationDiff, editedLog, befriendee);
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
-        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL);
+        personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         store.setLog(editedLog);
         model.commitDatastore();
