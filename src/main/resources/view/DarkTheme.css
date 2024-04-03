@@ -7,14 +7,15 @@
     -fx-primary-color: #b7c4ff;
     -fx-primary-text-color: #1f2d61;
 
-    -fx-primary-container-color: #364379;
+    -fx-primary-container-color: #273054;
     -fx-primary-container-text-color: #dde1ff;
 
-    -fx-secondary-container-color: #005138;
+    -fx-secondary-container-color: #1a3d25;
     -fx-secondary-container-text-color: #a8f2ce;
 
-    -fx-error-color: #ffdad6;
-    -fx-error-text-color: #ba1a1a;
+    -fx-error-color: #f5b3b3;
+    -fx-error-color-background: #4b3137;
+    -fx-error-text-color: #f5b3b3;
 }
 
 .scene {
@@ -194,7 +195,7 @@
 }
 
 .result-display-error {
-    -fx-background-color: -fx-error-color !important;
+    -fx-background-color: -fx-error-color-background !important;
     -fx-text-fill: -fx-error-text-color !important;
 }
 
@@ -306,7 +307,7 @@
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: derive(-fx-focus-color, 20%);
 }
 
 .dialog-pane {
