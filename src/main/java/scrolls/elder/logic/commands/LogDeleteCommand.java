@@ -2,7 +2,7 @@ package scrolls.elder.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -78,12 +78,14 @@ public class LogDeleteCommand extends Command {
         Person volunteer = lastShownPList.get(logToDelete.getVolunteerId());
         Person befriendee = lastShownPList.get(logToDelete.getBefriendeeId());
 
-        Integer latestLogIdBefriendee = getLatestLogId(befriendee, logToDelete, logStore, logToDelete.getLogId());
-        Integer latestLogIdVolunteer = getLatestLogId(volunteer, logToDelete, logStore, logToDelete.getLogId());
+        Optional<Integer> latestLogIdBefriendee =
+                getLatestLogId(befriendee, logToDelete, logStore, logToDelete.getLogId());
+        Optional<Integer> latestLogIdVolunteer =
+                getLatestLogId(volunteer, logToDelete, logStore, logToDelete.getLogId());
 
 
         Person updatedVolunteer = createUpdatedPerson(volunteer, durationToDelete, latestLogIdVolunteer);
-        Person updatedBefriendee = createUpdatedPerson(befriendee, durationToDelete, latestLogIdVolunteer);
+        Person updatedBefriendee = createUpdatedPerson(befriendee, durationToDelete, latestLogIdBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
@@ -93,7 +95,7 @@ public class LogDeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_LOG_SUCCESS, Messages.formatLog(logToDelete)));
     }
 
-    private Person createUpdatedPerson(Person p, int duration, Integer logId) {
+    private Person createUpdatedPerson(Person p, int duration, Optional<Integer> logId) {
         assert p != null;
 
         Name name = p.getName();
@@ -105,27 +107,34 @@ public class LogDeleteCommand extends Command {
         Optional<Name> pairedWithName = p.getPairedWithName();
         Optional<Integer> pairedWithId = p.getPairedWithId();
         int updatedTimeServed = p.getTimeServed() - duration;
-        Optional<Integer> latestLogId = Optional.of(logId);
+        Optional<Integer> latestLogId = logId;
 
         return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
                 pairedWithId, updatedTimeServed, latestLogId);
     }
 
-    private Integer getLatestLogId(Person person, Log editedLog, LogStore logStore, Integer toAddId) {
-        Date editedDate = editedLog.getStartDate();
+    private Optional<Integer> getLatestLogId(Person person, Log deletedLog, LogStore logStore, Integer toDeleteId) {
 
         if (person.isLatestLogPresent()) {
             Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
-            Date latestLogDate = currentLatest.getStartDate();
 
-            if (!editedDate.before(latestLogDate)) {
-                return currentLatest.getLogId();
+            if (toDeleteId != currentLatest.getLogId()) {
+                return Optional.of(currentLatest.getLogId());
+            }
+            // the deletedLog is displayed as the current latest log
+            Log newCurrentLatest = logStore.getLogList().stream()
+                    .filter(log -> log.getBefriendeeId() == person.getPersonId()
+                            || log.getVolunteerId() == person.getPersonId())
+                    .filter(log -> log.getLogId() != toDeleteId)
+                    .max(Comparator.comparing(Log::getStartDate)).orElse(null);
+
+            if (newCurrentLatest != null) {
+                return Optional.of(newCurrentLatest.getLogId());
             } else {
-                return toAddId;
+                return Optional.empty();
             }
         }
-
-        return toAddId;
+        return Optional.empty();
     }
 
     @Override

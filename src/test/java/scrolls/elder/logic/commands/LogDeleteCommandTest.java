@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandFailure;
 import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +53,9 @@ class LogDeleteCommandTest {
 
         logStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA);
         expectedLogStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA);
+
+        logStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA_2);
+        expectedLogStore.addLog(TypicalLogs.LOG_BENSON_TO_FIONA_2);
     }
 
     @Test
@@ -75,9 +80,9 @@ class LogDeleteCommandTest {
                 Messages.formatLog(logToDelete));
 
         Person afterDeletingBefriendee = new PersonBuilder(befriendee)
-                .withTimeServed(0).build();
+                .withTimeServed(0).withLatestLogId(Optional.empty()).build();
         Person afterDeletingVolunteer = new PersonBuilder(volunteer)
-                .withTimeServed(0).build();
+                .withTimeServed(0).withLatestLogId(Optional.empty()).build();
 
         expectedLogStore.removeLog(logToDelete.getLogId());
         expectedPersonStore.setPerson(befriendee, afterDeletingBefriendee);
