@@ -24,6 +24,7 @@ public class TypicalLogs {
      * Log with a log ID
      */
     public static final Log LOG_BENSON_TO_FIONA;
+    public static final Log LOG_BENSON_TO_FIONA_2;
     private static final Datastore datastore;
 
     static {
@@ -40,6 +41,11 @@ public class TypicalLogs {
         final Date aprilEighth = calendar.getTime();
         Log tempLog = new Log(datastore, "Icebreaker", 1, 5, 3, aprilEighth, "Was okay.");
         LOG_BENSON_TO_FIONA = new Log(1, tempLog);
+
+        calendar.set(2024, Calendar.APRIL, 2);
+        final Date aprilSecond = calendar.getTime();
+        Log tempLog2 = new Log(datastore, "House visit", 1, 5, 4, aprilSecond, "Was good.");
+        LOG_BENSON_TO_FIONA_2 = new Log(2, tempLog2);
     }
 
     private TypicalLogs() {} // prevents instantiation
