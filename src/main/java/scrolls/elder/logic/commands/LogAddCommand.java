@@ -147,7 +147,7 @@ public class LogAddCommand extends Command {
             Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
             Date latestLogDate = currentLatest.getStartDate();
 
-            if (!toAddDate.before(latestLogDate)) {
+            if (toAddDate.before(latestLogDate)) {
                 return currentLatest.getLogId();
             } else {
                 return toAddId;
