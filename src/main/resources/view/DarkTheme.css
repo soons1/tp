@@ -13,9 +13,9 @@
     -fx-secondary-container-color: #1a3d25;
     -fx-secondary-container-text-color: #a8f2ce;
 
-    -fx-error-color: #f5b3b3;
+    -fx-error-color: #f5dada;
     -fx-error-color-background: #4b3137;
-    -fx-error-text-color: #f5b3b3;
+    -fx-error-text-color: #f5dada;
 }
 
 .scene {
