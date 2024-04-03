@@ -218,7 +218,8 @@ Examples:
 
 #### Adding a log : `logadd`
 
-Adds a log between a pair of befriendee and volunteer.
+Adds a log between a pair of befriendee and volunteer.  
+If it is the most recent log for a befriendee or volunteer, their `latest log` section will also be updated accordingly.
 
 Format: `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
@@ -247,9 +248,39 @@ Format: `logfind INDEX r/ROLE`
 Examples:
 * `logfind 1 r/befriendee` returns all logs associated with the befriendee at Index 1.
 
-### 3.3 Other Commands: Help and Exiting
+### 3.3 Undo and Redo commands
+#### Undo the most recent command : `undo`
 
-//TODO: Add redo, undo
+Undo the latest command that made a change to the data stored in Elder Scrolls.
+This excludes commands like `list`,`find` and `logfind` which do not mutate the state of any data in Elder Scrolls.
+
+Format: `undo`
+
+* The persons list and logs list will be refreshed to show all entries.
+* There must have been a previous command executed that modified data in Elder Scrolls.
+* At every launch of the application, there will be no commands to be undone.
+* Undo history will be erased when you exit the application.
+
+Example:
+* You have just mistakenly executed a `clear` command and cleared every entry in Elder Scrolls. You can simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
+* If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute simultaneous `undo` commands to revert the changes made by the wrongful delete commands.
+
+#### Revert the most recent undo command : `redo`
+
+Reverts the data stored in Elder Scrolls back to its state before the latest undo command was executed.
+
+Format: `redo`
+
+* The persons list and logs list will be refreshed to show all entries.
+* When a command that modifies data in Elder Scrolls is executed after an undo command is executed, the redo command will no longer be available.
+* There must have been a previous undo command executed in Elder Scrolls.
+* Redo history will be erased when you exit the application.
+
+Examples:
+* Let's say you've just executed a successful `undo` command. If you were to call any command that modifies the data in Elder Scrolls, such as `delete`, the `redo` command will not longer be available.
+* Let's say you've just executed a `add`, and mistakenly executed a `undo` command right after. You can then call `redo` to once again execute the `add` that was previously undone.
+
+### 3.4 Other Commands: Help and Exiting
 
 #### Viewing help : `help`
 
