@@ -17,29 +17,29 @@
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
+                <Label fx:id="id" styleClass="list-cell-big-label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="title" text="\$title" styleClass="cell_big_label" />
+                <Label fx:id="title" text="\$title" styleClass="list-cell-big-label" />
             </HBox>
-            <Label fx:id="date" styleClass="cell_medium_label" text="\$date" />
+            <Label fx:id="date" styleClass="list-cell-medium-label" text="\$date" />
             <VBox>
                 <padding>
                     <Insets top="10" right="0" bottom="0" left="0" />
                 </padding>
-                <Label fx:id="volunteer" styleClass="cell_small_label" text="\$volunteer"/>
-                <Label fx:id="befriendee" styleClass="cell_small_label" text="\$befriendee" />
+                <Label fx:id="volunteer" styleClass="list-cell-small-label" text="\$volunteer"/>
+                <Label fx:id="befriendee" styleClass="list-cell-small-label" text="\$befriendee" />
             </VBox>
             <VBox>
                 <padding>
                     <Insets top="10" right="0" bottom="0" left="0" />
                 </padding>
 
-                <Label fx:id="duration" styleClass="cell_small_label" text="\$duration" />
-                <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks" />
+                <Label fx:id="duration" styleClass="list-cell-small-label" text="\$duration" />
+                <Label fx:id="remarks" styleClass="list-cell-small-label" text="\$remarks" />
             </VBox>
         </VBox>
     </GridPane>

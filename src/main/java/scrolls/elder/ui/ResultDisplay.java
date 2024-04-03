@@ -20,8 +20,16 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
     }
 
-    public void setFeedbackToUser(String feedbackToUser) {
+    public void setFeedbackToUser(String feedbackToUser, boolean isErrorMsg) {
         requireNonNull(feedbackToUser);
+        if (isErrorMsg) {
+            // Remove the error style class if it is present, so as to not duplicate the error style class
+            resultDisplay.getStyleClass().remove("result-display-error");
+            resultDisplay.getStyleClass().add("result-display-error");
+        } else {
+            resultDisplay.getStyleClass().remove("result-display-error");
+        }
+
         resultDisplay.setText(feedbackToUser);
     }
 

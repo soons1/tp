@@ -20,6 +20,7 @@ import scrolls.elder.model.person.Volunteer;
 public class VolunteerCard extends UiPart<Region> {
 
     private static final String FXML = "VolunteerListCard.fxml";
+    private static final String SMALL_LABEL = "list-cell-small-label";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,10 +34,6 @@ public class VolunteerCard extends UiPart<Region> {
     private String dateFormatPattern = "dd MMM yyyy";
     private DateFormat dateFormatter;
     private ReadOnlyDatastore datastore;
-    private final String style = "-fx-font-family: \"Segoe UI\";"
-            + "-fx-font-size: 13px;";
-
-    private final String noLogStyle = "-fx-background-color: #696969;";
 
     @FXML
     private HBox cardPane;
@@ -91,14 +88,15 @@ public class VolunteerCard extends UiPart<Region> {
             int partnerId = latestLogInstance.getBefriendeeId();
             String partnerName = datastore.getPersonStore().getNameFromID(partnerId).fullName;
             Label logPartner = new Label("Befriendee: " + partnerName);
-            logTitle.setStyle(style);
-            logDate.setStyle(style);
-            logPartner.setStyle(style);
+            logTitle.getStyleClass().add(SMALL_LABEL);
+            logDate.getStyleClass().add(SMALL_LABEL);
+            logPartner.getStyleClass().add(SMALL_LABEL);
             latestLog.getChildren().addAll(logTitle, logDate, logPartner);
         } else {
             Label noLog = new Label("No logs currently in Elder Scrolls");
-            noLog.setStyle(style);
-            latestLog.setStyle(noLogStyle);
+            noLog.getStyleClass().add(SMALL_LABEL);
+            latestLog.getStyleClass().remove("latest-log-card");
+            latestLog.getStyleClass().add("latest-log-card-disabled");
             latestLog.getChildren().add(noLog);
         }
     }

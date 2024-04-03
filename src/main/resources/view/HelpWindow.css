@@ -1,19 +1,25 @@
+* {
+    -fx-surface-color: #121318;
+    -fx-surface-container-color: #1f1f25;
+    -fx-surface-text-color: #e3e1e9;
+}
+
 #copyButton, #helpMessage {
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-surface-text-color;
 }
 
 #copyButton {
-    -fx-background-color: dimgray;
+    -fx-background-color: -fx-surface-container-color;
 }
 
 #copyButton:hover {
-    -fx-background-color: gray;
+    -fx-background-color: derive(-fx-surface-container-color, 20%);
 }
 
 #copyButton:armed {
-    -fx-background-color: darkgray;
+    -fx-background-color: derive(-fx-surface-container-color, 30%);
 }
 
 #helpMessageContainer {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: -fx-surface-color;
 }

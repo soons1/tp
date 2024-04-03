@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="title" styleClass="cell_big_label" text="\$title"/>
-    <Label fx:id="date" styleClass="cell_small_label" text="\$date"/>
-    <Label fx:id="partner" styleClass="cell_small_label" text="\$partner"/>
+    <Label fx:id="title" styleClass="list-cell-big-label" text="\$title"/>
+    <Label fx:id="date" styleClass="list-cell-small-label" text="\$date"/>
+    <Label fx:id="partner" styleClass="list-cell-small-label" text="\$partner"/>
 </VBox>

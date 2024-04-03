@@ -53,7 +53,7 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Label text="Befriendees"/>
+            <Label text="Befriendees" styleClass="list-heading"/>
             <StackPane fx:id="befriendeeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
@@ -62,7 +62,7 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Label text="Volunteers"/>
+            <Label text="Volunteers" styleClass="list-heading"/>
             <StackPane fx:id="volunteerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
@@ -71,7 +71,7 @@
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <Label text="Logs"/>
+            <Label text="Logs" styleClass="list-heading"/>
             <StackPane fx:id="logListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </HBox>
