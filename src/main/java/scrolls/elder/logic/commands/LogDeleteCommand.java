@@ -15,7 +15,13 @@ import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.log.Log;
-import scrolls.elder.model.person.*;
+import scrolls.elder.model.person.Address;
+import scrolls.elder.model.person.Email;
+import scrolls.elder.model.person.Name;
+import scrolls.elder.model.person.Person;
+import scrolls.elder.model.person.PersonFactory;
+import scrolls.elder.model.person.Phone;
+import scrolls.elder.model.person.Role;
 import scrolls.elder.model.tag.Tag;
 
 
@@ -66,13 +72,18 @@ public class LogDeleteCommand extends Command {
         Log logToDelete = lastShownList.get(targetIndex.getZeroBased());
         int logIdToDelete = logToDelete.getLogId();
 
+        int durationToDelete = logToDelete.getDuration();
+
         // Update the timeServed of the volunteer and befriendee
         Person volunteer = lastShownPList.get(logToDelete.getVolunteerId());
         Person befriendee = lastShownPList.get(logToDelete.getBefriendeeId());
 
-        int durationToDelete = logToDelete.getDuration();
-        Person updatedVolunteer = createUpdatedPerson(volunteer, durationToDelete, logToDelete, befriendee);
-        Person updatedBefriendee = createUpdatedPerson(befriendee, durationToDelete, logToDelete, volunteer);
+        Integer latestLogIdBefriendee = getLatestLogId(befriendee, logToDelete, logStore, logToDelete.getLogId());
+        Integer latestLogIdVolunteer = getLatestLogId(volunteer, logToDelete, logStore, logToDelete.getLogId());
+
+
+        Person updatedVolunteer = createUpdatedPerson(volunteer, durationToDelete, latestLogIdVolunteer);
+        Person updatedBefriendee = createUpdatedPerson(befriendee, durationToDelete, latestLogIdVolunteer);
         personStore.setPerson(volunteer, updatedVolunteer);
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
@@ -82,7 +93,7 @@ public class LogDeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_LOG_SUCCESS, Messages.formatLog(logToDelete)));
     }
 
-    private Person createUpdatedPerson(Person p, int duration, Log editedLog, Person otherPerson) {
+    private Person createUpdatedPerson(Person p, int duration, Integer logId) {
         assert p != null;
 
         Name name = p.getName();
@@ -94,35 +105,27 @@ public class LogDeleteCommand extends Command {
         Optional<Name> pairedWithName = p.getPairedWithName();
         Optional<Integer> pairedWithId = p.getPairedWithId();
         int updatedTimeServed = p.getTimeServed() - duration;
-        Optional<Date> latestLogDate = p.getLatestLogDate();
-        Optional<String> latestLogTitle = p.getLatestLogTitle();
-        Optional<Name> latestLogPartner = p.getLatestLogPartner();
-
-        // New toAdd is latest log
-        if (isNewLatestLog(p, editedLog)) {
-            latestLogDate = Optional.of(editedLog.getStartDate());
-            latestLogTitle = Optional.of(editedLog.getLogTitle());
-            latestLogPartner = Optional.of(otherPerson.getName());
-        }
+        Optional<Integer> latestLogId = Optional.of(logId);
 
         return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, updatedTimeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                pairedWithId, updatedTimeServed, latestLogId);
     }
 
-    private boolean isNewLatestLog(Person person, Log toAdd) {
-        Date toAddDate = toAdd.getStartDate();
+    private Integer getLatestLogId(Person person, Log editedLog, LogStore logStore, Integer toAddId) {
+        Date editedDate = editedLog.getStartDate();
 
         if (person.isLatestLogPresent()) {
-            Date latestLogDate = person.getLatestLogDate().get();
+            Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
+            Date latestLogDate = currentLatest.getStartDate();
 
-            if (!toAddDate.before(latestLogDate)) {
-                return true;
+            if (!editedDate.before(latestLogDate)) {
+                return currentLatest.getLogId();
             } else {
-                return false;
+                return toAddId;
             }
         }
 
-        return true;
+        return toAddId;
     }
 
     @Override

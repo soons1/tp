@@ -235,6 +235,20 @@ Examples:
 
 [//]: # (TODO: Add logedit, logdelete)
 
+#### Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
+
+Deletes the specified log from the address book.
+
+Format: `delete INDEX`
+
+* Deletes the log at the specified `INDEX`.
+* The index refers to the index number shown in the displayed log list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `logdelete 1` deletes the 1st log in the address book.
+* `logfind 1 r/befriendee` followed by `logdelete 1` deletes the 1st log in the results of the `logfind` command.
+
 #### Finding a log associated with a person: `logfind`
 
 Find all logs associated with a person.

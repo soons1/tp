@@ -19,6 +19,7 @@ import scrolls.elder.logic.commands.ExitCommand;
 import scrolls.elder.logic.commands.FindCommand;
 import scrolls.elder.logic.commands.HelpCommand;
 import scrolls.elder.logic.commands.ListCommand;
+import scrolls.elder.logic.commands.LogDeleteCommand;
 import scrolls.elder.logic.commands.RedoCommand;
 import scrolls.elder.logic.commands.UndoCommand;
 import scrolls.elder.logic.parser.exceptions.ParseException;
@@ -92,6 +93,38 @@ public class AddressBookParserTest {
                 + PersonUtil.getEditPersonDescriptorDetails(descriptor));
 
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_logDelete1() throws Exception {
+        String userInput = String.format("%s %d", LogDeleteCommand.COMMAND_WORD_LOG_DELETE,
+                TypicalIndexes.INDEX_FIRST_LOG.getOneBased());
+        LogDeleteCommand command = (LogDeleteCommand) parser.parseCommand(userInput);
+        assertEquals(new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG), command);
+    }
+
+    @Test
+    public void parseCommand_logDelete2() throws Exception {
+        String userInput = String.format("%s %d", LogDeleteCommand.COMMAND_WORD_LOG_DEL,
+                TypicalIndexes.INDEX_FIRST_LOG.getOneBased());
+        LogDeleteCommand command = (LogDeleteCommand) parser.parseCommand(userInput);
+        assertEquals(new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG), command);
+    }
+
+    @Test
+    public void parseCommand_logDelete3() throws Exception {
+        String userInput = String.format("%s %d", LogDeleteCommand.COMMAND_WORD_LOG_RM,
+                TypicalIndexes.INDEX_FIRST_LOG.getOneBased());
+        LogDeleteCommand command = (LogDeleteCommand) parser.parseCommand(userInput);
+        assertEquals(new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG), command);
+    }
+
+    @Test
+    public void parseCommand_logDelete4() throws Exception {
+        String userInput = String.format("%s %d", LogDeleteCommand.COMMAND_WORD_LOG_REMOVE,
+                TypicalIndexes.INDEX_FIRST_LOG.getOneBased());
+        LogDeleteCommand command = (LogDeleteCommand) parser.parseCommand(userInput);
+        assertEquals(new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG), command);
     }
 
     @Test

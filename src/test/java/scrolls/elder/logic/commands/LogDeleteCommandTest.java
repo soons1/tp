@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.logic.Messages;
-import scrolls.elder.model.Datastore;
 import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.ModelManager;
+import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.UserPrefs;
 import scrolls.elder.model.log.Log;
+import scrolls.elder.model.person.Person;
+import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalDatastore;
 import scrolls.elder.testutil.TypicalIndexes;
 import scrolls.elder.testutil.TypicalLogs;
@@ -29,15 +31,20 @@ class LogDeleteCommandTest {
 
     private Model model;
     private LogStore logStore;
+    private PersonStore personStore;
     private Model expectedModel;
     private LogStore expectedLogStore;
+    private PersonStore expectedPersonStore;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalDatastore.getTypicalDatastore(), new UserPrefs());
         logStore = model.getMutableDatastore().getMutableLogStore();
+        personStore = model.getMutableDatastore().getMutablePersonStore();
         expectedModel = new ModelManager(TypicalDatastore.getTypicalDatastore(), new UserPrefs());
         expectedLogStore = expectedModel.getMutableDatastore().getMutableLogStore();
+        expectedPersonStore = expectedModel.getMutableDatastore().getMutablePersonStore();
+
 
         logStore.addLog(TypicalLogs.LOG_ALICE_TO_ELLE);
         expectedLogStore.addLog(TypicalLogs.LOG_ALICE_TO_ELLE);
@@ -57,17 +64,26 @@ class LogDeleteCommandTest {
 
     @Test
     void execute_validIndexList_success() {
+        Person befriendee =
+                personStore.getFilteredBefriendeeList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
+        Person volunteer =
+                personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
 
-//        logStore.addLogWithId(TypicalLogs.LOG_BENSON_TO_FIONA);
-//        Index indexLastLog = Index.fromOneBased(logStore.getLogList().size());
-//        LogDeleteCommand logDeleteCommand = new LogDeleteCommand(indexLastLog);
         Log logToDelete = logStore.getFilteredLogList().get(TypicalIndexes.INDEX_FIRST_LOG.getZeroBased());
         LogDeleteCommand logDeleteCommand = new LogDeleteCommand(TypicalIndexes.INDEX_FIRST_LOG);
         String expectedMessage = String.format(LogDeleteCommand.MESSAGE_DELETE_LOG_SUCCESS,
                 Messages.formatLog(logToDelete));
 
+        Person afterDeletingBefriendee = new PersonBuilder(befriendee)
+                .withTimeServed(0).build();
+        Person afterDeletingVolunteer = new PersonBuilder(volunteer)
+                .withTimeServed(0).build();
+
         expectedLogStore.removeLog(logToDelete.getLogId());
-//        expectedModel.commitDatastore();
+        expectedPersonStore.setPerson(befriendee, afterDeletingBefriendee);
+        expectedPersonStore.setPerson(volunteer, afterDeletingVolunteer);
+        expectedModel.commitDatastore();
+
         assertCommandSuccess(logDeleteCommand, model, expectedMessage, expectedModel);
     }
 
