@@ -170,7 +170,7 @@ public class LogEditCommand extends Command {
             Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
             Date latestLogDate = currentLatest.getStartDate();
 
-            if (!editedDate.before(latestLogDate)) {
+            if (editedDate.before(latestLogDate)) {
                 return currentLatest.getLogId();
             } else {
                 return toAddId;
