@@ -71,7 +71,40 @@ Great! Now that you're familiar with the fundamental commands and have successfu
 
 ## **2. Elder Scrolls User Interface**
 
-To be continued...
+<div style="text-align:center;">
+  <img src="images/UserInterface.jpg" alt="Ui" width="600">
+</div>
+<div align="center">
+  <text><u> Image: User interface Layout Breakdown of Elder Scrolls </u></text>
+  <p></p>
+</div>
+
+### 2.1 Toolbar
+
+The toolbar at the top provides functionality for accessing help and exiting Elder Scrolls. The application window contains the following buttons:
+* `File`: Hovering over it opens a dropdown menu, whereby clicking on Exit exits the application!
+* `Help`: Hovering over open a dropdown menu, whereby clicking on Help F1 opens a help pop-up! See 2.5 for more info about it.
+
+
+### 2.2 Command Input Box
+
+The command input box at the top of the application window is where you can type commands to interact with Elder Scrolls. Press `Enter` to execute the command.
+
+### 2.3 Command Output Box
+
+The command output box displays the results of the commands you have executed. It also displays error messages when an invalid command is entered. Paying close attention to the feedback provided here helps enhance your experience with Elder Scrolls!
+
+### 2.4 Befriendee List Panel
+
+This section displays all your registered befriendees, and you may filter the display using our supported find commands. The list is updated in real-time as you execute commands.
+
+### 2.5 Volunteer List Panel
+
+Similar to the Befriendee List Panel, this section displays all your registered volunteers. The volunteer list cards also support an added aggregate statistic `Time Served`, that helps you better track volunteer hours!
+
+### 2.6 Log List Panel
+
+Your Log List Panel displays all logs associated with your befriendees and volunteers.
 
 
 ## **3. Features**
@@ -234,7 +267,7 @@ Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
 * `logadd 2 3 t/Shopping s/2020-09-09 d/2 r/bought groceries` Adds a log between the befriendee at Index 2 and the volunteer at Index 3 with the title `Shopping`, start date `2020-09-09`, duration `2` and remarks `bought groceries`.
 
-[//]: # (TODO: Add logedit, logdelete)
+[//]: # (TODO: Add logedit)
 
 #### Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
 
