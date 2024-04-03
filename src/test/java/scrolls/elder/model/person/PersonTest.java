@@ -7,8 +7,6 @@ import static scrolls.elder.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import java.util.Date;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -98,9 +96,7 @@ public class PersonTest {
                 + ", pairedWithName=" + (TypicalPersons.ALICE.getPairedWithName().orElse(Name.getNone()))
                 + ", pairedWithId=" + (TypicalPersons.ALICE.getPairedWithId().orElse(-1))
                 + ", timeServed=" + (TypicalPersons.ALICE.getTimeServed())
-                + ", latestLogDate=" + (TypicalPersons.ALICE.getLatestLogDate().orElse(new Date(0)))
-                + ", latestLogTitle=" + (TypicalPersons.ALICE.getLatestLogTitle().orElse("None"))
-                + ", latestLogPartner=" + (TypicalPersons.ALICE.getLatestLogPartner().orElse(Name.getNone())) + "}";
+                + ", latestLogId=" + (TypicalPersons.ALICE.getLatestLogId().orElse(-1)) + "}";
         Assertions.assertEquals(expected, TypicalPersons.ALICE.toString());
     }
 }

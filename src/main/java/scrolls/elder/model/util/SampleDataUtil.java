@@ -1,7 +1,6 @@
 package scrolls.elder.model.util;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,36 +25,34 @@ public class SampleDataUtil {
     private static final Optional<Name> pairedWithNone = Optional.empty();
     private static final Optional<Integer> pairedWithNoID = Optional.empty();
     private static final int sampleTimeServed = 0;
-    private static final Optional<Date> latestLogNoDate = Optional.empty();
-    private static final Optional<String> latestLogNoTitle = Optional.empty();
-    private static final Optional<Name> latestLogNoName = Optional.empty();
+    private static final Optional<Integer> latestLogNoId = Optional.empty();
 
     public static Person[] getSamplePersons() {
         return new Person[]{
             new Volunteer(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName),
+                    latestLogNoId),
             new Volunteer(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName),
+                    latestLogNoId),
             new Volunteer(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("neighbours"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName),
+                    latestLogNoId),
             new Befriendee(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("family"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName),
+                    latestLogNoId),
             new Befriendee(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
                 getTagSet("classmates"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName),
+                    latestLogNoId),
             new Befriendee(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoDate, latestLogNoTitle, latestLogNoName)
+                    latestLogNoId)
         };
     }
 

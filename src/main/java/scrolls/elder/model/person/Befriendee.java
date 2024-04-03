@@ -1,6 +1,5 @@
 package scrolls.elder.model.person;
 
-import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,9 +16,9 @@ public class Befriendee extends Person {
      */
     public Befriendee(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                       Optional<Name> pairedWithName, Optional<Integer> pairedWithId, int timeServed,
-                      Optional<Date> latestLogDate, Optional<String> latestLogTitle, Optional<Name> latestLogPartner) {
+                      Optional<Integer> latestLogId) {
         super(name, phone, email, address, tags, new Role("befriendee"), pairedWithName, pairedWithId,
-                timeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                timeServed, latestLogId);
     }
 
     /**
@@ -66,9 +65,7 @@ public class Befriendee extends Person {
                 && pairedWithName.equals(otherBefriendee.pairedWithName)
                 && pairedWithId.equals(otherBefriendee.pairedWithId)
                 && timeServed == otherBefriendee.timeServed
-                // && latestLogDate.equals(otherBefriendee.latestLogDate)
-                && latestLogTitle.equals(otherBefriendee.latestLogTitle)
-                && latestLogPartner.equals(otherBefriendee.latestLogPartner);
+                && latestLogId.equals(otherBefriendee.latestLogId);
     }
 
     @Override
@@ -83,9 +80,7 @@ public class Befriendee extends Person {
                 .add("pairedWithName", pairedWithName.orElse(Name.getNone()))
                 .add("pairedWithId", pairedWithId.orElse(-1))
                 .add("timeServed", timeServed)
-                .add("latestLogDate", latestLogDate.orElse(new Date(0)))
-                .add("latestLogTitle", latestLogTitle.orElse("None"))
-                .add("latestLogPartner", latestLogPartner.orElse(Name.getNone()))
+                .add("latestLogId", latestLogId.orElse(-1))
                 .toString();
     }
 }

@@ -131,8 +131,11 @@ public class LogEditCommand extends Command {
         Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
         Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
 
-        Person updatedBefriendee = createUpdatedPerson(befriendee, durationDiff, editedLog, volunteer);
-        Person updatedVolunteer = createUpdatedPerson(volunteer, durationDiff, editedLog, befriendee);
+        Integer latestLogIdBefriendee = getLatestLogId(befriendee, editedLog, store, editedLog.getLogId());
+        Integer latestLogIdVolunteer = getLatestLogId(volunteer, editedLog, store, editedLog.getLogId());
+
+        Person updatedBefriendee = createUpdatedPerson(befriendee, durationDiff, latestLogIdBefriendee);
+        Person updatedVolunteer = createUpdatedPerson(volunteer, durationDiff, latestLogIdVolunteer);
         personStore.setPerson(befriendee, updatedBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
@@ -142,7 +145,7 @@ public class LogEditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }
 
-    private Person createUpdatedPerson(Person p, int duration, Log editedLog, Person otherPerson) {
+    private Person createUpdatedPerson(Person p, int duration, Integer logId) {
         assert p != null;
 
         Name name = p.getName();
@@ -154,35 +157,27 @@ public class LogEditCommand extends Command {
         Optional<Name> pairedWithName = p.getPairedWithName();
         Optional<Integer> pairedWithId = p.getPairedWithId();
         int updatedTimeServed = p.getTimeServed() + duration;
-        Optional<Date> latestLogDate = p.getLatestLogDate();
-        Optional<String> latestLogTitle = p.getLatestLogTitle();
-        Optional<Name> latestLogPartner = p.getLatestLogPartner();
-
-        // New toAdd is latest log
-        if (isNewLatestLog(p, editedLog)) {
-            latestLogDate = Optional.of(editedLog.getStartDate());
-            latestLogTitle = Optional.of(editedLog.getLogTitle());
-            latestLogPartner = Optional.of(otherPerson.getName());
-        }
+        Optional<Integer> latestLogId = Optional.of(logId);
 
         return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, updatedTimeServed, latestLogDate, latestLogTitle, latestLogPartner);
+                pairedWithId, updatedTimeServed, latestLogId);
     }
 
-    private boolean isNewLatestLog(Person person, Log toAdd) {
-        Date toAddDate = toAdd.getStartDate();
+    private Integer getLatestLogId(Person person, Log editedLog, LogStore logStore, Integer toAddId) {
+        Date editedDate = editedLog.getStartDate();
 
         if (person.isLatestLogPresent()) {
-            Date latestLogDate = person.getLatestLogDate().get();
+            Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
+            Date latestLogDate = currentLatest.getStartDate();
 
-            if (!toAddDate.before(latestLogDate)) {
-                return true;
+            if (!editedDate.before(latestLogDate)) {
+                return currentLatest.getLogId();
             } else {
-                return false;
+                return toAddId;
             }
         }
 
-        return true;
+        return toAddId;
     }
 
     @Override

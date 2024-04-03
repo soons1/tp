@@ -116,7 +116,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        befriendeeListPanel = new PersonListPanel(logic.getFilteredBefriendeeList());
+        befriendeeListPanel = new PersonListPanel(logic.getFilteredBefriendeeList(), logic.getDatastore());
         befriendeeListPanelPlaceholder.getChildren().add(befriendeeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -128,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        volunteerListPanel = new PersonListPanel(logic.getFilteredVolunteerList());
+        volunteerListPanel = new PersonListPanel(logic.getFilteredVolunteerList(), logic.getDatastore());
         volunteerListPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
 
         logListPanel = new LogListPanel(logic.getDatastore());
