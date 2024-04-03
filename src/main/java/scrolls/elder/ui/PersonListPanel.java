@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import scrolls.elder.commons.core.LogsCenter;
+import scrolls.elder.model.ReadOnlyDatastore;
 import scrolls.elder.model.person.Person;
 import scrolls.elder.model.person.Volunteer;
 
@@ -17,6 +18,7 @@ import scrolls.elder.model.person.Volunteer;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private ReadOnlyDatastore datastore;
 
     @FXML
     private ListView<Person> personListView;
@@ -24,8 +26,9 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, ReadOnlyDatastore datastore) {
         super(FXML);
+        this.datastore = datastore;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
@@ -46,9 +49,9 @@ public class PersonListPanel extends UiPart<Region> {
                     // if statement checks if person is a volunteer, hence safe to cast to type Volunteer
                     @SuppressWarnings("unchecked")
                     Volunteer vol = (Volunteer) person;
-                    setGraphic(new VolunteerCard(vol, getIndex() + 1).getRoot());
+                    setGraphic(new VolunteerCard(vol, getIndex() + 1, datastore).getRoot());
                 } else {
-                    setGraphic(new BefriendeeCard(person, getIndex() + 1).getRoot());
+                    setGraphic(new BefriendeeCard(person, getIndex() + 1, datastore).getRoot());
                 }
             }
         }

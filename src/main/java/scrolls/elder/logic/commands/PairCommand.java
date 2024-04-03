@@ -2,7 +2,6 @@ package scrolls.elder.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -75,13 +74,11 @@ public class PairCommand extends Command {
         Set<Tag> updatedTags = personToEdit.getTags();
         Role role = personToEdit.getRole();
         int updatedTimeServed = personToEdit.getTimeServed();
-        Optional<Date> updatedLatestLogDate = personToEdit.getLatestLogDate();
-        Optional<String> updatedLatestLogTitle = personToEdit.getLatestLogTitle();
-        Optional<Name> updatedLatestLogPartner = personToEdit.getLatestLogPartner();
+        Optional<Integer> updatedLatestLogId = personToEdit.getLatestLogId();
 
         return PersonFactory.withIdFromParams(personId, updatedName, updatedPhone, updatedEmail, updatedAddress, role,
                 updatedTags, updatedPairName, updatedPairID, updatedTimeServed,
-                updatedLatestLogDate, updatedLatestLogTitle, updatedLatestLogPartner);
+                updatedLatestLogId);
     }
 
     @Override

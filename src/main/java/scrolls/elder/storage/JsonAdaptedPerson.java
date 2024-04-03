@@ -1,7 +1,6 @@
 package scrolls.elder.storage;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -38,9 +37,7 @@ class JsonAdaptedPerson {
     private final String pairedWithName;
     private final String pairedWithId;
     private final String timeServed;
-    private final Date latestLogDate;
-    private final String latestLogTitle;
-    private final String latestLogPartner;
+    private final String latestLogId;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -57,9 +54,7 @@ class JsonAdaptedPerson {
             @JsonProperty("pairedWithName") String pairedWithName,
             @JsonProperty("pairedWithId") String pairedWithId,
             @JsonProperty("timeServed") String timeServed,
-            @JsonProperty("latestLogDate") Date latestLogDate,
-            @JsonProperty("latestLogTitle") String latestLogTitle,
-            @JsonProperty("latestLogPartner") String latestLogPartner) {
+            @JsonProperty("latestLogId") String latestLogId) {
 
         this.id = id;
         this.name = name;
@@ -73,9 +68,7 @@ class JsonAdaptedPerson {
         }
         this.pairedWithId = pairedWithId;
         this.timeServed = timeServed;
-        this.latestLogDate = latestLogDate;
-        this.latestLogTitle = latestLogTitle;
-        this.latestLogPartner = latestLogPartner;
+        this.latestLogId = latestLogId;
     }
 
     /**
@@ -94,9 +87,7 @@ class JsonAdaptedPerson {
         pairedWithName = source.getPairedWithName().map(p -> p.fullName).orElse(null);
         pairedWithId = source.getPairedWithId().map(Object::toString).orElse(null);
         timeServed = String.valueOf(source.getTimeServed());
-        latestLogDate = source.getLatestLogDate().orElse(null);
-        latestLogTitle = source.getLatestLogTitle().orElse(null);
-        latestLogPartner = source.getLatestLogPartner().map(name -> name.fullName).orElse(null);
+        latestLogId = source.getLatestLogId().map(Object::toString).orElse(null);
     }
 
     /**
@@ -164,18 +155,11 @@ class JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final int modelTimeServed = Integer.parseInt(timeServed);
 
-        final Optional<Date> modelLatestLogDate;
+        final Optional<Integer> modelLatestLogId;
 
-        modelLatestLogDate = Optional.ofNullable(latestLogDate);
-
-        final Optional<String> modelLatestLogTitle;
-        modelLatestLogTitle = Optional.ofNullable(latestLogTitle);
-
-        final Optional<Name> modelLatestLogPartner;
-        modelLatestLogPartner = Optional.ofNullable(latestLogPartner).map(Name::new);
+        modelLatestLogId = Optional.ofNullable(latestLogId).map(Integer::parseInt);
 
         return PersonFactory.withIdFromParams(modelId, modelName, modelPhone, modelEmail, modelAddress, modelRole,
-                modelTags, modelPairedWithName, modelPairedWithID, modelTimeServed, modelLatestLogDate,
-                modelLatestLogTitle, modelLatestLogPartner);
+                modelTags, modelPairedWithName, modelPairedWithID, modelTimeServed, modelLatestLogId);
     }
 }
