@@ -243,7 +243,7 @@ Use the `list` command to reset your view after using the `find` command.
 
 #### 3.1.7 Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
 
 Format: `delete INDEX r/ROLE`
 
