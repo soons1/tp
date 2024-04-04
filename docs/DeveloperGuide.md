@@ -2,6 +2,9 @@
 layout: page
 title: Developer Guide
 ---
+
+## **Table of Contents**
+
 * Table of Contents
 {:toc}
 
@@ -169,7 +172,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-##### `FindCommandParser` Class
+**`FindCommandParser` Class:** <br>
 The `FindCommandParser` class is responsible for parsing user input and creating a corresponding `FindCommand` object for execution. The implementation involves several key steps:
 * **Role Parsing**: The parser first identifies the roles specified in the user input, such as "volunteer" or "befriendee", using predefined flags (`SEARCH_VOLUNTEER_FLAG` and `SEARCH_BEFRIENDEE_FLAG`).
 It determines whether the search should be restricted to a specific role, both roles, or neither.
@@ -177,12 +180,11 @@ It determines whether the search should be restricted to a specific role, both r
 It determines whether the search should include paired individuals, unpaired individuals, both, or neither.
 * **Tag Parsing**: The parser then parses any tags specified in the user input, which are prefixed with a tag indicator (`t/`). Tags are extracted and used to create a `TagListContainsTagsPredicate` object for filtering.
 * **Name Parsing**: After extracting roles, pair flags, and tags, the parser processes the remaining input as potential name keywords for filtering.
-It constructs a `NameContainsKeywordsPredicate` object to filter individuals based on their names.
 * **Search Criteria Combination**: The parser combines the parsed search criteria (roles, pair flags, tags, and name keywords) into a single `FindCommand` object.
 * **Handling Search Exceptions**: The parser checks for any invalid command formats or missing input parameters and throws a `ParseException` if necessary.
 * **Return `FindCommand` Object**: Finally, the parser returns the constructed `FindCommand` object, encapsulating the parsed search criteria, for further execution.
 
-##### `FindCommand` Class
+**`FindCommand` Class:** <br>
 The find command finds all persons whose names contain any of the given keywords, supports searches in separate Volunteer and Befriendee lists, search by tags, and by pairing status. The `FindCommand` class is responsible for executing the find operation based on parsed user input.
 
 * **Command Execution:** The `execute()` method overrides the parent class Command method to perform the actual find operation.
@@ -193,18 +195,20 @@ Similar flags (`isSearchingPaired`, `isSearchingUnpaired`) are used to filter pe
 These methods update the filtered person list in the PersonStore based on the search predicates.
 * **Result Handling:** The search results are wrapped in a `CommandResult` object, which contains a message indicating the number of persons found.
 The message is formatted using the Messages class constants.
-* **Error Handling:** The class throws a CommandException if the search operation fails due to an invalid search predicate or an empty search result.
-* **Equality Check:** The `equals()` method is overridden to compare two `FindCommand` objects based on their search predicates and flags.
 
 The following sequence diagram shows how a Find operation goes through the `Logic` component:
 
 ![FindSequenceDiagram1](images/FindSequenceDiagram.png)
-![FindSequenceDiagram2](images/FindSequenceDiagram2.png)
+
+<div style="text-align:center;">
+  <img src="images/FindSequenceDiagram2.png" alt="FindSequenceDiagram2" width="600">
+</div>
+
 
 
 #### Design Considerations
 
-##### **Aspect: Tag Parsing in FindCommandParser:**
+**Aspect: Tag Parsing in FindCommandParser:** <br>
 
 * **Alternative 1: (Current Choice):** Parsing tags separately from other search criteria.
   * Pros: Allows users to specify additional search criteria based on tags.
@@ -214,7 +218,7 @@ The following sequence diagram shows how a Find operation goes through the `Logi
   * Pros: Simplifies parsing logic by integrating tags directly into the search query.
   * Cons: May limit flexibility in specifying tag-based search criteria or require more sophisticated parsing algorithms.
 
-##### **Aspect: Handling Search Criteria in FindCommand:**
+**Aspect: Handling Search Criteria in FindCommand:** <br>
 
 * **Alternative 1 (Current Choice)**: Implementing separate predicates for name and tag search criteria.
   * Pros: Offers flexibility in defining and combining different search parameters.
@@ -434,25 +438,22 @@ _{Explain here how the data archiving feature will be implemented}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​   | I want to …​                                                                           | So that I can…​                                               |
-|-----|-----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `* * *` | manager   | add volunteers’ and elderly befriendees’ contacts                                      |                                                               |
-| `* * *` | manager   | edit volunteers’ and elderly befriendees’ details                                      |                                                               |
-| `* * *` | manager   | delete volunteer and elderly befriendee contacts                                       |                                                               |
-| `* * *` | manager   | view list of volunteers and elderly befriendees                                        | keep track of the roster                                      |
-| `* * *` | manager   | tag elderly befriendees with relevant details                                          | accommodate for any special circumstances                     |
-| `* * *` | manager   | pair volunteers with befriendee contacts                                               | assign the pairings                                           |
-| `* * *` | manager   | view details of elderly befriendee                                                     | know the address and case details                             |
-| `* * *` | manager   | view details of volunteer befriender                                                   | know the details of the volunteer                             |
-| `* *` | first-time user   | access a help page                                                                     | refer to the features that come along with the application    |
-| `* *` | manager   | have a one-stop view of all the important information about the elderly and volunteers | contact each person easily                                    |
-| `* *` | manager   | see a timetable with meeting details                                                   | quickly see the planned meeting sessions                      |
-| `* *` | manager   | search for specific contact based on keywords                                          | quickly see contact details of specific people                |
-| `* *` | manager   | add details directly to pairings                                                       | add information specific to pairings                          |
-| `* *` | manager   | search for specific contact based on keywords                                          | quickly see contact details of specific people                |
-| `*` | first-time user   | see sample befriendee and volunteer profiles                                           | try out the features with pre-loaded data                     |
-| `*` | first-time user   | follow a guided tour                                                                   | be aware of how to use and access features in the application |
+|----------|-----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `* * *`  | manager   | add volunteers’ and elderly befriendees’ contacts                                      |                                                               |
+| `* * *`  | manager   | edit volunteers’ and elderly befriendees’ details                                      |                                                               |
+| `* * *`  | manager   | delete volunteer and elderly befriendee contacts                                       |                                                               |
+| `* * *`  | manager   | view list of volunteers and elderly befriendees                                        | keep track of the roster                                      |
+| `* * *`  | manager   | tag elderly befriendees with relevant details                                          | accommodate for any special circumstances                     |
+| `* * *`  | manager   | pair and unpair volunteers with befriendee contacts                                    | assign the pairings                                           |
+| `* * *`  | manager   | add log entries for each visit made by a volunteer to an elderly befriendee            | keep track of the visits                                      |
+| `* * *`  | manager   | search for specific elderly befriendee or volunter befriender                          | find and view the details of befriendee or volunteer          |
+| `* * *`  | manager   | search log entries based on a befriendee or volunteer                                  | find and view the details of relevant log entries             |
+| `* *`    | first-time user | access a help page                                                                     | refer to the features that come along with the application    |
+| `* *`    | first-time user | see sample befriendee and volunteer profiles                                           | try out the features with pre-loaded data                     |
+| `* *`    | manager   | have a one-stop view of all the important information about the elderly and volunteers | contact each person easily                                    |
+| `* *`    | manager   | add details directly to pairings                                                       | add information specific to pairings                          |
+| `*`      | first-time user | follow a guided tour                                                                   | be aware of how to use and access features in the application |
 
-*{More to be added}*
 
 ### Use cases
 
