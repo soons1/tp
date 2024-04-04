@@ -54,7 +54,7 @@ public class EditLogDescriptorBuilder {
      * Sets the {@code befriendeeIndex} of the {@code EditLogDescriptor} that we are building.
      */
     public EditLogDescriptorBuilder withBefriendeeIndex(Index befriendeeIndex) {
-        descriptor.setVolunteerIndex(befriendeeIndex);
+        descriptor.setBefriendeeIndex(befriendeeIndex);
         return this;
     }
 
