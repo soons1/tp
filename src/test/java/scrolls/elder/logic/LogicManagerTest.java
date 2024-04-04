@@ -85,6 +85,21 @@ public class LogicManagerTest {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
+    @Test
+    public void getFilteredVolunteerList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredVolunteerList().remove(0));
+    }
+
+    @Test
+    public void getFilteredBefriendeeList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredBefriendeeList().remove(0));
+    }
+
+    @Test
+    public void getLogList_modifyList_throwUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getLogList().remove(0));
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
