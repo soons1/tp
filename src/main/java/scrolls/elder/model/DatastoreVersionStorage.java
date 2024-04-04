@@ -99,8 +99,9 @@ public class DatastoreVersionStorage {
 
         // If not at end of list, purge the data before adding new datastore snapshot
         if (currentStatePointer < size - 1) {
+            int indexToRemove = currentStatePointer + 1;
             for (int i = currentStatePointer + 1; i < size; i++) {
-                this.datastoreVersions.remove(i);
+                this.datastoreVersions.remove(indexToRemove);
             }
         }
 

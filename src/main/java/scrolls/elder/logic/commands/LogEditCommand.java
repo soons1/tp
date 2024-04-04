@@ -141,6 +141,8 @@ public class LogEditCommand extends Command {
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         store.setLog(editedLog);
+        store.updateFilteredLogList(LogStore.PREDICATE_SHOW_ALL_LOGS);
+        store.updateFilteredLogListByPersonId(null);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }
@@ -169,9 +171,17 @@ public class LogEditCommand extends Command {
         if (person.isLatestLogPresent()) {
             Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
             Date latestLogDate = currentLatest.getStartDate();
+            Integer currentLatestLogId = currentLatest.getLogId();
 
             if (editedDate.before(latestLogDate)) {
-                return currentLatest.getLogId();
+                return currentLatestLogId;
+            } else if (editedDate.equals(latestLogDate)) {
+                // If current latest was added chronologically later than the editedLog, return current latest
+                if (currentLatestLogId > toAddId) {
+                    return currentLatestLogId;
+                } else {
+                    return toAddId;
+                }
             } else {
                 return toAddId;
             }

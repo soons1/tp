@@ -50,8 +50,8 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToDelete =
-            personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_SECOND_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_SECOND_PERSON, ROLE_VOLUNTEER);
+            personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_THIRD_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_THIRD_LOG, ROLE_VOLUNTEER);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
             Messages.formatPerson(personToDelete));
@@ -72,7 +72,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showVolunteerAtIndex(personStore, TypicalIndexes.INDEX_SECOND_PERSON);
+        showVolunteerAtIndex(personStore, TypicalIndexes.INDEX_THIRD_PERSON);
 
         Person personToDelete =
             personStore.getFilteredVolunteerList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
@@ -115,8 +115,8 @@ public class DeleteCommandTest {
     @Test
     public void execute_personNotPaired_success() {
         Person personToDelete =
-            personStore.getFilteredBefriendeeList().get(TypicalIndexes.INDEX_SECOND_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_SECOND_PERSON, ROLE_BEFRIENDEE);
+            personStore.getFilteredBefriendeeList().get(TypicalIndexes.INDEX_THIRD_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_THIRD_PERSON, ROLE_BEFRIENDEE);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
             Messages.formatPerson(personToDelete));

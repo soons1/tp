@@ -91,6 +91,8 @@ public class LogDeleteCommand extends Command {
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         logStore.removeLog(logIdToDelete);
+        logStore.updateFilteredLogList(LogStore.PREDICATE_SHOW_ALL_LOGS);
+        logStore.updateFilteredLogListByPersonId(null);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_DELETE_LOG_SUCCESS, Messages.formatLog(logToDelete)));
     }

@@ -18,8 +18,8 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setDatastore(new Datastore());
-        model.commitDatastore();
         model.getDatastore().getPersonStore().updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.commitDatastore();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

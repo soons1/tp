@@ -50,7 +50,7 @@ public class LogStore implements ReadOnlyLogStore {
         MapChangeListener<? super Integer, ? super Log> listener = change -> {
             if (change.wasRemoved()) {
                 logList.remove(change.getValueRemoved());
-
+                System.out.println("removed");
                 deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getVolunteerId(),
                     change.getValueRemoved().getLogId());
                 deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getBefriendeeId(),
@@ -58,7 +58,7 @@ public class LogStore implements ReadOnlyLogStore {
             }
             if (change.wasAdded()) {
                 logList.add(change.getValueAdded());
-
+                System.out.println("added");
                 deepAddId(normalisedLogsByPerson, change.getValueAdded().getVolunteerId(),
                     change.getValueAdded().getLogId());
                 deepAddId(normalisedLogsByPerson, change.getValueAdded().getBefriendeeId(),
@@ -201,7 +201,7 @@ public class LogStore implements ReadOnlyLogStore {
      * Removes the log with the given ID from the store.
      * {@code idToRemove} must exist in the store.
      */
-    public void removeLog(int idToRemove) {
+    public void removeLog(Integer idToRemove) {
         logs.remove(idToRemove);
     }
 
@@ -220,7 +220,7 @@ public class LogStore implements ReadOnlyLogStore {
      * Removes a logId from the normalised map.
      * Must replace the entire list to trigger the listener.
      */
-    private void deepRemoveId(ObservableMap<Integer, ArrayList<Integer>> map, int key, int value) {
+    private void deepRemoveId(ObservableMap<Integer, ArrayList<Integer>> map, int key, Integer value) {
         ArrayList<Integer> oldList = map.getOrDefault(key, new ArrayList<>());
         ArrayList<Integer> temp = new ArrayList<>(oldList);
         temp.remove(value);
