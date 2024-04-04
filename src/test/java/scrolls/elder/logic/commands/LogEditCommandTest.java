@@ -2,6 +2,8 @@ package scrolls.elder.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static scrolls.elder.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static scrolls.elder.logic.commands.LogEditCommand.MESSAGE_EDIT_LOG_SUCCESS;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +15,13 @@ import scrolls.elder.model.Datastore;
 import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 import scrolls.elder.model.ModelManager;
+import scrolls.elder.model.PersonStore;
 import scrolls.elder.model.UserPrefs;
 import scrolls.elder.model.log.Log;
+import scrolls.elder.model.person.Person;
 import scrolls.elder.testutil.Assert;
 import scrolls.elder.testutil.EditLogDescriptorBuilder;
+import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalDatastore;
 import scrolls.elder.testutil.TypicalIndexes;
 import scrolls.elder.testutil.TypicalLogs;
@@ -40,23 +45,48 @@ class LogEditCommandTest {
         expectedLogStore.addLog(TypicalLogs.LOG_ALICE_TO_ELLE);
     }
 
-    //TODO Implement test cases such that model is the same as expectedModel
     @Test
-    void execute_validLogEditCommand_success() {
-        /*
+    void execute_validWithNoChange_success() {
         LogEditCommand.EditLogDescriptor editLogDescriptor =
-                new EditLogDescriptorBuilder(TypicalLogs.LOG_ALICE_TO_ELLE).withRemarks("hello").build();
+                new EditLogDescriptorBuilder(TypicalLogs.LOG_ALICE_TO_ELLE).build();
         LogEditCommand logEditCommand = new LogEditCommand(TypicalIndexes.INDEX_FIRST_PERSON, editLogDescriptor);
 
-        Log editedLog = new Log(TypicalLogs.LOG_ALICE_TO_ELLE.getLogId(), TypicalLogs.LOG_ALICE_TO_ELLE.getLogTitle(),
+        Log editedLog = new Log(0, TypicalLogs.LOG_ALICE_TO_ELLE.getLogTitle(),
                 TypicalLogs.LOG_ALICE_TO_ELLE.getVolunteerId(), TypicalLogs.LOG_ALICE_TO_ELLE.getBefriendeeId(),
                 TypicalLogs.LOG_ALICE_TO_ELLE.getDuration(), TypicalLogs.LOG_ALICE_TO_ELLE.getStartDate(),
-                "hello");
+                TypicalLogs.LOG_ALICE_TO_ELLE.getRemarks());
+
         expectedLogStore.setLog(editedLog);
         expectedModel.commitDatastore();
         String expectedMessage = String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog));
         assertCommandSuccess(logEditCommand, model, expectedMessage, expectedModel);
-         */
+
+    }
+
+    @Test
+    void execute_validLogEditCommand_success() {
+        LogEditCommand.EditLogDescriptor editLogDescriptor =
+                new EditLogDescriptorBuilder(TypicalLogs.LOG_ALICE_TO_ELLE).withDuration(5).build();
+        LogEditCommand logEditCommand = new LogEditCommand(TypicalIndexes.INDEX_FIRST_PERSON, editLogDescriptor);
+
+        Log editedLog = new Log(0, TypicalLogs.LOG_ALICE_TO_ELLE.getLogTitle(),
+                TypicalLogs.LOG_ALICE_TO_ELLE.getVolunteerId(), TypicalLogs.LOG_ALICE_TO_ELLE.getBefriendeeId(),
+                5, TypicalLogs.LOG_ALICE_TO_ELLE.getStartDate(),
+                TypicalLogs.LOG_ALICE_TO_ELLE.getRemarks());
+
+        PersonStore expectedPersonStore = expectedModel.getMutableDatastore().getMutablePersonStore();
+        Person befriendee = expectedPersonStore.getPersonFromID(editedLog.getBefriendeeId());
+        Person volunteer = expectedPersonStore.getPersonFromID(editedLog.getVolunteerId());
+        Person updatedBefriendee = new PersonBuilder(befriendee).withTimeServed(5).build();
+        Person updatedVolunteer = new PersonBuilder(volunteer).withTimeServed(5).build();
+
+        expectedPersonStore.setPerson(befriendee, updatedBefriendee);
+        expectedPersonStore.setPerson(volunteer, updatedVolunteer);
+        expectedLogStore.setLog(editedLog);
+        expectedModel.commitDatastore();
+        String expectedMessage = String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog));
+        assertCommandSuccess(logEditCommand, model, expectedMessage, expectedModel);
+
     }
 
     @Test

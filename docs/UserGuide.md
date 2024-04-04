@@ -30,24 +30,29 @@ Let's dive in and maximize your Elder Scrolls experience!
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **1. Quick start**
+## **1. Setting Up**
 
-
-Before getting started with Elder Scrolls, let's ensure everything is set up correctly:
+Before getting started with Elder Scrolls, let's ensure everything is set up for Elder Scrolls to run correctly:
 
 1. Ensure you have `Java 11` installed on your computer. This is crucial for Elder Scrolls to function properly.
     * If you're unsure whether Java 11 is installed, follow this short [guide](https://www.baeldung.com/java-check-is-installed) to check.
-    * Install Java 11 (if needed): If Java 11 is not installed, follow the provided installation instructions [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A).
-1. Next, download our latest 'elderscrolls.jar' release [here](https://github.com/AY2324S2-CS2103T-T09-3/tp/releases).
-1. Set Home Folder: Copy the downloaded file to the desired home folder for Elder Scrolls.
+    * Install Java 11 (if needed): If Java 11 is not installed, follow the provided installation instructions [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A). If you're using a Mac computer with Apple Silicon, you can download Java 11 from [here](https://www.azul.com/downloads/?version=java-11-lts&os=macos&architecture=arm-64-bit&package=jdk-fx#zulu) instead.
+2. Next, download our latest `elderscrolls.jar` release [here](https://github.com/AY2324S2-CS2103T-T09-3/tp/releases).
+3. Next, copy the downloaded `elderscrolls.jar` to the desired home folder for Elder Scrolls. Elder Scrolls will store all application files and data in this folder, so it is best to create an empty folder for this purpose.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **2. Quick Start**
+
+Once you've completed the setup, you're ready to launch Elder Scrolls! Follow these steps to get started:
+
 1. Launch Elder Scrolls: Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar elderscrolls.jar` command to run the application.<br>
 
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+A GUI similar to the below should appear in a few seconds. If this is your first time launching Elder Scrolls, the application should contain some sample data to get you started!
 
 ![Ui](images/Ui.png)
 
-Once you've completed these steps, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
-
+After this, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 
 Here are some commands to get you started:
 
@@ -69,7 +74,7 @@ Great! Now that you're familiar with the fundamental commands and have successfu
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **2. Elder Scrolls User Interface**
+## **3. User Interface**
 
 <div style="text-align:center;">
   <img src="images/UserInterface.jpg" alt="Ui" width="600">
@@ -113,7 +118,7 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* Words in `UPPER_CASE` are placeholders to represent parameters that should be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
@@ -168,10 +173,10 @@ Examples:
 
 Pairs an existing befriendee and volunteer in Elder Scrolls.
 
-Format: `pair INDEX1 INDEX2`
+Format: `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
 * The index refers to the index number shown in the displayed person list.
-* The Person at `INDEX1` must be a volunteer and the Person at `INDEX2` must be a befriendee.
+* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
 * Neither of the two Persons must be paired, if they are, they must be unpaired before pairing again.
 
 Examples:
@@ -182,10 +187,10 @@ Examples:
 
 Pairs an existing befriendee and volunteer in Elder Scrolls.
 
-Format: `unpair INDEX1 INDEX2`
+Format: `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
 * The index refers to the index number shown in the displayed person list.
-* The Person at `INDEX1` must be a volunteer and the Person at `INDEX2` must be a befriendee.
+* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
 * The befriendee and volunteer must be paired with each other before they can be unpaired.
 
 Examples:
@@ -254,10 +259,10 @@ Examples:
 Adds a log between a pair of befriendee and volunteer.  
 If it is the most recent log for a befriendee or volunteer, their `latest log` section will also be updated accordingly.
 
-Format: `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`
+Format: `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
 * The index refers to the index number shown in the displayed person list.
-* The Person at `INDEX1` must be a befriendee and the Person at `INDEX2` must be a volunteer.
+* The Person at `BEFRIENDEE_INDEX` must be a befriendee and the Person at `VOLUNTEER_INDEX` must be a volunteer.
 * The two Persons must be paired before a log can be added.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The `START_DATE` must be in the format `YYYY-MM-DD`.
@@ -267,7 +272,25 @@ Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
 * `logadd 2 3 t/Shopping s/2020-09-09 d/2 r/bought groceries` Adds a log between the befriendee at Index 2 and the volunteer at Index 3 with the title `Shopping`, start date `2020-09-09`, duration `2` and remarks `bought groceries`.
 
+<<<<<<< HEAD
 [//]: # (TODO: Add logedit)
+=======
+#### Editing a log : `logedit`
+
+Edits an existing log in Elder Scrolls.
+
+Format: `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`
+
+* Edits the log at the specified `INDEX`. The index refers to the index number shown in the displayed log list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* The `START_DATE` must be in the format `YYYY-MM-DD`.
+* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
+* `logedit 2 t/Shopping s/2020-09-09 d/2` Edits the title, start date and duration of the 2nd log to be `Shopping`, `2020-09-09` and `2` respectively.
+>>>>>>> master
 
 #### Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
 
@@ -337,7 +360,6 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
 #### Clearing all entries : `clear`
 
 Clears all entries from Elder Scrolls.
@@ -352,21 +374,16 @@ Format: `exit`
 
 ## **4. Saving the data**
 
-ElderScrolls data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually!
+Elder Scrolls data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually!
 
 ## **5. Editing the data file**
 
-ElderScrolls data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+All application data is saved automatically as a JSON file `[JAR file location]/data/datastore.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, Elder Scrolls will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the Elder Scrolls to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 
 ## **6. FAQ**
 
@@ -378,19 +395,20 @@ _Details coming soon ..._
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
 
-
 ## **8. Command summary**
 
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Edit** | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Pair** | `pair INDEX1 INDEX2`<br> e.g., `pair 1 2`
-**Unpair** | `unpair INDEX1 INDEX2`<br> e.g., `unpair 1 2`
+**Pair** | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`
+**Unpair** | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`
 **Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
 **Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
 **List** | `list`
-**LogAdd** | `logadd INDEX1 INDEX2 t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
+**LogAdd** | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
+**LogEdit** | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`
+**LogDelete** | `logdelete INDEX`<br> e.g., `logdelete 1`
 **LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
 **Clear** | `clear`
 **Help** | `help`
