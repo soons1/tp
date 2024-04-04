@@ -1,20 +1,23 @@
 package scrolls.elder.logic.parser;
 
 import static scrolls.elder.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static scrolls.elder.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.LogAddCommand;
+import scrolls.elder.testutil.TypicalIndexes;
 
 class LogAddCommandParserTest {
 
     private LogAddCommandParser parser = new LogAddCommandParser();
 
-    //TODO Implement test cases to create same LogAddCommand object as in LogAddCommandParser
     @Test
     void parse_validArgs_returnsLogAddCommand() {
-        /*
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         formatter.setLenient(false); // to make sure that the date strictly follows the format "yyyy-MM-dd"
         Date date;
@@ -26,7 +29,6 @@ class LogAddCommandParserTest {
         assertParseSuccess(parser, "1 2 t/Movies s/2024-03-07 d/2 r/Good.",
                 new LogAddCommand("Movies", TypicalIndexes.INDEX_FIRST_PERSON, TypicalIndexes.INDEX_SECOND_PERSON,
                         2, date, "Good."));
-        */
     }
 
     @Test

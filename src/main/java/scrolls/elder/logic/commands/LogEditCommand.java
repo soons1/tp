@@ -122,7 +122,7 @@ public class LogEditCommand extends Command {
             throw new CommandException(Log.MESSAGE_INVALID_ID);
         }
 
-        if (editedLog.getDuration() < 0) {
+        if (editedLog.getDuration() <= 0) {
             throw new CommandException(MESSAGE_NEGATIVE_DURATION);
         }
 
