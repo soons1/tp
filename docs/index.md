@@ -17,13 +17,11 @@ title: Elder Scrolls
 </div>
 
 
-**Elder Scrolls is a desktop volunteer management system application for managing both volunteers, and befriendees.**
-While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**Elder Scrolls** is a ___Volunteer Management System (VMS)___ designed to streamline the coordination of volunteers and befriendees, with a particular focus on elderly befriending programs. Elder Scrolls combines the _speed of CLI interaction_ with the benefits of a _Graphical User Interface (GUI)_. Whether you prefer the agility of typing or the convenience of visual interaction, Elder Scrolls ensures that your volunteer management tasks are completed swiftly and seamlessly.
 
+**Our target audience** primarily consists of _volunteer managers_ responsible for organizing and overseeing activities related to _elderly befriending initiatives_. However, with its customizable features and flexible architecture, Elder Scrolls can be extended to cater to various types of volunteer management programs with minor adjustments. Whether you're managing volunteers for elderly care, community outreach, or other social services, Elder Scrolls offers a comprehensive solution to simplify and enhance your volunteer management efforts.
 
-**Elder Scrolls**, our Volunteer Management System (VMS), simplifies organizing volunteers and befriendees. Developed for efficiency by our team, it streamlines coordination, so you can focus on what matters most – _making a difference in the lives of others_.
-
-No more cumbersome bookkeeping: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Experience efficient volunteer management – where organizing, coordinating, and connecting has never been easier.
+**No more cumbersome bookkeeping**: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Developed for efficiency by our team, ___Elder Scrolls lets you focus on what matters most – making a difference in the lives of others___.
 
 * If you are interested in using Elder Scrolls, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#1-quick-start).
 * If you are interested about developing Elder Scrolls, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
