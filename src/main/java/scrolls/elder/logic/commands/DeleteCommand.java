@@ -25,28 +25,20 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD_REMOVE = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_DELETE
-            + ": Deletes the person identified by the index number used in the displayed person list and their type.\n"
-            + "Parameters: INDEX (must be a positive integer), TYPE (volunteer or befriendee)\n"
-            + "Example: " + COMMAND_WORD_DELETE + " 1 "
-            + PREFIX_ROLE
-            + "{VOLUNTEER or BEFRIENDEE}\n"
+            + ": Deletes the person identified by the index number used in the displayed person list and their type."
+            + "\nParameters: "
+            + "INDEX "
+            + PREFIX_ROLE + "{VOLUNTEER or BEFRIENDEE} "
+            + "\nExample: " + COMMAND_WORD_DELETE + " 1 " + PREFIX_ROLE + "{VOLUNTEER or BEFRIENDEE}\n"
             + "Alternatively, you can also delete a person using the following commands as well.\n"
-            + "Example: " + COMMAND_WORD_DEL + " 1\n"
-            + PREFIX_ROLE
-            + "{VOLUNTEER or BEFRIENDEE}\n"
-            + "Example: " + COMMAND_WORD_RM + " 1\n"
-            + PREFIX_ROLE
-            + "{VOLUNTEER or BEFRIENDEE}\n"
-            + "Example: " + COMMAND_WORD_REMOVE + " 1"
-            + PREFIX_ROLE
-            + "{VOLUNTEER or BEFRIENDEE}\n";
-
+            + "Example: " + COMMAND_WORD_DEL + " 1 " + PREFIX_ROLE + "{VOLUNTEER or BEFRIENDEE}\n"
+            + "Example: " + COMMAND_WORD_RM + " 1 " + PREFIX_ROLE + "{VOLUNTEER or BEFRIENDEE}\n"
+            + "Example: " + COMMAND_WORD_REMOVE + " 1" + PREFIX_ROLE + "{VOLUNTEER or BEFRIENDEE}\n";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_DELETE_PERSON_ERROR = "Unable to delete contact: ";
-    public static final String MESSAGE_CONFIRM_DELETE =
-            "Valid contact inputted. Are you sure you want to delete this contact?";
-    public static final String MESSAGE_NO_ROLE = "Role must be specified when editing a person.";
+
+    public static final String MESSAGE_NO_ROLE = "Role must be specified when deleting a person.";
 
     private final Index targetIndex;
     private final Role role;
@@ -79,7 +71,7 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         //Check if the person to be deleted is paired with another person.
-        if (personToDelete.isPairPresent(personToDelete)) {
+        if (personToDelete.isPaired()) {
             throw new CommandException(MESSAGE_DELETE_PERSON_ERROR + Messages.MESSAGE_CONTACT_PAIRED_BEFORE_DELETE);
         }
 

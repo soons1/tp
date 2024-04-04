@@ -21,12 +21,11 @@ title: Elder Scrolls
 While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
 
-Elder Scrolls, our Volunteer Management System (VMS), simplifies organizing volunteers and befriendees. Developed for efficiency by our team, it streamlines coordination and fosters community connections.
+**Elder Scrolls**, our Volunteer Management System (VMS), simplifies organizing volunteers and befriendees. Developed for efficiency by our team, it streamlines coordination, so you can focus on what matters most – _making a difference in the lives of others_.
 
-No more cumbersome scheduling or scattered communication. Manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless emails and spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Experience efficient volunteer management – where organizing, coordinating, and connecting has never been easier.
+No more cumbersome bookkeeping: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Experience efficient volunteer management – where organizing, coordinating, and connecting has never been easier.
 
-
-* If you are interested in using Elder Scrolls, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
+* If you are interested in using Elder Scrolls, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#1-quick-start).
 * If you are interested about developing Elder Scrolls, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
