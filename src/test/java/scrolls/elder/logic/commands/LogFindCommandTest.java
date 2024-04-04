@@ -68,7 +68,7 @@ public class LogFindCommandTest {
         expectedLogStore.updateFilteredLogListByPersonId(alicePersonId);
         expectedModel.commitDatastore();
 
-        String expectedMessage = LogFindCommand.MESSAGE_SUCCESS;
+        String expectedMessage = "1 " + LogFindCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(logFindCommandAlice, model, expectedMessage, expectedModel);
     }
 
@@ -80,7 +80,7 @@ public class LogFindCommandTest {
         expectedLogStore.updateFilteredLogListByPersonId(ellePersonId);
         expectedModel.commitDatastore();
 
-        String expectedMessage = LogFindCommand.MESSAGE_SUCCESS;
+        String expectedMessage = "1 " + LogFindCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(logFindCommandElle, model, expectedMessage, expectedModel);
     }
 

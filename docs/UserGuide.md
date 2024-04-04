@@ -5,32 +5,35 @@ title: User Guide
 
 ## **Introduction - What is Elder Scrolls?**
 
-**Elder Scrolls**, our Volunteer Management System (VMS), simplifies organizing volunteers and befriendees. Developed for efficiency by our team, it streamlines coordination and fosters community connections.
+**Elder Scrolls**, our Volunteer Management System (VMS), simplifies organizing volunteers and befriendees. Developed for efficiency by our team, it streamlines coordination, so you can focus on what matters most – _making a difference in the lives of others_.
 
 Elder Scrolls, is a desktop application designed for efficient management. Optimized for use via a Command Line Interface (CLI), Elder Scrolls combines the speed of CLI interaction with the benefits of a Graphical User Interface (GUI). Whether you prefer the agility of typing or the convenience of visual interaction, Elder Scrolls ensures that your volunteer management tasks are completed swiftly and seamlessly.
 
-No more cumbersome scheduling or scattered communication. Manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless emails and spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Experience efficient volunteer management – where organizing, coordinating, and connecting has never been easier.
+No more cumbersome bookkeeping: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Experience efficient volunteer management – where organizing, coordinating, and connecting has never been easier.
 
 ## **About this User Guide**
 
 
 Welcome to the user guide for Elder Scrolls! Whether you're new or experienced, this guide has everything you need to make the most of Elder Scrolls:
 
-* Quick Start: Get started with Elder Scrolls quickly and easily.
-* Features: Explore all the functionalities of Elder Scrolls.
-* Command Summary: Find all the essential commands at a glance.
-* FAQs: Get answers to common questions about Elder Scrolls.
+* [Quick Start](#1-quick-start): Get started with Elder Scrolls quickly and easily.
+* [User Interface](#2-user-interface): Understand the intuitively simple layout of Elder Scrolls.
+* [Features](#3-features): Explore all the functionalities of Elder Scrolls.
+* [Command Summary](#8-command-summary): Find all the essential commands at a glance.
+* [FAQs](#6-faq): Get answers to common questions about Elder Scrolls.
 
 Let's dive in and maximize your Elder Scrolls experience!
 
 --------------------------------------------------------------------------------------------------------------------
+
+## **Table of Contents**
 
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **1. Setting Up**
+## **Setting Up**
 
 Before getting started with Elder Scrolls, let's ensure everything is set up for Elder Scrolls to run correctly:
 
@@ -42,7 +45,7 @@ Before getting started with Elder Scrolls, let's ensure everything is set up for
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **2. Quick Start**
+## **1. Quick Start**
 
 Once you've completed the setup, you're ready to launch Elder Scrolls! Follow these steps to get started:
 
@@ -74,12 +77,45 @@ Great! Now that you're familiar with the fundamental commands and have successfu
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **3. User Interface**
+## **2. User Interface**
 
-Elder Scrolls has a simple and intuitive user interface. The GUI is divided into two main sections: the `Persons` section and the `Logs` section.
+<div style="text-align:center;">
+  <img src="images/UserInterface.jpg" alt="Ui" width="600">
+</div>
+<div align="center">
+  <text><u> Image: User interface Layout Breakdown of Elder Scrolls </u></text>
+  <p></p>
+</div>
+
+### 2.1 Toolbar
+
+The toolbar at the top provides functionality for accessing help and exiting Elder Scrolls. The application window contains the following buttons:
+* `File`: Hovering over it opens a dropdown menu, whereby clicking on Exit exits the application!
+* `Help`: Hovering over open a dropdown menu, whereby clicking on Help F1 opens a help pop-up! See 2.5 for more info about it.
 
 
-## **4. Features**
+### 2.2 Command Input Box
+
+The command input box at the top of the application window is where you can type commands to interact with Elder Scrolls. Press `Enter` to execute the command.
+
+### 2.3 Command Output Box
+
+The command output box displays the results of the commands you have executed. It also displays error messages when an invalid command is entered. Paying close attention to the feedback provided here helps enhance your experience with Elder Scrolls!
+
+### 2.4 Befriendee List Panel
+
+This section displays all your registered befriendees, and you may filter the display using our supported find commands. The list is updated in real-time as you execute commands.
+
+### 2.5 Volunteer List Panel
+
+Similar to the Befriendee List Panel, this section displays all your registered volunteers. The volunteer list cards also support an added aggregate statistic `Time Served`, that helps you better track volunteer hours!
+
+### 2.6 Log List Panel
+
+Your Log List Panel displays all logs associated with your befriendees and volunteers.
+
+
+## **3. Features**
 
 <div markdown="block" class="alert alert-info">
 
@@ -103,9 +139,9 @@ Elder Scrolls has a simple and intuitive user interface. The GUI is divided into
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### 3.1 Volunteer / Befriendee Management
+### **3.1 Volunteer / Befriendee Management**
 
-#### Adding a Volunteer or Befriendee: `add`
+#### 3.1.1 Adding a Volunteer or Befriendee: `add`
 
 Adds a volunteer / Befriendee to the address book.
 
@@ -119,7 +155,7 @@ Examples:
 * `add n/John Doe r/volunteer p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe r/befriendee t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal t/homicide`
 
-#### Editing a person : `edit`
+#### 3.1.2 Editing a person : `edit`
 
 Edits an existing person in Elder Scrolls.
 
@@ -136,7 +172,7 @@ Examples:
 *  `edit 1 r/volunteer p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 r/befriendee n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-#### Pairing a befriendee and volunteer : `pair`
+#### 3.1.3 Pairing a befriendee and volunteer : `pair`
 
 Pairs an existing befriendee and volunteer in Elder Scrolls.
 
@@ -150,7 +186,7 @@ Examples:
 *  `pair 1 2` Pairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
 *  `pair 3 3` Pairs the befriendee at Index 3 of the befriendee list and the volunteer at Index 3 of the volunteer list.
 
-#### Unpairing a befriendee and volunteer : `unpair`
+#### 3.1.4 Unpairing a befriendee and volunteer : `unpair`
 
 Pairs an existing befriendee and volunteer in Elder Scrolls.
 
@@ -164,7 +200,7 @@ Examples:
 *  `unpair 1 2` Unpairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
 *  `unpair 3 3` Unpairs the befriendee at Index 3 of the befriendee list and the volunteer at Index 3 of the volunteer list.
 
-#### Listing all persons : `list`
+#### 3.1.5 Listing all persons : `list`
 
 Shows a list of all persons in Elder Scrolls.
 
@@ -174,7 +210,7 @@ Format: `list`
 * The list command is commonly used with the `find` command to reset the view after a search.
 
 
-#### Locating persons by name: `find`
+#### 3.1.6 Locating persons by name: `find`
 
 Find all persons whose names contain any of the given keywords. The find command also supports searches in the two
 separate Volunteer and Befriendee lists, if the role is specified. It also supports search by tags, and by pairing status.
@@ -205,9 +241,9 @@ paired volunteers with the tag `friend` and name `John`.
 Use the `list` command to reset your view after using the `find` command.
 </div>
 
-#### Deleting a person : `delete`
+#### 3.1.7 Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
 
 Format: `delete INDEX r/ROLE`
 
@@ -219,9 +255,9 @@ Examples:
 * `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the address book.
 * `find Betsy` followed by `delete 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
 
-### 3.2 Log Management
+### **3.2 Log Management**
 
-#### Adding a log : `logadd`
+#### 3.2.1 Adding a log : `logadd`
 
 Adds a log between a pair of befriendee and volunteer.  
 If it is the most recent log for a befriendee or volunteer, their `latest log` section will also be updated accordingly.
@@ -239,7 +275,7 @@ Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
 * `logadd 2 3 t/Shopping s/2020-09-09 d/2 r/bought groceries` Adds a log between the befriendee at Index 2 and the volunteer at Index 3 with the title `Shopping`, start date `2020-09-09`, duration `2` and remarks `bought groceries`.
 
-#### Editing a log : `logedit`
+#### 3.2.2 Editing a log : `logedit`
 
 Edits an existing log in Elder Scrolls.
 
@@ -255,7 +291,7 @@ Examples:
 * `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
 * `logedit 2 t/Shopping s/2020-09-09 d/2` Edits the title, start date and duration of the 2nd log to be `Shopping`, `2020-09-09` and `2` respectively.
 
-#### Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
+#### 3.2.3 Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
 
 Deletes the specified log from the address book.
 
@@ -269,7 +305,7 @@ Examples:
 * `list` followed by `logdelete 1` deletes the 1st log in the address book.
 * `logfind 1 r/befriendee` followed by `logdelete 1` deletes the 1st log in the results of the `logfind` command.
 
-#### Finding a log associated with a person: `logfind`
+#### 3.2.4 Finding a log associated with a person: `logfind`
 
 Find all logs associated with a person.
 
@@ -281,8 +317,8 @@ Format: `logfind INDEX r/ROLE`
 Examples:
 * `logfind 1 r/befriendee` returns all logs associated with the befriendee at Index 1.
 
-### 3.3 Undo and Redo commands
-#### Undo the most recent command : `undo`
+### **3.3 Undo and Redo Functionality**
+#### 3.3.1 Undo the most recent command : `undo`
 
 Undo the latest command that made a change to the data stored in Elder Scrolls.
 This excludes commands like `list`,`find` and `logfind` which do not mutate the state of any data in Elder Scrolls.
@@ -298,7 +334,7 @@ Example:
 * You have just mistakenly executed a `clear` command and cleared every entry in Elder Scrolls. You can simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
 * If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute simultaneous `undo` commands to revert the changes made by the wrongful delete commands.
 
-#### Revert the most recent undo command : `redo`
+#### 3.3.2 Revert the most recent undo command : `redo`
 
 Reverts the data stored in Elder Scrolls back to its state before the latest undo command was executed.
 
@@ -313,9 +349,9 @@ Examples:
 * Let's say you've just executed a successful `undo` command. If you were to call any command that modifies the data in Elder Scrolls, such as `delete`, the `redo` command will not longer be available.
 * Let's say you've just executed a `add`, and mistakenly executed a `undo` command right after. You can then call `redo` to once again execute the `add` that was previously undone.
 
-### 3.4 Other Commands: Help and Exiting
+### **3.4 Other Commands: Help, Clear and Exiting**
 
-#### Viewing help : `help`
+#### 3.4.1 Viewing help : `help`
 
 Shows a message explaning how to access the help page.
 
@@ -323,13 +359,13 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-#### Clearing all entries : `clear`
+#### 3.4.2 Clearing all entries : `clear`
 
 Clears all entries from Elder Scrolls.
 
 Format: `clear`
 
-#### Exiting the program : `exit`
+#### 3.4.3 Exiting the program : `exit`
 
 Exits the program.
 
@@ -350,8 +386,40 @@ Furthermore, certain edits can cause the Elder Scrolls to behave in unexpected w
 
 ## **6. FAQ**
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Elder Scrolls home folder.
+**Q**: ___Can I track volunteer hours and activities with Elder Scrolls?___ <br>
+**A**: Absolutely! Elder Scrolls includes features for logging volunteer activities, such as pairing volunteers with befriendees, recording service hours, and adding remarks. This functionality makes it easy to track volunteer contributions and monitor engagement.
+
+**Q**: ___Is Elder Scrolls suitable for managing large volunteer teams?___ <br>
+**A**: Elder Scrolls is designed to handle volunteer management tasks efficiently, whether you're managing a small team or a large group of volunteers. Its intuitive interface and robust features make it suitable for organizations of all sizes.
+
+**Q**: ___Is Elder Scrolls suitable for non-profit organizations?___ <br>
+**A**: Absolutely! Elder Scrolls is ideal for non-profit organizations looking to streamline their volunteer management processes. Whether you're coordinating volunteers for community events, outreach programs, or support services, Elder Scrolls can help simplify your workflow and enhance organizational efficiency.
+
+**Q**: ___Can I access Elder Scrolls from multiple devices?___ <br>
+**A**: Elder Scrolls is designed to be your trusty sidekick on one device at a time. So, while you can't have it on multiple gadgets simultaneously, it's always ready to lend a hand on your desktop or laptop whenever you need it.
+
+**Q**: ___Is there a way to back up my data?___ <br>
+**A**: Absolutely! Your Elder Scrolls data is like a prized possession, and just like any treasure, it's wise to keep it safe. After every tweak or change you make, your data gets automatically saved to a JSON file on your hard disk. But for that extra peace of mind, making a backup copy is never a bad idea!
+
+**Q**: ___How do I transfer my data to another computer?___ <br>
+**A**: Moving to a new computer? No problem! Simply download Elder Scrolls on the new machine and swap the sample data file it creates with your precious data from the previous Elder Scrolls home folder. Your volunteers and befriendees are ready to join you on the next adventure!
+
+**Q**:  ___What should I do if I encounter issues / want to suggest improvements for Elder Scrolls?___ <br>
+**A**: If you encounter any glitches, have questions or have suggestions, our team is here to assist you. Simply reach out to us, and we'll provide the necessary assistance to address your concerns. Alternatively, file an issue [here](https://github.com/AY2324S2-CS2103T-T09-3/tp/issues) on our GitHub repository, and we'll get back to you as soon as possible.
+
+**Q**: ___Is Elder Scrolls open source?___ <br>
+**A**: Yes, it is! Elder Scrolls is an open-source project, which means its source code is freely available for anyone to view, modify, and distribute. This open nature fosters collaboration and innovation within the community, allowing users to contribute to its development and customize it to suit their needs.
+
+**Q**: ___Is Elder Scrolls free to use?___ <br>
+**A**: Absolutely! Elder Scrolls is available free of charge, making it accessible to organizations and individuals of all sizes. Whether you're a non-profit organization, a community group, or an individual volunteer manager, you can download and use Elder Scrolls without any cost involved. Plus, being open source means you can also contribute to its ongoing development if you wish.
+
+**Q**: ___Where can I find more resources on Volunteer Management Systems?___ <br>
+**A**: If you're looking for more information on Volunteer Management Systems, you're in the right place! Our team has meticulously designed Elder Scrolls with existing VMS guidelines in mind, ensuring it aligns seamlessly with industry standards. <br>
+
+For additional resources, you can explore online forums, community groups, and volunteer management guides to learn more about best practices and strategies for effective volunteer coordination. Here are some resources we found useful:
+* [NCSS SG: Roadmap for Selection & Implementation of Volunteer Management System, A Guide for Social Service Agencies, Singapore](https://www.ncss.gov.sg/docs/default-source/ncss-press-release-doc/volunteer-management-system-selection-and-implementation-roadmap-pdf.pdf)
+* [NCVO UK: Choosing and implementing a volunteer management system](https://www.ncvo.org.uk/help-and-guidance/involving-volunteers/planning-for-volunteers/choosing-and-implementing-a-volunteer-management-system-1/)
+
 
 ## **7. Known issues**
 
@@ -366,14 +434,40 @@ Action | Format, Examples
 **Edit** | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Pair** | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`
 **Unpair** | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`
-**Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
-**Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
 **List** | `list`
+**Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
+**Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
 **LogAdd** | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
 **LogEdit** | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`
 **LogDelete** | `logdelete INDEX`<br> e.g., `logdelete 1`
 **LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
-**Clear** | `clear`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help`
+**Clear** | `clear`
+**Exit** | `exit`
+
 
 ## **9. Glossary**
+
+**Volunteer Management System (VMS)**: A digital volunteer management tool designed to aid an organisation in the management of volunteers to improve productivity and potentially enhance the volunteer experience.
+
+**Elder Scrolls**: The Volunteer Management System (VMS) developed by our team for efficiency and community connections.
+
+**Command Line Interface (CLI)**: A text-based interface used for interacting with Elder Scrolls through commands typed into a terminal or command prompt.
+
+**Graphical User Interface (GUI)**: A visual interface used for interacting with Elder Scrolls, providing intuitive controls and displays for managing volunteers, befriendees and logs.
+
+**Java 11**: The minimum version of Java required for Elder Scrolls to function properly.
+
+**Jar file**: A Java archive file containing all necessary components of Elder Scrolls for running the application.
+
+**Index**: The position or number assigned to each item in a list, used for reference when performing actions such as editing or deleting entries in Elder Scrolls.
+
+**Pairing**: The process of associating a volunteer with a befriendee in Elder Scrolls, allowing them to work together on activities or support services.
+
+**Logs**: Records of interactions, activities, or events between volunteers and befriendees in Elder Scrolls, used for tracking service hours, progress, and communication.
+
+**Backup**: A copy of Elder Scrolls data stored separately from the main application, used to safeguard against data loss or corruption.
+
+**Open Source**: Software whose source code is freely available to the public, allowing users to view, modify, and distribute it according to open-source licenses.

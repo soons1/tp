@@ -80,7 +80,7 @@ public class LogAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (duration < 0) {
+        if (duration <= 0) {
             throw new CommandException(MESSAGE_NEGATIVE_DURATION);
         }
 
@@ -171,8 +171,8 @@ public class LogAddCommand extends Command {
 
         LogAddCommand otherAddCommand = (LogAddCommand) other;
         return otherAddCommand.title.equals(title)
-            && otherAddCommand.volunteerIndex == volunteerIndex
-            && otherAddCommand.befriendeeIndex == befriendeeIndex
+            && otherAddCommand.volunteerIndex.equals(volunteerIndex)
+            && otherAddCommand.befriendeeIndex.equals(befriendeeIndex)
             && otherAddCommand.duration == duration
             && otherAddCommand.startDate.equals(startDate)
             && otherAddCommand.remarks.equals(remarks);
