@@ -32,7 +32,7 @@ public class LogFindCommand extends Command {
 
     // Sample Format: logfind 1 r/volunteer
 
-    public static final String MESSAGE_SUCCESS = "Logs found!";
+    public static final String MESSAGE_SUCCESS = "logs found!";
 
     public static final String MESSAGE_FINDLOG_PERSON_ERROR = "Unable to find logs: ";
 
@@ -70,7 +70,9 @@ public class LogFindCommand extends Command {
         int personID = personToFindLog.getPersonId();
         logStore.updateFilteredLogListByPersonId(personID);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        int logsFound = logStore.getFilteredLogList().size();
+
+        return new CommandResult(logsFound + " " + MESSAGE_SUCCESS);
     }
 
     @Override
