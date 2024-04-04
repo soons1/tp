@@ -39,6 +39,27 @@ class LogEditCommandParserTest {
     }
 
     @Test
+    void parse_someValidArgs_returnsLogEditCommand() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        formatter.setLenient(false); // to make sure that the date strictly follows the format "yyyy-MM-dd"
+        Date date;
+        try {
+            date = formatter.parse("2024-04-08");
+        } catch (java.text.ParseException e) {
+            date = new Date();
+        }
+        LogEditCommand.EditLogDescriptor editLogDescriptor =
+                new EditLogDescriptorBuilder(TypicalLogs.LOG_BENSON_TO_FIONA)
+                        .withTitle(null)
+                        .withBefriendeeIndex(null)
+                        .withVolunteerIndex(null)
+                        .withStartDate(date).build();
+
+        assertParseSuccess(parser, "1 s/2024-04-08 d/3 r/Was okay.",
+                new LogEditCommand(TypicalIndexes.INDEX_FIRST_PERSON, editLogDescriptor));
+    }
+
+    @Test
     public void parse_noArgs_throwsParseException() {
         assertParseFailure(parser, "  ",
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, LogEditCommand.MESSAGE_USAGE));
