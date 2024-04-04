@@ -50,7 +50,6 @@ public class LogStore implements ReadOnlyLogStore {
         MapChangeListener<? super Integer, ? super Log> listener = change -> {
             if (change.wasRemoved()) {
                 logList.remove(change.getValueRemoved());
-                System.out.println("removed");
                 deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getVolunteerId(),
                     change.getValueRemoved().getLogId());
                 deepRemoveId(normalisedLogsByPerson, change.getValueRemoved().getBefriendeeId(),
@@ -58,7 +57,6 @@ public class LogStore implements ReadOnlyLogStore {
             }
             if (change.wasAdded()) {
                 logList.add(change.getValueAdded());
-                System.out.println("added");
                 deepAddId(normalisedLogsByPerson, change.getValueAdded().getVolunteerId(),
                     change.getValueAdded().getLogId());
                 deepAddId(normalisedLogsByPerson, change.getValueAdded().getBefriendeeId(),

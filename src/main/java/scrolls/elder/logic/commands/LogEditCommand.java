@@ -109,7 +109,6 @@ public class LogEditCommand extends Command {
         LogStore store = model.getMutableDatastore().getMutableLogStore();
 
         List<Log> lastShownList = store.getLogList();
-        List<Person> lastShownPList = personStore.getPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_LOG_DISPLAYED_INDEX);
@@ -128,8 +127,8 @@ public class LogEditCommand extends Command {
 
         int durationDiff = editedLog.getDuration() - logToEdit.getDuration();
 
-        Person befriendee = lastShownPList.get(logToEdit.getBefriendeeId());
-        Person volunteer = lastShownPList.get(logToEdit.getVolunteerId());
+        Person befriendee = personStore.getPersonFromID(logToEdit.getBefriendeeId());
+        Person volunteer = personStore.getPersonFromID(logToEdit.getVolunteerId());
 
         Integer latestLogIdBefriendee = getLatestLogId(befriendee, editedLog, store, editedLog.getLogId());
         Integer latestLogIdVolunteer = getLatestLogId(volunteer, editedLog, store, editedLog.getLogId());
