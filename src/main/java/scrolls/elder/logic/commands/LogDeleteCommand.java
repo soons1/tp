@@ -75,8 +75,8 @@ public class LogDeleteCommand extends Command {
         int durationToDelete = logToDelete.getDuration();
 
         // Update the timeServed of the volunteer and befriendee
-        Person volunteer = lastShownPList.get(logToDelete.getVolunteerId());
-        Person befriendee = lastShownPList.get(logToDelete.getBefriendeeId());
+        Person volunteer = personStore.getPersonFromID(logToDelete.getVolunteerId());
+        Person befriendee = personStore.getPersonFromID(logToDelete.getBefriendeeId());
 
         Optional<Integer> latestLogIdBefriendee =
                 getLatestLogId(befriendee, logToDelete, logStore, logToDelete.getLogId());
