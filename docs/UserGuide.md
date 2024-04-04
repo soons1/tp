@@ -260,7 +260,7 @@ Use the `list` command to reset your view after using the `find` command.
 [//]: # (Page Break:)
 <div style="page-break-after: always;"> </div> 
 
-#### 3.1.7 Deleting a person : `delete`
+#### 3.1.7 Deleting a person : `delete`, `del`, `remove`, `rm`
 
 Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
 
@@ -272,7 +272,7 @@ Format: `delete INDEX r/ROLE`
 
 Examples:
 * `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the address book.
-* `find Betsy` followed by `delete 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
+* `find Betsy` followed by `del 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
 
 --------------------------------------------------------------------------------------------------------------------
 [//]: # (Page Break:)
