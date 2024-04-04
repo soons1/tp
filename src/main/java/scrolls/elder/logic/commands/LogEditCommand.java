@@ -41,7 +41,7 @@ public class LogEditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the log specified "
             + "by the log index number used in the displayed log list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: LOG_INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + "[" + PREFIX_TITLE + "TITLE] "
             + "[" + PREFIX_START + "START_DATE (yyyy-MM-dd)] "
             + "[" + PREFIX_DURATION + "DURATION (in hours)] "

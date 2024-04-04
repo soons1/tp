@@ -37,7 +37,7 @@ public class LogDeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_LOG_DELETE
             + ": Deletes the log identified by the index number used in the displayed log list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX \n"
             + "Example: " + COMMAND_WORD_LOG_DELETE + " 1\n"
             + "Alternatively, you can also delete a log using the following commands as well.\n"
             + "Example: " + COMMAND_WORD_LOG_DEL + " 1\n"
