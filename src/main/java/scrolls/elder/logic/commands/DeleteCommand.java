@@ -83,9 +83,14 @@ public class DeleteCommand extends Command {
             throw new CommandException(MESSAGE_DELETE_PERSON_ERROR + Messages.MESSAGE_CONTACT_PAIRED_BEFORE_DELETE);
         }
 
+        //Check if the person has logs in Elder Scrolls
+        if (personToDelete.isLatestLogPresent()) {
+            throw new CommandException(MESSAGE_DELETE_PERSON_ERROR + Messages.MESSAGE_CONTACT_LOG_BEFORE_DELETE);
+        }
+
         store.removePerson(personToDelete);
-        model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)));
     }
 

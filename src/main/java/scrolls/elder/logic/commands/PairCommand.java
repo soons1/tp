@@ -121,8 +121,8 @@ public class PairCommand extends Command {
 
         store.setPerson(personToPair1, newPerson1);
         store.setPerson(personToPair2, newPerson2);
-        model.commitDatastore();
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.commitDatastore();
 
         return new CommandResult(
                 String.format(MESSAGE_PAIR_SUCCESS,

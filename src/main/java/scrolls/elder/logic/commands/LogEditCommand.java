@@ -141,6 +141,8 @@ public class LogEditCommand extends Command {
         personStore.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         store.setLog(editedLog);
+        store.updateFilteredLogList(LogStore.PREDICATE_SHOW_ALL_LOGS);
+        store.updateFilteredLogListByPersonId(null);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }

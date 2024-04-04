@@ -3,6 +3,7 @@ package scrolls.elder.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import scrolls.elder.logic.commands.exceptions.CommandException;
+import scrolls.elder.model.LogStore;
 import scrolls.elder.model.Model;
 
 /**
@@ -22,6 +23,8 @@ public class UndoCommand extends Command {
 
         model.undoChanges();
         model.getDatastore().getPersonStore().updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        model.getDatastore().getLogStore().updateFilteredLogList(LogStore.PREDICATE_SHOW_ALL_LOGS);
+        model.getDatastore().getLogStore().updateFilteredLogListByPersonId(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

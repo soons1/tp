@@ -24,6 +24,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_CONTACT_PAIRED_BEFORE_DELETE =
             "Contact is paired. Please unpair before deleting.";
+    public static final String MESSAGE_CONTACT_LOG_BEFORE_DELETE =
+            "Contact has a log in Elder Scrolls. Please delete the log before deleting the contact.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
