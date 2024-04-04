@@ -470,10 +470,10 @@ Action | Format, Examples
 **Unpair** | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`
 **List** | `list`
 **Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
-**Delete** | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
+**Delete** | `delete INDEX r/ROLE`<br> `del INDEX r/ROLE`<br> `remove INDEX r/ROLE`<br> `rm INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
 **LogAdd** | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
 **LogEdit** | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`
-**LogDelete** | `logdelete INDEX`<br> e.g., `logdelete 1`
+**LogDelete** | `logdelete INDEX`<br> `logdel INDEX`<br> `logremove INDEX`<br> `logrm INDEX`<br> e.g., `logdelete 1`
 **LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
 **Undo** | `undo`
 **Redo** | `redo`
