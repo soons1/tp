@@ -3,6 +3,8 @@ package scrolls.elder.logic.parser;
 import static scrolls.elder.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static scrolls.elder.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import java.util.stream.Stream;
+
 import scrolls.elder.commons.core.index.Index;
 import scrolls.elder.logic.commands.DeleteCommand;
 import scrolls.elder.logic.parser.exceptions.ParseException;
@@ -12,6 +14,10 @@ import scrolls.elder.logic.parser.exceptions.ParseException;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -19,20 +25,23 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ROLE);
-            Index index;
-            try {
-                index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            } catch (ParseException pe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE),
-                        pe);
-            }
-            return new DeleteCommand(index, ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ROLE);
+        Index index;
+
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_ROLE)) {
+            throw new ParseException(String.format(DeleteCommand.MESSAGE_NO_ROLE, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(CliSyntax.PREFIX_ROLE);
+
+        index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        return new DeleteCommand(index, ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
+
     }
 
 }

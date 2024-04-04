@@ -5,7 +5,6 @@ import static scrolls.elder.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import scrolls.elder.logic.Messages;
 import scrolls.elder.logic.commands.DeleteCommand;
 import scrolls.elder.model.person.Role;
 import scrolls.elder.testutil.TypicalIndexes;
@@ -31,6 +30,6 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                String.format(DeleteCommand.MESSAGE_NO_ROLE, DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -33,7 +33,7 @@ public class EditCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no role specified
-        CommandParserTestUtil.assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "1", EditCommand.MESSAGE_NO_ROLE);
 
         // no field specified
         CommandParserTestUtil.assertParseFailure(parser, "1" + ROLE_VOLUNTEER, EditCommand.MESSAGE_NOT_EDITED);
