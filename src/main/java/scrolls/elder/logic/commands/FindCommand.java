@@ -63,18 +63,19 @@ public class FindCommand extends Command {
         requireNonNull(model);
 
         PersonStore store = model.getMutableDatastore().getMutablePersonStore();
+        Predicate<Person> combinedPredicate = getCombinedPredicate();
 
         assert (isSearchingVolunteer || isSearchingBefriendee)
                 : "At least one or both isSearchingVolunteer and isSearchingBefriendee should be true.";
 
         if (isSearchingVolunteer && isSearchingBefriendee) {
-            return searchAllPersons(store);
+            return searchAllPersons(store, combinedPredicate);
 
         } else if (isSearchingVolunteer) {
-            return searchVolunteerOnly(store);
+            return searchVolunteerOnly(store, combinedPredicate);
 
         } else {
-            return searchBefriendeeOnly(store);
+            return searchBefriendeeOnly(store, combinedPredicate);
         }
 
     }
@@ -98,16 +99,14 @@ public class FindCommand extends Command {
         return predicates.stream().reduce(Predicate::and).orElse(person -> true);
     }
 
-    private CommandResult searchAllPersons(PersonStore store) {
-        Predicate<Person> combinedPredicate = getCombinedPredicate();
+    private CommandResult searchAllPersons(PersonStore store, Predicate<Person> combinedPredicate) {
         store.updateFilteredPersonList(combinedPredicate);
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, store.getFilteredPersonList().size()));
     }
 
-    private CommandResult searchVolunteerOnly(PersonStore store) {
-        Predicate<Person> combinedPredicate = getCombinedPredicate();
+    private CommandResult searchVolunteerOnly(PersonStore store, Predicate<Person> combinedPredicate) {
         store.updateFilteredVolunteerList(combinedPredicate);
 
         return new CommandResult(
@@ -116,8 +115,7 @@ public class FindCommand extends Command {
                         "volunteer"));
     }
 
-    private CommandResult searchBefriendeeOnly(PersonStore store) {
-        Predicate<Person> combinedPredicate = getCombinedPredicate();
+    private CommandResult searchBefriendeeOnly(PersonStore store, Predicate<Person> combinedPredicate) {
         store.updateFilteredBefriendeeList(combinedPredicate);
 
         return new CommandResult(
