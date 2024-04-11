@@ -152,10 +152,18 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 #### 3.1.1 Adding a Volunteer or Befriendee: `add`
 
-Adds a volunteer / Befriendee to the address book.
+Adds a volunteer/befriendee to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-Where `ROLE` must be either `volunteer` or `befriendee` to add a volunteer or befriendee respectively.
+
+Constraints:
+* `n/NAME` must be alphanumeric and cannot be empty.
+* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
+* `e/EMAIL` must be a valid email address.
+* `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
+* `t/TAG` must be alphanumeric.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
@@ -170,6 +178,15 @@ Edits an existing person in Elder Scrolls.
 
 Format: `edit INDEX r/ROLE [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
+Constraints:
+* `n/NAME` must be alphanumeric and cannot be empty.
+* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
+* `e/EMAIL` must be a valid email address.
+* `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
+* `t/TAG` must be alphanumeric.
+
+Additional Information:
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
