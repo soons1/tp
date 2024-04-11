@@ -67,7 +67,7 @@ Here are some commands to get you started:
 
    * `list` : Lists all befriendee and volunteer contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/volunteer` : Adds a volunteer named `John Doe` to the Elder Scrolls.
+   * ```add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/volunteer``` : Adds a volunteer named `John Doe` to the Elder Scrolls.
 
    * `delete 4 r/volunteer ` : Deletes the 4th contact shown in the current list.
 
