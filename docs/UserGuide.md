@@ -377,7 +377,7 @@ Examples:
 #### 3.3.1 Undo the most recent command : `undo`
 
 Undo the latest command that made a change to the data stored in Elder Scrolls.
-This excludes commands like `list`,`find` and `logfind` which do not mutate the state of any data.
+This excludes commands like `list`,`find` and `logfind` which do not change any data stored in Elder Scrolls.
 
 Format: `undo`
 
@@ -386,9 +386,9 @@ Format: `undo`
 * At every launch of the application, there will be no commands to be undone.
 * Undo history will be erased when you exit the application.
 
-Example:
-* If you mistakenly executed a `clear` command, clearing every entry in Elder Scrolls, fret not. Simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
-* If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute simultaneous `undo` commands to revert the changes made by the wrongful delete commands.
+Examples:
+* You have just mistakenly executed a `clear` command and cleared every entry in Elder Scrolls. You can simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
+* If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute multiple `undo` commands to revert the changes made by the wrongful delete commands.
 
 #### 3.3.2 Revert the most recent undo command : `redo`
 
