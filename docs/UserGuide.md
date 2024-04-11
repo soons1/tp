@@ -425,10 +425,9 @@ Examples:
 
 #### 3.4.1 Viewing help : `help`
 
-Shows a message explaning how to access the help page. <br/>
+Shows a message explaining how to access the help page. <br/>
 Format: `help`
 
-[//]: # (![help message]&#40;images/helpMessage.png&#41;)
 <div style="text-align:center;">
   <img src="images/helpMessage.png" alt="helpMessage" width="400">
   <p></p>
@@ -501,33 +500,30 @@ For additional resources, you can explore online forums, community groups, and v
 ## **7. Known issues**
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. The application is not currently optimised for 'extreme' inputs (e.g., a person name with 1000 characters, an index that exceeds the range of int), support will be added in a future version.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **8. Command summary**
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/88889999 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Edit** | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Pair** | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`
-**Unpair** | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`
-**List** | `list`
-**Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
-**Delete** | `delete INDEX r/ROLE`<br> `del INDEX r/ROLE`<br> `remove INDEX r/ROLE`<br> `rm INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
-**LogAdd** | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
-**LogEdit** | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`
-**LogDelete** | `logdelete INDEX`<br> `logdel INDEX`<br> `logremove INDEX`<br> `logrm INDEX`<br> e.g., `logdelete 1`
-**LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
-**Undo** | `undo`
-**Redo** | `redo`
-**Help** | `help`
-**Clear** | `clear`
-**Exit** | `exit`
-
---------------------------------------------------------------------------------------------------------------------
-[//]: # (Page Break:)
-<div style="page-break-after: always;"> </div> 
+| Action        | Format, Examples                                                                                                                                                                         |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/88889999 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Edit**      | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
+| **Pair**      | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`                                                                                                                             |
+| **Unpair**    | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`                                                                                                                         |
+| **List**      | `list`                                                                                                                                                                                   |
+| **Find**      | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`                                                                  |
+| **Delete**    | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`                                                                                                                                  |
+| **LogAdd**    | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`                                       |
+| **LogEdit**   | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`                                                          |
+| **LogDelete** | `logdelete INDEX`<br> e.g., `logdelete 1`                                                                                                                                                |
+| **LogFind**   | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`                                                                                                                                |
+| **Undo**      | `undo`                                                                                                                                                                                   |
+| **Redo**      | `redo`                                                                                                                                                                                   |
+| **Help**      | `help`                                                                                                                                                                                   |
+| **Clear**     | `clear`                                                                                                                                                                                  |
+| **Exit**      | `exit`                                                                                                                                                                                   |
 
 ## **9. Glossary**
 
