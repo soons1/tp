@@ -7,7 +7,7 @@ title: User Guide
 
 **Elder Scrolls** is a ___Volunteer Management System (VMS)___ designed to streamline the coordination of volunteers and befriendees, with a particular focus on elderly befriending programs. Elder Scrolls combines the _speed of CLI interaction_ with the benefits of a _Graphical User Interface (GUI)_. Whether you prefer the agility of typing or the convenience of visual interaction, Elder Scrolls ensures that your volunteer management tasks are completed swiftly and seamlessly.
 
-**Our target audience** primarily consists of _volunteer managers_ responsible for organizing and overseeing activities related to _elderly befriending initiatives_. However, with its customizable features and flexible architecture, Elder Scrolls can be extended to cater to various types of volunteer management programs with minor adjustments. Whether you're managing volunteers for elderly care, community outreach, or other social services, Elder Scrolls offers a comprehensive solution to simplify and enhance your volunteer management efforts.
+**Our target audience** primarily consists of _volunteer managers_ responsible for organizing and overseeing activities related to _elderly befriending initiatives_. Whether you're managing volunteers for elderly care, community outreach, or other social services, Elder Scrolls offers a comprehensive solution to simplify and enhance your volunteer management efforts.
 
 **No more cumbersome bookkeeping**: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Developed for efficiency by our team, ___Elder Scrolls lets you focus on what matters most – making a difference in the lives of others___.
 
@@ -225,6 +225,20 @@ Format: `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 * The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
 * The befriendee and volunteer must be paired with each other before they can be unpaired.
 
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:** <br>
+
+Unpairing can be greatly simplified with the help of the `find` command.
+For example, let's say you would like to unpair `David Li`.
+1. Find the name of David's partner by using `find David`, and looking at the `Paired with:` field.
+2. Let's say his partner's name is `Alex`, now use `find --paired David Alex` to list only David and his partner.
+3. Use `unpair 1 1` to unpair David and his partner, as they will likely be the only people listed.
+
+The same strategy can be applied any time you wish to find who a person is paired with specifically.
+
+</div>
+
 Examples:
 *  `unpair 1 2` Unpairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
 *  `unpair 3 3` Unpairs the befriendee at Index 3 of the befriendee list and the volunteer at Index 3 of the volunteer list.
@@ -425,7 +439,7 @@ Examples:
 
 #### 3.4.1 Viewing help : `help`
 
-Shows a message explaining how to access the help page. <br/>
+Shows a message explaining how to access the help page/user guide. <br/>
 Format: `help`
 
 <div style="text-align:center;">
