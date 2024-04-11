@@ -128,6 +128,9 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 **:information_source: Notes about the command format:**<br>
 
+* For all commands which require a `INDEX` (e.g., `VOLUNTEER_INDEX`), the index refers to the index number shown in the displayed person list.
+  The indexes provided **must be indexes of people currently displayed in the person lists**.
+
 * Words in `UPPER_CASE` are placeholders to represent parameters that should be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
@@ -165,7 +168,7 @@ Constraints:
 * `t/TAG` must be alphanumeric.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags (including 0).
 </div>
 
 Examples:
@@ -181,18 +184,17 @@ Format: `edit INDEX r/ROLE [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…�
 Constraints:
 * `n/NAME` must be alphanumeric and cannot be empty.
 * `p/PHONE_NUMBER` must be a at least 3 digits long.
-* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
+* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will edit either a volunteer or befriendee respectively.
 * `e/EMAIL` must be a valid email address.
 * `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
 * `t/TAG` must be alphanumeric.
 
 Additional Information:
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX` for the list corresponding to the provided role. For example, if `r/volunteer` is provided, the person at the `INDEX` in the volunteer list will be edited.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
 Examples:
 *  `edit 1 r/volunteer p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -207,9 +209,8 @@ Pairs an existing befriendee and volunteer in Elder Scrolls.
 
 Format: `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
-* The index refers to the index number shown in the displayed person list.
-* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
-* Both Persons must not be paired, or must be unpaired before pairing again.
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
+* Neither of the two people should be paired, if they are, they must be unpaired before pairing again.
 
 Examples:
 *  `pair 1 2` Pairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
@@ -221,8 +222,7 @@ Pairs an existing befriendee and volunteer in Elder Scrolls.
 
 Format: `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
-* The index refers to the index number shown in the displayed person list.
-* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
 * The befriendee and volunteer must be paired with each other before they can be unpaired.
 
 Examples:
@@ -235,9 +235,8 @@ Shows a list of all persons in Elder Scrolls.
 
 Format: `list`
 
-* Persons are listed in the order they were added.
+* Persons are listed in the order they were added, from earliest to latest.
 * The list command is commonly used with the `find` command to reset the view after a search.
-
 
 #### 3.1.6 Locating persons: `find`
 
@@ -310,17 +309,18 @@ Use the `list` command to reset your view after using the `find` command.
 
 #### 3.1.7 Deleting a person : `delete`, `del`, `remove`, `rm`
 
-Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
+Deletes the specified person from Elder Scrolls.
 
 Format: `delete INDEX r/ROLE`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the person at the specified `INDEX`, for the list corresponding to the provided role.
+* The deleted person must not be paired with any other person.
+* Deletion is not allowed if there exists associated logs to the person. 
+* As such, a paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data.
 
 Examples:
-* `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the address book.
-* `find Betsy` followed by `del 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
+* `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the application.
+* `find Betsy` followed by `del 1 r/befriendee` Deletes the 1st befriendee found with `Betsy` in their name.
 
 --------------------------------------------------------------------------------------------------------------------
 [//]: # (Page Break:)
@@ -365,8 +365,6 @@ Deletes the specified log from the address book.
 Format: `delete INDEX`
 
 * Deletes the log at the specified `INDEX`.
-* The index refers to the index number shown in the displayed log list.
-* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `logdelete 1` deletes the 1st log in the address book.
@@ -378,8 +376,7 @@ Find all logs associated with a person.
 
 Format: `logfind INDEX r/ROLE`
 
-* The index refers to the index number shown in either the befriendee or volunteer list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Find all logs associated with the person at the specified `INDEX`, for the list corresponding to the provided role.
 
 Examples:
 * `logfind 1 r/befriendee` returns all logs associated with the befriendee at Index 1.
