@@ -222,38 +222,69 @@ Format: `list`
 * The list command is commonly used with the `find` command to reset the view after a search.
 
 
-#### 3.1.6 Locating persons by name: `find`
+#### 3.1.6 Locating persons: `find`
 
-Find all persons whose names contain any of the given keywords. The find command also supports searches in the two
-separate Volunteer and Befriendee lists, if the role is specified. It also supports search by tags, and by pairing status.
-The order in which the role, tags or pair flag is specified does not matter.
+Find persons through a variety of filters.
 
-Format: `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...`
+Format: `find [FILTERS]`
+Alternative format: `search [FILTERS]`
 
-* An alias for the command is `search`.
-* The search is **case-insensitive**. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
-* If **Role** is specified, search will be limited to the specified respective List.
-* If **pairing status** is specified, search will show only paired/unpaired persons accordingly. 
-* Keyword only searches on name. Tag search is also supported, by adding in appropriate tags..
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+**At least 1** filter must be provided. 
+The following filters are supported:
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find r/volunteer John` returns only the `John Doe` present in the volunteer list. 
-* `find t/friend` returns all persons with the tag `friend`.
-* `find --paired` returns all persons who are paired.
-* Mix and match to customize your search! e.g. `find r/volunteer t/friend --paired John` returns all 
-paired volunteers with the tag `friend` and name `John`.
-* `find alex david` returns: <br>
+* By name: `NAME`
+* By pairing status: `--paired` or `--unpaired`
+* By tag: `t/TAG`
+* By role: `r/ROLE`
 
-<div style="text-align:center;">
-  <img src="images/findAlexDavidResult.png" alt="result for 'find alex david'" width="400">
-  <p></p>
+##### By name: `NAME`
+
+In its most basic form, the command requires a single _case-insensitive_ `NAME` filter, which will filter both lists for all persons whose **names** contain the given `NAME`. Only full words will be matched.
+
+Example: `find david` (finds all persons with `David`, `david`, etc. in their names, but will not find `Davidson` or `Davidsonson`)
+
+`NAME` is also the **only** filter which can be provided multiple times. Providing multiple `NAME` filters will return all persons whose names contain any of the given `NAME`s.
+
+Example: `find David Yeoh` (finds all persons with `David` _or_ `Yeoh` in their names, like `David Li`, `Alex Yeoh`, and even `Yeoh David`)
+
+##### By pairing status: `--paired` or `--unpaired`
+
+If the `--paired` or `--unpaired` filter is provided, the search will be limited to either paired or non-paired persons.
+
+Examples: 
+* `find --unpaired` (finds all unpaired persons)
+* `find --paired David` (finds all paired persons with `David` in their names)
+
+##### By tag: `t/TAG`
+
+If the _case-sensitive_ `t/TAG` filter is provided, the search will be limited to persons with the specified tag(s).
+
+Example: `find t/friend` (finds all persons who have the tag `friend`)
+
+##### By role: `r/ROLE`
+
+The `r/ROLE` filter is provided, the search will be limited to the specified list. The other list remains unaffected.
+Only two versions of this filter are allowed: `r/volunteer` and `r/befriendee`.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Disclaimer:**
+The `r/ROLE` filter can only be applied together with another filter. It cannot be used on its own.
 </div>
 
-<div markdown="span" class="alert alert-primary">:bulb: **Pro-Tip:**
+Example: `find r/volunteer David` (finds all volunteers with `David` in their names, the befriendee list remains unfiltered)
+
+##### Combining filters
+
+* Different types of filters can be combined to narrow down the search results further.
+* When multiple filters are provided, each filter should be separated by a space. 
+* The order in which filters are provided does not matter.
+
+Examples:
+* `find alex david`
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find r/volunteer t/student --paired Bernice` (finds all paired volunteers with the tag `student` and name containing `Bernice`)
+  ![result for 'find Bernice'](images/findBerniceResult.png)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the `list` command to reset your view after using the `find` command.
 </div>
 
