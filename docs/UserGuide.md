@@ -334,11 +334,10 @@ Adds a log between a pair of befriendee and volunteer. If it is the most recent 
 
 Format: `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
-* The index refers to the respective index number shown in the befriendee and volunteer lists.
-* The two Persons must be paired before a log can be added.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The `START_DATE` must be in the format `YYYY-MM-DD`.
-* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
+* The two persons must be paired before a log can be added.
+* The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
+* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 
 Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
@@ -350,11 +349,11 @@ Edits an existing log in Elder Scrolls.
 
 Format: `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`
 
-* Edits the log at the specified `INDEX`. The index refers to the index number shown in the displayed log list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the log at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The `START_DATE` must be in the format `YYYY-MM-DD`.
-* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+* The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
+* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 
 Examples:
 * `logedit 1 t/Cinema Visit s/2020-01-10 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
