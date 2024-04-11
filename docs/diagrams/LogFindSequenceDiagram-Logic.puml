@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":LogFindCommandParser" as LogFindCommandParser LOGIC_COLOR
+participant "p:LogFindCommand" as LogFindCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("logfind ...")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("logfind ...")
+activate AddressBookParser
+
+create LogFindCommandParser
+AddressBookParser -> LogFindCommandParser
+activate LogFindCommandParser
+LogFindCommandParser --> AddressBookParser
+deactivate LogFindCommandParser
+
+AddressBookParser -> LogFindCommandParser : parse("...")
+activate LogFindCommandParser
+
+create LogFindCommand
+LogFindCommandParser -> LogFindCommand
+activate LogFindCommand
+
+LogFindCommand --> LogFindCommandParser
+deactivate LogFindCommand
+
+LogFindCommandParser --> AddressBookParser : f
+deactivate LogFindCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.'
+LogFindCommandParser -[hidden]-> AddressBookParser
+destroy LogFindCommandParser
+
+AddressBookParser --> LogicManager : u
+deactivate AddressBookParser
+
+LogicManager -> LogFindCommand : execute()
+activate LogFindCommand
+
+ref over LogFindCommand : Execute LogFindCommand
+
+
+
+LogFindCommand --> LogicManager : result
+deactivate LogFindCommand
+LogFindCommand -[hidden]-> LogicManager : result
+destroy LogFindCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

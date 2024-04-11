@@ -44,32 +44,32 @@ public class SampleDataUtil {
         final Name irfanIbrahimName = new Name("Irfan Ibrahim");
 
         return new Person[]{
-            new Volunteer(alexYeohName, new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("experienced"), Optional.of(davidLiName), Optional.of(3), 3,
-                    Optional.of(1)),
-            new Volunteer(berniceYuName, new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("new", "student"), Optional.of(irfanIbrahimName), Optional.of(4), 3,
-                    Optional.of(2)),
-            new Volunteer(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), Collections.<Tag>emptySet(),
-                    pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoId),
+                new Volunteer(alexYeohName, new Phone("87438807"), new Email("alexyeoh@example.com"),
+                        new Address("Blk 30 Geylang Street 29, #06-40"),
+                        getTagSet("experienced"), Optional.of(davidLiName), Optional.of(3), 3,
+                        Optional.of(1)),
+                new Volunteer(berniceYuName, new Phone("99272758"), new Email("berniceyu@example.com"),
+                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                        getTagSet("new", "student"), Optional.of(irfanIbrahimName), Optional.of(4), 3,
+                        Optional.of(2)),
+                new Volunteer(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), Collections.<Tag>emptySet(),
+                        pairedWithNone, pairedWithNoID, sampleTimeServed,
+                        latestLogNoId),
 
 
-            new Befriendee(davidLiName, new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("handicapped"), Optional.of(alexYeohName), Optional.of(0), 3,
-                    Optional.of(1)),
-            new Befriendee(irfanIbrahimName, new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("livesAlone"), Optional.of(berniceYuName), Optional.of(1), 3,
-                    Optional.of(2)),
-            new Befriendee(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("diabetic"), pairedWithNone, pairedWithNoID, sampleTimeServed,
-                    latestLogNoId)
+                new Befriendee(davidLiName, new Phone("91031282"), new Email("lidavid@example.com"),
+                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                        getTagSet("handicapped"), Optional.of(alexYeohName), Optional.of(0), 3,
+                        Optional.of(1)),
+                new Befriendee(irfanIbrahimName, new Phone("92492021"), new Email("irfan@example.com"),
+                        new Address("Blk 47 Tampines Street 20, #17-35"),
+                        getTagSet("livesAlone"), Optional.of(berniceYuName), Optional.of(1), 3,
+                        Optional.of(2)),
+                new Befriendee(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+                        new Address("Blk 45 Aljunied Street 85, #11-31"),
+                        getTagSet("diabetic"), pairedWithNone, pairedWithNoID, sampleTimeServed,
+                        latestLogNoId)
         };
     }
 
@@ -91,9 +91,9 @@ public class SampleDataUtil {
 
 
         return new Log[]{
-            logAlexToDavid1,
-            logAlexToDavid2,
-            logBerniceToIrfan
+                logAlexToDavid1,
+                logAlexToDavid2,
+                logBerniceToIrfan
         };
 
     }
@@ -120,8 +120,8 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-            .map(Tag::new)
-            .collect(Collectors.toSet());
+                .map(Tag::new)
+                .collect(Collectors.toSet());
     }
 
 }

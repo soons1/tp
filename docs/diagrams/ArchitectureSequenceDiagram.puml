@@ -20,16 +20,22 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
+logic -[LOGIC_COLOR]> model : commitDatastore()
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> storage : commitDatastore()
 activate storage STORAGE_COLOR
 
-storage -[STORAGE_COLOR]> storage : Save to file
+storage -[STORAGE_COLOR]> storage : add(datastore)
 activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> storage
 deactivate storage
 
-storage --[STORAGE_COLOR]> logic
+storage --[STORAGE_COLOR]> model
 deactivate storage
+
+model -[MODEL_COLOR]-> logic
+deactivate model
 
 logic --[LOGIC_COLOR]> ui
 deactivate logic

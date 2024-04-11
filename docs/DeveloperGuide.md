@@ -54,7 +54,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1 r/volunteer`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -94,9 +94,9 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1 r/volunteer")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete 1 r/volunteer` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
@@ -131,6 +131,8 @@ The `Model` component,
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 #### Datastore
+
+<img src="images/DatastoreClassDiagram.png" width="600" />
 
 Contains the `PersonStore`:
 
@@ -230,19 +232,27 @@ The following sequence diagram shows how a Find operation goes through the `Logi
 
 
 
-### Pair feature
+### Pair/Unpair feature
 
 #### Implementation
 
-The pair mechanism is facilitated by updating the `pairedWithName` and `pairedWithId` fields of the `Person` object. Two paired `Person`s will have their `pairedWithName` and `pairedWithId` fields updated to reflect the `name` and `personId` of the `Person` they are paired with.
-
-The `name` is saved to facilitate easy identification of the paired `Person` when displaying the `Person` object. The `personId` is saved to facilitate easy retrieval of the paired `Person` object when needed.
+**`PairCommand` & `UnpairCommand` Class:** <br>
 
 The `PairCommand` class is responsible for pairing two persons, and the `UnpairCommand` class is responsible for unpairing two persons. The `PairCommand` and `UnpairCommand` classes are executed by the `Logic` component.
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+The pair and unpair commands are facilitated by updating the `pairedWithName` and `pairedWithId` fields of the `Person` object. Two paired `Person`s will have their `pairedWithName` and `pairedWithId` fields updated to reflect the `name` and `personId` of the `Person` they are paired with, or removed when they are unpaired
+
+The `name` is saved to facilitate easy identification of the paired `Person` when displaying the `Person` object. The `personId` is saved to facilitate easy retrieval of the paired `Person` object when needed.
+
+The following sequence diagram shows how a pair operation goes through the `Logic` component:
 
 ![PairSequenceDiagram](images/PairSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/PairSequenceDiagram2.png" alt="PairSequenceDiagram2" width="600">
+</div>
+
+For the unpair operation, the sequence diagram is similar to the pair operation, with the `UnpairCommand` class executing the unpair operation.
 
 #### Design considerations:
 
@@ -265,7 +275,13 @@ The Add Log feature allows users to add a new log entry to the application.
 
 The `LogAddCommand` class is responsible for creating a new log entry, and the `LogAddCommandParser` class is responsible for parsing the user input to create a `LogAddCommand` object.
 
-The `LogAddCommand` class is executed by the `Logic` component.
+The following sequence diagram shows how a LogAdd operation goes through the `Logic` component:
+
+![LogAddSequenceDiagram](images/LogAddSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/LogAddSequenceDiagram2.png" alt="LogAddSequenceDiagram2" width="600">
+</div>
 
 #### Design Considerations
 
@@ -298,7 +314,13 @@ The edit log feature allows user to modify the details of an existing log entry 
 The `LogEditCommand` class is responsible for editing the details of a log entry,
 and the `LogEditCommandParser` class is responsible for parsing the user input to create a `LogEditCommand` object.
 
-The `LogEditCommand` class is executed by the `Logic` component.
+The following sequence diagram shows how a LogEdit operation goes through the `Logic` component:
+
+![LogEditSequenceDiagram](images/LogEditSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/LogEditSequenceDiagram2.png" alt="LogEditSequenceDiagram2" width="600">
+</div>
 
 #### Design Considerations
 
@@ -314,7 +336,65 @@ The `LogEditCommand` class is executed by the `Logic` component.
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
     * Cons: Restricts the flexibility of the `LogEdit` feature
 
-### Undo/redo feature
+### Delete Log feature
+
+#### Implementation
+
+The Delete Log feature allows users to delete an existing log entry in the application.
+
+The `LogDeleteCommand` class is responsible for deleting an existing log entry, and the `LogDeleteCommandParser` class is responsible for parsing the user input to create a `LogDeleteCommand` object.
+
+The following sequence diagram shows how a LogDelete operation goes through the `Logic` component:
+
+![LogDeleteSequenceDiagram](images/LogDeleteSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/LogDeleteSequenceDiagram2.png" alt="LogDeleteSequenceDiagram2" width="600">
+</div>
+
+#### Design Considerations
+
+**Aspect: How to update the `latestLogId` attribute of Persons when log is deleted:**
+
+* **Alternative 1 (current choice):** A helper function that finds the `latestLogId` attribute of the `Person` objects when a log is deleted, in order to update the latest log if necessary.
+    * Pros: Ensures that `latestLogId`is accurately updated and displayed when logs are deleted.
+    * Cons: Two new `Person` objects are created whenever a log is deleted
+
+* **Alternative 2:** Leave the updating of the latest log to the `Model` component
+    * Pros: Simplifies the process of deleting a log entry.
+    * Cons: Another component of the application must be responsible for updating the `latestLogId` attribute of the `Person` objects.
+
+
+### Find Log feature
+
+#### Implementation
+
+The Find Log feature allows users to find a particular log entry that is displayed in the log list in the application.
+
+The `LogFindCommand` class is responsible for finding an existing log entry, and the `LogFindCommandParser` class is responsible for parsing the user input to create a `LogFindCommand` object.
+
+The following sequence diagram shows how a LogFind operation goes through the `Logic` component:
+
+![LogFindSequenceDiagram](images/LogFindSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/LogFindSequenceDiagram2.png" alt="LogFindSequenceDiagram2" width="600">
+</div>
+
+#### Design Considerations
+
+**Aspect: How to specify what logs to find:**
+
+* **Alternative 1 (current choice):** Logs of a specified person are displayed in the log list.
+    * Pros: Allows for the display of a particular person's logs
+    * Cons: Cannot search for a particular log
+
+* **Alternative 2:** Search via the attributes of a log entry.
+    * Pros: Allows for searching of logs with a particular attribute
+    * Cons: Does not allow for the display of a particular person's logs
+
+
+### Undo/Redo feature
 
 #### Implementation
 
@@ -398,10 +478,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -644,9 +720,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Befriendee**: Elderly person seeking companionship
+* **Volunteer**: Individual offering companionship to befriendees
 * **Befriending Volunteer Organisations**: An organisation that aims to provide companionship to seniors by pairing them with volunteers
-* **Pairing**: Assigning of a volunteer to a befriendee and a befriendee to a volunteer (one-to-one)) so that they become a pair
 * **Tagging**: Adding an arbitrary detail(s) to a volunteer or befriendee profile to aid in identifying special conditions
+* **Index**: The position or number assigned to each item in a list, used for reference when performing actions such as editing or deleting entries in Elder Scrolls.
+* **Pairing**: The process of associating a volunteer with a befriendee in Elder Scrolls, allowing them to work together on activities or support services.
+* **Logs**: Records of interactions, activities, or events between volunteers and befriendees in Elder Scrolls, used for tracking service hours, progress, and communication.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -700,3 +779,10 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+## **Appendix: Effort**
+TODO
+
+## **Appendix: Planned Enhancements**
+TODO add feature flaws

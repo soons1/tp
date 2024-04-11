@@ -5,24 +5,37 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "u:PairCommand" as PairCommand LOGIC_COLOR
+participant ":PairCommandParser" as PairCommandParser LOGIC_COLOR
+participant "p:PairCommand" as PairCommand LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-end box
-[-> LogicManager : execute(pair)
+[-> LogicManager : execute("pair 1 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(pair)
+LogicManager -> AddressBookParser : parseCommand("pair 1 1")
 activate AddressBookParser
 
+create PairCommandParser
+AddressBookParser -> PairCommandParser
+activate PairCommandParser
+PairCommandParser --> AddressBookParser
+deactivate PairCommandParser
+
+AddressBookParser -> PairCommandParser : parse("1 1")
+activate PairCommandParser
+
 create PairCommand
-AddressBookParser -> PairCommand
+PairCommandParser -> PairCommand
 activate PairCommand
 
-PairCommand --> AddressBookParser
+PairCommand --> PairCommandParser
 deactivate PairCommand
+
+PairCommandParser --> AddressBookParser : f
+deactivate PairCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.'
+PairCommandParser -[hidden]-> AddressBookParser
+destroy PairCommandParser
 
 AddressBookParser --> LogicManager : u
 deactivate AddressBookParser
@@ -30,19 +43,9 @@ deactivate AddressBookParser
 LogicManager -> PairCommand : execute()
 activate PairCommand
 
-PairCommand -> Model : getMutableDatastore()
-activate Model
+ref over PairCommand : Execute PairCommand
 
-Model --> PairCommand
-deactivate Model
 
-PairCommand -> Model : setPerson()
-activate Model
-PairCommand -> Model : setPerson()
-PairCommand -> Model : updateFilteredPersonList()
-
-Model --> PairCommand
-deactivate Model
 
 PairCommand --> LogicManager : result
 deactivate PairCommand
