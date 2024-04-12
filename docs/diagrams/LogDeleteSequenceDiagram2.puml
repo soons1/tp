@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute LogDeleteCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogDeleteCommand" as LogDeleteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate LogDeleteCommand
+
+'get PersonStore'
+LogDeleteCommand -> Model : getMutableDatastore()
+activate Model
+Model --> LogDeleteCommand : Datastore
+deactivate Model
+
+LogDeleteCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> LogDeleteCommand : PersonStore
+deactivate Datastore
+
+LogDeleteCommand -> Datastore : getMutableLogStore()
+activate Datastore
+Datastore --> LogDeleteCommand : LogStore
+deactivate Datastore
+
+LogDeleteCommand -> Datastore : setPerson(Person)
+activate Datastore
+Datastore --> LogDeleteCommand :
+deactivate Datastore
+
+LogDeleteCommand -> Datastore : removeLog(logIdToDelete)
+activate Datastore
+Datastore --> LogDeleteCommand :
+deactivate Datastore
+
+LogDeleteCommand -> Model : commitDatastore()
+activate Model
+Model --> LogDeleteCommand :
+deactivate Model
+
+create CommandResult
+LogDeleteCommand -> CommandResult
+activate CommandResult
+CommandResult --> LogDeleteCommand
+deactivate CommandResult
+
+<-- LogDeleteCommand : result
+
+@enduml

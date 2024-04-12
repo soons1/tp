@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Datastore as DatastorePackage <<Rectangle>>{
+Class "<<interface>>\nReadOnlyDatastore" as ReadOnlyDatastore
+Class "<<interface>>\nReadOnlyPersonStore" as ReadOnlyPersonStore
+Class "<<interface>>\nReadOnlyLogStore" as ReadOnlyLogStore
+Class Datastore
+
+Class PersonStore
+Class LogStore
+
+Class UniquePersonList
+Class "{abstract}\nPerson" as Person
+Class Address
+Class Email
+Class Name
+Class Phone
+Class Tag
+Class Role
+
+Class Log
+
+Class Volunteer
+Class Befriendee
+
+Datastore .up.|> ReadOnlyDatastore
+PersonStore .up.|> ReadOnlyPersonStore
+LogStore .up.|> ReadOnlyLogStore
+
+ReadOnlyPersonStore .up.> ReadOnlyDatastore
+ReadOnlyLogStore .up.> ReadOnlyDatastore
+
+Datastore *-down-> "1" PersonStore
+Datastore *-down-> "1" LogStore
+
+LogStore *--> "*" Log
+
+PersonStore *--> "1" UniquePersonList
+UniquePersonList --> "~* all" Person
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person -up-> "*" Tag
+Person *--> Role
+Person -left-> timeServed
+
+Volunteer .up.|> Person
+Befriendee .up.|> Person
+
+
+Volunteer -[hidden]right--> Befriendee
+
+Person -[hidden]right--> Volunteer
+Person -[hidden]right--> Befriendee
+
+ReadOnlyPersonStore -[hidden]right--> Datastore
+ReadOnlyLogStore -[hidden]right--> ReadOnlyPersonStore
+
+Person -[hidden]up--> I
+UniquePersonList -[hidden]right-> I
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Address
+Address -[hidden]right-> Email
+
+Volunteer"0..1" - "0..1"Befriendee: pairedWith
+(Volunteer, Befriendee) .. Log
+Befriendee -[hidden]down Volunteer
+
+@enduml

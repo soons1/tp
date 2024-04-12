@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute LogEditCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogEditCommand" as LogEditCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate LogEditCommand
+
+'get PersonStore'
+LogEditCommand -> Model : getMutableDatastore()
+activate Model
+Model --> LogEditCommand : Datastore
+deactivate Model
+
+LogEditCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> LogEditCommand : PersonStore
+deactivate Datastore
+
+LogEditCommand -> Datastore : getMutableLogStore()
+activate Datastore
+Datastore --> LogEditCommand : LogStore
+deactivate Datastore
+
+LogEditCommand -> Datastore : setPerson(Person)
+activate Datastore
+Datastore --> LogEditCommand :
+deactivate Datastore
+
+LogEditCommand -> Datastore : setLog(Log)
+activate Datastore
+Datastore --> LogEditCommand :
+deactivate Datastore
+
+LogEditCommand -> Model : commitDatastore()
+activate Model
+Model --> LogEditCommand :
+deactivate Model
+
+create CommandResult
+LogEditCommand -> CommandResult
+activate CommandResult
+CommandResult --> LogEditCommand
+deactivate CommandResult
+
+<-- LogEditCommand : result
+
+@enduml

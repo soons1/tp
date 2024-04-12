@@ -23,4 +23,5 @@ Person *--> Email
 Person *--> Address
 Person *--> "0..1" pairedWith
 Person *--> Role
+Person *--> timeServed
 @enduml

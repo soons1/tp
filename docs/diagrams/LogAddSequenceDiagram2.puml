@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute LogAddCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":LogAddCommand" as LogAddCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate LogAddCommand
+
+'get PersonStore'
+LogAddCommand -> Model : getMutableDatastore()
+activate Model
+Model --> LogAddCommand : Datastore
+deactivate Model
+
+LogAddCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> LogAddCommand : PersonStore
+deactivate Datastore
+
+LogAddCommand -> Datastore : getMutableLogStore()
+activate Datastore
+Datastore --> LogAddCommand : LogStore
+deactivate Datastore
+
+LogAddCommand -> Datastore : setPerson(Person)
+activate Datastore
+Datastore --> LogAddCommand :
+deactivate Datastore
+
+LogAddCommand -> Datastore : addLog(Log)
+activate Datastore
+Datastore --> LogAddCommand :
+deactivate Datastore
+
+LogAddCommand -> Model : commitDatastore()
+activate Model
+Model --> LogAddCommand :
+deactivate Model
+
+create CommandResult
+LogAddCommand -> CommandResult
+activate CommandResult
+CommandResult --> LogAddCommand
+deactivate CommandResult
+
+<-- LogAddCommand : result
+
+@enduml
