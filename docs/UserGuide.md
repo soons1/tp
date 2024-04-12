@@ -260,9 +260,11 @@ Use the `list` command to reset your view after using the `find` command.
 [//]: # (Page Break:)
 <div style="page-break-after: always;"> </div> 
 
-#### 3.1.7 Deleting a person : `delete`, `del`, `remove`, `rm`
+#### 3.1.7 Deleting a person : `delete`
 
 Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
+
+Supported aliases for `delete`: `del`, `remove`, `rm`
 
 Format: `delete INDEX r/ROLE`
 
@@ -311,11 +313,13 @@ Format: `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`
 Examples:
 * `logedit 1 t/Cinema Visit s/2020-01-10 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
 
-#### 3.2.3 Deleting a log : `logdelete`, `logdel`, `logremove`, `logrm`
+#### 3.2.3 Deleting a log : `logdelete`
 
 Deletes the specified log from the address book.
 
-Format: `delete INDEX`
+Supported aliases for `logdelete`: `logdel`, `logremove`, `logrm`
+
+Format: `logdelete INDEX`
 
 * Deletes the log at the specified `INDEX`.
 * The index refers to the index number shown in the displayed log list.
