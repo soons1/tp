@@ -2,7 +2,7 @@ package scrolls.elder.model.person;
 
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static scrolls.elder.logic.commands.CommandTestUtil.VALID_ID_BOB;
+import static scrolls.elder.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static scrolls.elder.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -13,9 +13,6 @@ import org.junit.jupiter.api.Test;
 import scrolls.elder.testutil.Assert;
 import scrolls.elder.testutil.PersonBuilder;
 import scrolls.elder.testutil.TypicalPersons;
-
-
-
 
 public class PersonTest {
 
@@ -41,10 +38,10 @@ public class PersonTest {
                         .withAddress(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_HUSBAND)
                         .build();
-        Assertions.assertTrue(TypicalPersons.ALICE.isSamePerson(editedAlice));
+        Assertions.assertTrue(TypicalPersons.ALICE.isSameId(editedAlice));
 
         // different id, all other attributes same -> returns false
-        editedAlice = new PersonBuilder(TypicalPersons.ALICE).withId(VALID_ID_BOB).build();
+        editedAlice = new PersonBuilder(TypicalPersons.ALICE).withName(VALID_NAME_AMY).build();
         Assertions.assertFalse(TypicalPersons.ALICE.isSamePerson(editedAlice));
     }
 

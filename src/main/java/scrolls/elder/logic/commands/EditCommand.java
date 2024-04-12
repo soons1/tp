@@ -142,8 +142,12 @@ public class EditCommand extends Command {
 
         assert editedPerson.isSameId(personToEdit) : "Edited person should be the same person";
 
+        // Check if there is another person in Elder Scrolls with the same edited name
         if (store.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            // The same name check is triggered because the name of the person did not change
+            if (!personToEdit.isSamePerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
         }
 
         if (editedPerson.isPaired()) {
