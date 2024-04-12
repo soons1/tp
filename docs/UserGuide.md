@@ -7,7 +7,7 @@ title: User Guide
 
 **Elder Scrolls** is a ___Volunteer Management System (VMS)___ designed to streamline the coordination of volunteers and befriendees, with a particular focus on elderly befriending programs. Elder Scrolls combines the _speed of CLI interaction_ with the benefits of a _Graphical User Interface (GUI)_. Whether you prefer the agility of typing or the convenience of visual interaction, Elder Scrolls ensures that your volunteer management tasks are completed swiftly and seamlessly.
 
-**Our target audience** primarily consists of _volunteer managers_ responsible for organizing and overseeing activities related to _elderly befriending initiatives_. However, with its customizable features and flexible architecture, Elder Scrolls can be extended to cater to various types of volunteer management programs with minor adjustments. Whether you're managing volunteers for elderly care, community outreach, or other social services, Elder Scrolls offers a comprehensive solution to simplify and enhance your volunteer management efforts.
+**Our target audience** primarily consists of _volunteer managers_ responsible for organizing and overseeing activities related to _elderly befriending initiatives_. Whether you're managing volunteers for elderly care, community outreach, or other social services, Elder Scrolls offers a comprehensive solution to simplify and enhance your volunteer management efforts.
 
 **No more cumbersome bookkeeping**: manage volunteers and befriendees seamlessly in one intuitive platform. Say goodbye to endless spreadsheets – Elder Scrolls centralizes tasks, making them faster and more effective. Developed for efficiency by our team, ___Elder Scrolls lets you focus on what matters most – making a difference in the lives of others___.
 
@@ -67,7 +67,7 @@ Here are some commands to get you started:
 
    * `list` : Lists all befriendee and volunteer contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/volunteer` : Adds a volunteer named `John Doe` to the Elder Scrolls.
+   * ```add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/volunteer``` : Adds a volunteer named `John Doe` to the Elder Scrolls.
 
    * `delete 4 r/volunteer ` : Deletes the 4th contact shown in the current list.
 
@@ -128,6 +128,9 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 **:information_source: Notes about the command format:**<br>
 
+* For all commands which require a `INDEX` (e.g., `VOLUNTEER_INDEX`), the index refers to the index number shown in the displayed person list.
+  The indexes provided **must be indexes of people currently displayed in the person lists**.
+
 * Words in `UPPER_CASE` are placeholders to represent parameters that should be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
@@ -152,12 +155,20 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 #### 3.1.1 Adding a Volunteer or Befriendee: `add`
 
-Adds a volunteer / Befriendee to the address book.
+Adds a volunteer/befriendee to the address book.
 
 Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-Where `ROLE` must be either `volunteer` or `befriendee` to add a volunteer or befriendee respectively.
+
+Constraints:
+* `n/NAME` must be alphanumeric and cannot be empty.
+* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
+* `e/EMAIL` must be a valid email address.
+* `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
+* `t/TAG` must be alphanumeric.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags (including 0).
 </div>
 
 Examples:
@@ -170,12 +181,20 @@ Edits an existing person in Elder Scrolls.
 
 Format: `edit INDEX r/ROLE [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+Constraints:
+* `n/NAME` must be alphanumeric and cannot be empty.
+* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will edit either a volunteer or befriendee respectively.
+* `e/EMAIL` must be a valid email address.
+* `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
+* `t/TAG` must be alphanumeric.
+
+Additional Information:
+* Edits the person at the specified `INDEX` for the list corresponding to the provided role. For example, if `r/volunteer` is provided, the person at the `INDEX` in the volunteer list will be edited.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
 Examples:
 *  `edit 1 r/volunteer p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -190,9 +209,8 @@ Pairs an existing befriendee and volunteer in Elder Scrolls.
 
 Format: `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
-* The index refers to the index number shown in the displayed person list.
-* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
-* Both Persons must not be paired, or must be unpaired before pairing again.
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
+* Neither of the two people should be paired, if they are, they must be unpaired before pairing again.
 
 Examples:
 *  `pair 1 2` Pairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
@@ -204,9 +222,22 @@ Pairs an existing befriendee and volunteer in Elder Scrolls.
 
 Format: `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
-* The index refers to the index number shown in the displayed person list.
-* The Person at `BEFRIENDEE_INDEX` must be a volunteer and the Person at `VOLUNTEER_INDEX` must be a befriendee.
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
 * The befriendee and volunteer must be paired with each other before they can be unpaired.
+
+<div markdown="block" class="alert alert-primary">
+
+:bulb: **Tip:** <br>
+
+Unpairing can be greatly simplified with the help of the `find` command.
+For example, let's say you would like to unpair `David Li`.
+1. Find the name of David's partner by using `find David`, and looking at the `Paired with:` field.
+2. Let's say his partner's name is `Alex`, now use `find --paired David Alex` to list only David and his partner.
+3. Use `unpair 1 1` to unpair David and his partner, as they will likely be the only people listed.
+
+The same strategy can be applied any time you wish to find who a person is paired with specifically.
+
+</div>
 
 Examples:
 *  `unpair 1 2` Unpairs the befriendee at Index 1 of the befriendee list and the volunteer at Index 2 of the volunteer list.
@@ -218,42 +249,72 @@ Shows a list of all persons in Elder Scrolls.
 
 Format: `list`
 
-* Persons are listed in the order they were added.
+* Persons are listed in the order they were added, from earliest to latest.
 * The list command is commonly used with the `find` command to reset the view after a search.
 
+#### 3.1.6 Locating persons: `find`
 
-#### 3.1.6 Locating persons by name: `find`
+Find persons through a variety of filters.
 
-Find all persons whose names contain any of the given keywords. The find command also supports searches in the two
-separate Volunteer and Befriendee lists, if the role is specified. It also supports search by tags, and by pairing status.
-The order in which the role, tags or pair flag is specified does not matter.
+Format: `find [FILTERS]`
+Alternative format: `search [FILTERS]`
 
-Format: `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...`
+**At least 1** filter must be provided. 
+The following filters are supported:
 
-* An alias for the command is `search`.
-* The search is **case-insensitive**. The order of the keywords also does not matter. e.g. `hans bo` will match `Bo Hans`
-* If **Role** is specified, search will be limited to the specified respective List.
-* If **pairing status** is specified, search will show only paired/unpaired persons accordingly. 
-* Keyword only searches on name. Tag search is also supported, by adding in appropriate tags..
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* By name: `NAME`
+* By pairing status: `--paired` or `--unpaired`
+* By tag: `t/TAG`
+* By role: `r/ROLE`
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find r/volunteer John` returns only the `John Doe` present in the volunteer list. 
-* `find t/friend` returns all persons with the tag `friend`.
-* `find --paired` returns all persons who are paired.
-* Mix and match to customize your search! e.g. `find r/volunteer t/friend --paired John` returns all 
-paired volunteers with the tag `friend` and name `John`.
-* `find alex david` returns: <br>
+##### By name: `NAME`
 
-<div style="text-align:center;">
-  <img src="images/findAlexDavidResult.png" alt="result for 'find alex david'" width="400">
-  <p></p>
+In its most basic form, the command requires a single _case-insensitive_ `NAME` filter, which will filter both lists for all persons whose **names** contain the given `NAME`. Only full words will be matched.
+
+Example: `find david` (finds all persons with `David`, `david`, etc. in their names, but will not find `Davidson` or `Davidsonson`)
+
+`NAME` is also the **only** filter which can be provided multiple times. Providing multiple `NAME` filters will return all persons whose names contain any of the given `NAME`s.
+
+Example: `find David Yeoh` (finds all persons with `David` _or_ `Yeoh` in their names, like `David Li`, `Alex Yeoh`, and even `Yeoh David`)
+
+##### By pairing status: `--paired` or `--unpaired`
+
+If the `--paired` or `--unpaired` filter is provided, the search will be limited to either paired or non-paired persons.
+
+Examples: 
+* `find --unpaired` (finds all unpaired persons)
+* `find --paired David` (finds all paired persons with `David` in their names)
+
+##### By tag: `t/TAG`
+
+If the _case-sensitive_ `t/TAG` filter is provided, the search will be limited to persons with the specified tag(s).
+
+Example: `find t/friend` (finds all persons who have the tag `friend`)
+
+##### By role: `r/ROLE`
+
+The `r/ROLE` filter is provided, the search will be limited to the specified list. The other list remains unaffected.
+Only two versions of this filter are allowed: `r/volunteer` and `r/befriendee`.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Disclaimer:**
+The `r/ROLE` filter can only be applied together with another filter. It cannot be used on its own.
 </div>
 
-<div markdown="span" class="alert alert-primary">:bulb: **Pro-Tip:**
+Example: `find r/volunteer David` (finds all volunteers with `David` in their names, the befriendee list remains unfiltered)
+
+##### Combining filters
+
+* Different types of filters can be combined to narrow down the search results further.
+* When multiple filters are provided, each filter should be separated by a space. 
+* The order in which filters are provided does not matter.
+
+Examples:
+* `find alex david`
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find r/volunteer t/student --paired Bernice` (finds all paired volunteers with the tag `student` and name containing `Bernice`)
+  ![result for 'find Bernice'](images/findBerniceResult.png)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the `list` command to reset your view after using the `find` command.
 </div>
 
@@ -262,19 +323,20 @@ Use the `list` command to reset your view after using the `find` command.
 
 #### 3.1.7 Deleting a person : `delete`
 
-Deletes the specified person from the address book. Deleted person must not be paired with any other person. Additionally, deletion is not allowed if there exists associated logs to the person. A paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data. 
+Deletes the specified person from Elder Scrolls.
 
 Supported aliases for `delete`: `del`, `remove`, `rm`
 
 Format: `delete INDEX r/ROLE`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the person at the specified `INDEX`, for the list corresponding to the provided role.
+* The deleted person must not be paired with any other person.
+* Deletion is not allowed if there exists associated logs to the person. 
+* As such, a paired person must be unpaired, with all associated logs deleted before the person may be removed from Elder Scrolls, to ensure consistency of data.
 
 Examples:
-* `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the address book.
-* `find Betsy` followed by `del 1 r/befriendee` Deletes the 1st befriendee in the results of the `find` command.
+* `list` followed by `delete 2 r/volunteer` Deletes the 2nd volunteer in the application.
+* `find Betsy` followed by `del 1 r/befriendee` Deletes the 1st befriendee found with `Betsy` in their name.
 
 --------------------------------------------------------------------------------------------------------------------
 [//]: # (Page Break:)
@@ -288,11 +350,10 @@ Adds a log between a pair of befriendee and volunteer. If it is the most recent 
 
 Format: `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
-* The index refers to the respective index number shown in the befriendee and volunteer lists.
-* The two Persons must be paired before a log can be added.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The `START_DATE` must be in the format `YYYY-MM-DD`.
-* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+* The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
+* The two persons must be paired before a log can be added.
+* The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
+* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 
 Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
@@ -304,11 +365,11 @@ Edits an existing log in Elder Scrolls.
 
 Format: `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`
 
-* Edits the log at the specified `INDEX`. The index refers to the index number shown in the displayed log list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the log at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The `START_DATE` must be in the format `YYYY-MM-DD`.
-* The `DURATION` **must be a positive integer** 1, 2, 3, …​
+* The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
+* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 
 Examples:
 * `logedit 1 t/Cinema Visit s/2020-01-10 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
@@ -322,8 +383,6 @@ Supported aliases for `logdelete`: `logdel`, `logremove`, `logrm`
 Format: `logdelete INDEX`
 
 * Deletes the log at the specified `INDEX`.
-* The index refers to the index number shown in the displayed log list.
-* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `logdelete 1` deletes the 1st log in the address book.
@@ -335,8 +394,7 @@ Find all logs associated with a person.
 
 Format: `logfind INDEX r/ROLE`
 
-* The index refers to the index number shown in either the befriendee or volunteer list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Find all logs associated with the person at the specified `INDEX`, for the list corresponding to the provided role.
 
 Examples:
 * `logfind 1 r/befriendee` returns all logs associated with the befriendee at Index 1.
@@ -350,7 +408,7 @@ Examples:
 #### 3.3.1 Undo the most recent command : `undo`
 
 Undo the latest command that made a change to the data stored in Elder Scrolls.
-This excludes commands like `list`,`find` and `logfind` which do not mutate the state of any data.
+This excludes commands like `list`,`find` and `logfind` which do not change any data stored in Elder Scrolls.
 
 Format: `undo`
 
@@ -359,9 +417,9 @@ Format: `undo`
 * At every launch of the application, there will be no commands to be undone.
 * Undo history will be erased when you exit the application.
 
-Example:
-* If you mistakenly executed a `clear` command, clearing every entry in Elder Scrolls, fret not. Simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
-* If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute simultaneous `undo` commands to revert the changes made by the wrongful delete commands.
+Examples:
+* You have just mistakenly executed a `clear` command and cleared every entry in Elder Scrolls. You can simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
+* If you've just performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute multiple `undo` commands to revert the changes made by the wrongful delete commands.
 
 #### 3.3.2 Revert the most recent undo command : `redo`
 
@@ -385,10 +443,9 @@ Examples:
 
 #### 3.4.1 Viewing help : `help`
 
-Shows a message explaning how to access the help page. <br/>
+Shows a message explaining how to access the help page/user guide. <br/>
 Format: `help`
 
-[//]: # (![help message]&#40;images/helpMessage.png&#41;)
 <div style="text-align:center;">
   <img src="images/helpMessage.png" alt="helpMessage" width="400">
   <p></p>
@@ -461,35 +518,38 @@ For additional resources, you can explore online forums, community groups, and v
 ## **7. Known issues**
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. The application is not currently optimised for 'extreme' inputs (e.g., a person name with 1000 characters, an index that exceeds the range of int), support will be added in a future version.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **8. Command summary**
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/88889999 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Edit** | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Pair** | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`
-**Unpair** | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`
-**List** | `list`
-**Find** | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`
-**Delete** | `delete INDEX r/ROLE`<br> `del INDEX r/ROLE`<br> `remove INDEX r/ROLE`<br> `rm INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`
-**LogAdd** | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`
-**LogEdit** | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`
-**LogDelete** | `logdelete INDEX`<br> `logdel INDEX`<br> `logremove INDEX`<br> `logrm INDEX`<br> e.g., `logdelete 1`
-**LogFind** | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`
-**Undo** | `undo`
-**Redo** | `redo`
-**Help** | `help`
-**Clear** | `clear`
-**Exit** | `exit`
-
---------------------------------------------------------------------------------------------------------------------
-[//]: # (Page Break:)
-<div style="page-break-after: always;"> </div> 
+| Action        | Format, Examples                                                                                                                                                                         |
+|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/88889999 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Edit**      | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
+| **Pair**      | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`                                                                                                                             |
+| **Unpair**    | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`                                                                                                                         |
+| **List**      | `list`                                                                                                                                                                                   |
+| **Find**      | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`                                                                  |
+| **Delete**    | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`                                                                                                                                  |
+| **LogAdd**    | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`                                       |
+| **LogEdit**   | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`                                                          |
+| **LogDelete** | `logdelete INDEX`<br> e.g., `logdelete 1`                                                                                                                                                |
+| **LogFind**   | `logfind INDEX r/ROLE`<br> e.g., `logfind 1 r/befriendee`                                                                                                                                |
+| **Undo**      | `undo`                                                                                                                                                                                   |
+| **Redo**      | `redo`                                                                                                                                                                                   |
+| **Help**      | `help`                                                                                                                                                                                   |
+| **Clear**     | `clear`                                                                                                                                                                                  |
+| **Exit**      | `exit`                                                                                                                                                                                   |
 
 ## **9. Glossary**
+
+**Volunteer**: An individual who offers their time and services to social service agencies or causes without financial compensation, in this context they carry out befriending activities with the beneficiaries.
+
+**Befriendee**: An individual who receives support, companionship, or assistance from volunteers, in this context they are the beneficiaries of the befriending activities.
+
+**Befriending**: The act of providing companionship, support, or assistance to individuals in need, typically carried out by volunteers to enhance the well-being and quality of life of the befriendees. Examples include social visits, outings, and emotional support.
 
 **Volunteer Management System (VMS)**: A digital volunteer management tool designed to aid an organisation in the management of volunteers to improve productivity and potentially enhance the volunteer experience.
 
