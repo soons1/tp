@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute DeleteCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate DeleteCommand
+
+'get PersonStore'
+DeleteCommand -> Model : getMutableDatastore()
+activate Model
+Model --> DeleteCommand : Datastore
+deactivate Model
+
+DeleteCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> DeleteCommand : PersonStore
+deactivate Datastore
+
+DeleteCommand -> Datastore : removePerson(Person)
+activate Datastore
+Datastore --> DeleteCommand :
+deactivate Datastore
+
+DeleteCommand -> Model : commitDatastore()
+activate Model
+Model --> DeleteCommand :
+deactivate Model
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+<-- DeleteCommand : result
+
+@enduml
