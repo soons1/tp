@@ -61,7 +61,7 @@ public class Name {
         }
 
         Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        return fullName.toLowerCase().equals(otherName.fullName.toLowerCase());
     }
 
     @Override
