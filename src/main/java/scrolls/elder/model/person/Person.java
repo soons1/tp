@@ -133,6 +133,16 @@ public abstract class Person {
         if (otherPerson == this) {
             return true;
         }
+        return otherPerson != null && otherPerson.getName().equals(this.getName());
+    }
+
+    /**
+     * Returns true if both persons have the same id.
+     */
+    public boolean isSameId(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
 
         return otherPerson != null && otherPerson.getPersonId() == this.getPersonId();
     }

@@ -57,7 +57,8 @@ public class Befriendee extends Person {
 
         // TODO figure out how to assert equals for date, without GitHub actions acting up, try using LocalDate
         Befriendee otherBefriendee = (Befriendee) other;
-        return name.equals(otherBefriendee.name)
+        return personId == otherBefriendee.personId
+                && name.equals(otherBefriendee.name)
                 && phone.equals(otherBefriendee.phone)
                 && email.equals(otherBefriendee.email)
                 && address.equals(otherBefriendee.address)

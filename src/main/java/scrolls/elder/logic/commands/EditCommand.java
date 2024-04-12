@@ -55,6 +55,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_NO_ROLE = "Role must be specified for indexing when editing a person.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -139,7 +140,15 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        assert editedPerson.isSamePerson(personToEdit) : "Edited person should be the same person";
+        assert editedPerson.isSameId(personToEdit) : "Edited person should be the same person";
+
+        // Check if there is another person in Elder Scrolls with the same edited name
+        if (store.hasPerson(editedPerson)) {
+            // The same name check is triggered because the name of the person did not change
+            if (!personToEdit.isSamePerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+        }
 
         if (editedPerson.isPaired()) {
             Person pairedWith = store.getPersonFromID(editedPerson.getPairedWithId().get());
@@ -149,6 +158,8 @@ public class EditCommand extends Command {
 
         store.setPerson(personToEdit, editedPerson);
         store.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        logStore.updateFilteredLogList(LogStore.PREDICATE_SHOW_ALL_LOGS);
+        logStore.updateFilteredLogListByPersonId(null);
         model.commitDatastore();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.formatPerson(editedPerson)));
     }

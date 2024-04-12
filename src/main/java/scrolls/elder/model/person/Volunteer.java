@@ -57,7 +57,8 @@ public class Volunteer extends Person {
 
         // TODO figure out how to assert equals for date, without GitHub actions acting up, try using LocalDate
         Volunteer otherVolunteer = (Volunteer) other;
-        return name.equals(otherVolunteer.name)
+        return personId == otherVolunteer.personId
+                && name.equals(otherVolunteer.name)
                 && phone.equals(otherVolunteer.phone)
                 && email.equals(otherVolunteer.email)
                 && address.equals(otherVolunteer.address)
