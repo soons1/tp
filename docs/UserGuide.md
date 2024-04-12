@@ -130,6 +130,7 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 * For all commands which require a `INDEX` (e.g., `VOLUNTEER_INDEX`), the index refers to the index number shown in the displayed person list.
   The indexes provided **must be indexes of people currently displayed in the person lists**.
+  * As the indexes are one-based, index values must be positive integers greater than 0. Any other values are automatically invalidated, and hence constitutes an invalid command format. 
 
 * Words in `UPPER_CASE` are placeholders to represent parameters that should be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -307,6 +308,7 @@ Example: `find r/volunteer David` (finds all volunteers with `David` in their na
 * Different types of filters can be combined to narrow down the search results further.
 * When multiple filters are provided, each filter should be separated by a space. 
 * The order in which filters are provided does not matter.
+* Invalid filters (e.g. `r/XXX, -paired`) will be ignored, and the search will proceed with the valid filters to enhance efficiency.
 
 Examples:
 * `find alex david`
@@ -445,6 +447,8 @@ Examples:
 
 Shows a message explaining how to access the help page/user guide. <br/>
 Format: `help`
+
+* Any extraneous inputs/parameters (e.g. `help me`) will be ignored.
 
 <div style="text-align:center;">
   <img src="images/helpMessage.png" alt="helpMessage" width="400">
