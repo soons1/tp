@@ -711,46 +711,98 @@ testers are expected to do more *exploratory* testing.
 </div>
 
 ### Launch and shutdown
-
 1. Initial launch
-
    1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Launch Elder Scrolls: Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar elderscrolls.jar` command to run the application. Expected: Shows the GUI with a set of sample contacts and logs. The window size may not be optimum.
 
 1. Saving window preferences
-
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
-### Deleting a person
+### View sample Volunteer and Befriendee profiles and sample Logs
+1. Close Elder Scrolls.
+2. Delete the file `./data/datastore.json` if it exists.
+3. Launch Elder Scrolls.
+4. Click on the `Volunteers` tab.
+   * Expected: Lists of sample volunteers, befriendees and logs are shown.
 
+### Find a specific person based on name keywords, pairing status, or tags
+1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+1. Find a volunteer by name keywords
+   1. Test case: `find`
+      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered. 
+   1. Test case: `find David`
+      Expected: Shows the list of volunteers and befriendees with the name "David".
+   1. Test case: `find david alex`
+      Expected: Shows the list of volunteers and befriendees with either the name "Alice" or "David".
+
+2. Find a person by pairing status
+   1. Test case: `find --paired`
+      Expected: Shows a list of all paired volunteers and befriendees. The list may contain multiple paired persons.
+   1. Test case: `find --unpaired`
+      Expected: Shows a list of all unpaired volunteers and befriendees. The list may contain multiple unpaired persons.
+
+3. Find a person by tags
+   1. Test case: `find t/student`
+      Expected: Shows a list of all volunteers and befriendees with the tag "student".
+
+4. Restrict find operation to volunteers or befriendees
+   1. Test case: `find r/volunteer --paired`
+      Expected: Shows list of all volunteers that are paired. Befriendee list is untouched.
+   1. Test case: `find r/befriendee t/handicapped`
+      Expected: Shows list of all befriendees that have tag `handicapped`. Volunteer list is untouched.
+
+### Deleting a person (TODO: EDIT)
 1. Deleting a person while all persons are being shown
-
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
-### Saving data
+### Finding Logs associated with a person
+1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+    1. Test case: `findlog`
+      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
+   2. Test case: `findlog 1 r/volunteer`
+      Expected: Shows the list of logs associated with the volunteer at the index 1.
+   3. Test case: `findlog 3 r/befriendee`
+      Expected: Shows the list of logs associated with the befriendee at the index 1.
 
+### Saving data
 1. Dealing with missing/corrupted data files
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+
+
+### Clearing Elder Scrolls data
+1. Clearing all data
+   1. **Prerequisites:** At least one volunteer or one befriendee is present in the lists.
+   1. **Test case:** `clear`
+      **Expected:** The lists of befriendees, volunteers and logs are cleared. The lists are empty.
+
+### Exiting Elder Scrolls
+1. Exiting the application
+   1. **Test case:** `exit`
+      **Expected:** The application window closes.
+
+### Opening the Help Window
+1. Accessing the help window
+   1. **Test case:** `help`
+      **Expected:** The help window opens.
+
+
+
 
 
 ## **Appendix C: Effort**
