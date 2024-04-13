@@ -305,8 +305,8 @@ The following sequence diagram shows how a Find operation goes through the `Logi
 **Aspect: Tag Parsing in FindCommandParser:** <br>
 
 * **Alternative 1: (Current Choice):** Parsing tags separately from other search criteria.
-  * Pros: Allows users to specify Deleteitional search criteria based on tags.
-  * Cons: Requires Deleteitional parsing logic and potentially increases complexity in handling multiple search parameters.
+  * Pros: Allows users to specify additional search criteria based on tags.
+  * Cons: Requires additional parsing logic and potentially increases complexity in handling multiple search parameters.
 
 * **Alternative 2:** Incorporating tags into the main search query without separate parsing.
   * Pros: Simplifies parsing logic by integrating tags directly into the search query.
@@ -320,7 +320,7 @@ The following sequence diagram shows how a Find operation goes through the `Logi
 
 * **Alternative 2**: Consolidating search criteria into a single unified predicate.
   * Pros: Simplifies filtering logic by reducing the number of separate predicates.
-    * Cons: May limit the flexibility to apply different search parameters independently or require more complex predicate structures.
+  * Cons: May limit the flexibility to apply different search parameters independently or require more complex predicate structures.
 
 
 
@@ -857,7 +857,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `add n/Giggs p/88221143 e/gig@hotmail.com a/Hello street, block 4, #04-01`<br>
        Expected: No person is added. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
 
-    1. Other incorrect add commands to try: `add`, `add n/`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect add commands to try: `add`, `add n/`<br>
        Expected: Similar to previous.
    
 2. Adding a person where the name already exists in the volunteer list
