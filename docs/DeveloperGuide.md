@@ -584,7 +584,7 @@ _{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## **Appendix A: Requirements**
 
 ### Product scope
 
@@ -658,20 +658,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
-3.  User requests to delete a specific contact using its unique ID (UID)
-4.  Elder Scrolls deletes the contact based on its UID
+3.  User requests to delete a specific contact using its list index.
+4.  Elder Scrolls deletes the contact based on its list index.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
-
-  * 2a1. Elder Scrolls shows an error message.
-
-    Use case ends.
-
-* 3a. The given UID is invalid.
+* 3a. The given list index is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
@@ -692,61 +686,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-
-* 2a. The list is empty.
-
-    * 2a1. Elder Scrolls shows an error message.
-
-      Use case ends.
-
-**Use case: UC04 - List all volunteer contacts**
-
-**MSS**
-
-1. User requests to list all volunteer contacts
-2. Elder Scrolls shows a list of all volunteer contacts
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-    * 2a1. Elder Scrolls shows an error message.
-
-      Use case ends.
-
-* 3a. The incorrect filtering parameter used, ie. 'vol' not used
-
-  * 3a1. Elder Scrolls shows an error message.
-
-    Use case ends.
-
-**Use case: UC05 - List all befriendee contacts**
-
-**MSS**
-
-1. User requests to list all befriendee contacts
-2. Elder Scrolls shows a list of all befriendee contacts
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The list is empty.
-
-    * 2a1. Elder Scrolls shows an error message.
-
-      Use case ends.
-
-* 3a. The incorrect filtering parameter used, ie. 'bef' is not used
-
-    * 3a1. Elder Scrolls shows an error message.
-
-      Use case ends.
-
-**Use case: UC06 - Pair a volunteer and befriendee**
+**Use case: UC04 - Pair a volunteer and befriendee**
 
 **MSS**
 
@@ -759,26 +699,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
+* 3a. The given list index is invalid.
 
-* 3a. The given UID is invalid.
-
-    * 3a1. Elder Scrolls shows an error message indicating that the given UID is invalid.
-
-      Use case resumes at step 2.
-
-* 3b. The given UIDs are both volunteers or both befriendees.
-
-    * 3b1. Elder Scrolls shows an error message indicating that the given UIDs are not of different types.
+    * 3a1. Elder Scrolls shows an error message indicating that the given list index is invalid.
 
       Use case resumes at step 2.
 
-* 3b. One or both given UIDs are already paired.
+* 3b. One or both given persons at specified list index are already paired.
 
-    * 3b1. Elder Scrolls shows an error message indicating that the given UID(s) are already paired.
+    * 3b1. Elder Scrolls shows an error message indicating that the given person(s) are already paired.
 
       Use case resumes at step 2.
 
-**Use case: UC07 - Tag contacts**
+**Use case: UC05 - Tag contacts**
 
 **MSS**
 
@@ -792,13 +725,44 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 
-* 3a. The given UID is invalid.
+* 3a. The given list index is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+
+**Use case: UC06 - Add a log entry for volunteer-befriendee pairs**
+
+**MSS**
+
+1.  User <u>requests to list all contacts (UC03)</u>.
+2. Elder Scrolls shows a list of contacts.
+3. User requests to add a log entry for two paired individuals, and enters details of the activity log, including date, time, and remarks.
+4. Elder Scrolls records the log entry for the selected pair.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The selected pair is not currently paired.
+    * 3a1. Elder Scrolls displays an error message indicating that the selected pair is not currently paired.
+      Use case resumes at step 2.
+
+* 3b. The entered details for the log are incomplete or invalid.
+    * 3b1. Elder Scrolls shows an error message to prompt user to correct the incomplete or invalid details.
+      Use case resumes at step 2.
+
+**Use case: UC07 - Find a person based on name keyword**
+
+**MSS**
+
+1. User requests to find a person based on a name keyword.
+2. Elder Scrolls displays a list of contacts matching the name keyword.
+
+   Use case ends.
+
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -811,17 +775,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Befriendee**: Elderly person seeking companionship
-* **Volunteer**: Individual offering companionship to befriendees
+* **Volunteer**: An individual who offers their time and services to social service agencies or causes without financial compensation, in this context they carry out befriending activities with the beneficiaries.
+* **Befriendee**: An individual who receives support, companionship, or assistance from volunteers, in this context they are the beneficiaries of the befriending activities.
+* **Befriending**: The act of providing companionship, support, or assistance to individuals in need, typically carried out by volunteers to enhance the well-being and quality of life of the befriendees. Examples include social visits, outings, and emotional support.
+* **Volunteer Management System (VMS)**: A digital volunteer management tool designed to aid an organisation in the management of volunteers to improve productivity and potentially enhance the volunteer experience.
+* **Elder Scrolls**: The Volunteer Management System (VMS) developed by our team for efficient management and bookkeeping of volunteers, befriendees, and their interactions.
 * **Befriending Volunteer Organisations**: An organisation that aims to provide companionship to seniors by pairing them with volunteers
 * **Tagging**: Adding an arbitrary detail(s) to a volunteer or befriendee profile to aid in identifying special conditions
 * **Index**: The position or number assigned to each item in a list, used for reference when performing actions such as editing or deleting entries in Elder Scrolls.
 * **Pairing**: The process of associating a volunteer with a befriendee in Elder Scrolls, allowing them to work together on activities or support services.
 * **Logs**: Records of interactions, activities, or events between volunteers and befriendees in Elder Scrolls, used for tracking service hours, progress, and communication.
+* **Command Line Interface (CLI)**: A text-based interface used for interacting with Elder Scrolls through commands typed into a terminal or command prompt.
+* **Graphical User Interface (GUI)**: A visual interface used for interacting with Elder Scrolls, providing intuitive controls and displays for managing volunteers, befriendees and logs.
+* **Backup**: A copy of Elder Scrolls data stored separately from the main application, used to safeguard against data loss or corruption.
+* **Open Source**: Software whose source code is freely available to the public, allowing users to view, modify, and distribute it according to open-source licenses.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix B: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
@@ -831,22 +803,49 @@ testers are expected to do more *exploratory* testing.
 </div>
 
 ### Launch and shutdown
-
 1. Initial launch
-
    1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Launch Elder Scrolls: Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar elderscrolls.jar` command to run the application. Expected: Shows the GUI with a set of sample contacts and logs. The window size may not be optimum.
 
 1. Saving window preferences
-
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### Adding a person
+### View sample Volunteer and Befriendee profiles and sample Logs
+1. Close Elder Scrolls.
+2. Delete the file `./data/datastore.json` if it exists.
+3. Launch Elder Scrolls.
+4. Click on the `Volunteers` tab.
+   * Expected: Lists of sample volunteers, befriendees and logs are shown.
 
+### Find a specific person based on name keywords, pairing status, or tags
+1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+1. Find a volunteer by name keywords
+   1. Test case: `find`
+      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered. 
+   1. Test case: `find David`
+      Expected: Shows the list of volunteers and befriendees with the name "David".
+   1. Test case: `find david alex`
+      Expected: Shows the list of volunteers and befriendees with either the name "Alice" or "David".
+
+2. Find a person by pairing status
+   1. Test case: `find --paired`
+      Expected: Shows a list of all paired volunteers and befriendees. The list may contain multiple paired persons.
+   1. Test case: `find --unpaired`
+      Expected: Shows a list of all unpaired volunteers and befriendees. The list may contain multiple unpaired persons.
+
+3. Find a person by tags
+   1. Test case: `find t/student`
+      Expected: Shows a list of all volunteers and befriendees with the tag "student".
+
+4. Restrict find operation to volunteers or befriendees
+   1. Test case: `find r/volunteer --paired`
+      Expected: Shows list of all volunteers that are paired. Befriendee list is untouched.
+   1. Test case: `find r/befriendee t/handicapped`
+      Expected: Shows list of all befriendees that have tag `handicapped`. Volunteer list is untouched.
+
+### Adding a person
 1. Adding a person while all befriendees and volunteers are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list.
@@ -868,7 +867,6 @@ testers are expected to do more *exploratory* testing.
        Expected: No person is added. Error details shown in the status message. Status bar remains the same.
 
 ### Editing a person
-
 1. Editing a person while all befriendees and volunteers are being shown
 
     1. Prerequisites: List all persons using the `list` command. The person indicated to be edited
@@ -887,7 +885,6 @@ testers are expected to do more *exploratory* testing.
 
 
 ### Deleting a person
-
 1. Deleting a person while all befriendees and volunteers are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index not paired with anyone and does not have any logs.
@@ -917,7 +914,6 @@ testers are expected to do more *exploratory* testing.
 
 
 ### Pairing two persons
-
 1. Pairing two persons while all befriendees and volunteers are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired.
@@ -940,7 +936,6 @@ testers are expected to do more *exploratory* testing.
        
 
 ### Unpairing two persons
-
 1. Unpairing two persons while all befriendees and volunteers are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are paired with each other.
@@ -961,9 +956,16 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
 
+### Finding Logs associated with a person
+1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+    1. Test case: `findlog`
+      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
+   2. Test case: `findlog 1 r/volunteer`
+      Expected: Shows the list of logs associated with the volunteer at the index 1.
+   3. Test case: `findlog 3 r/befriendee`
+      Expected: Shows the list of logs associated with the befriendee at the index 1.
 
 ### Saving data
-
 1. Dealing with missing/corrupted data files
 
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
@@ -971,8 +973,46 @@ testers are expected to do more *exploratory* testing.
 1. _{ more test cases …​ }_
 
 
-## **Appendix: Effort**
+
+
+### Clearing Elder Scrolls data
+1. Clearing all data
+   1. **Prerequisites:** At least one volunteer or one befriendee is present in the lists.
+   1. **Test case:** `clear`
+      **Expected:** The lists of befriendees, volunteers and logs are cleared. The lists are empty.
+
+### Exiting Elder Scrolls
+1. Exiting the application
+   1. **Test case:** `exit`
+      **Expected:** The application window closes.
+
+### Opening the Help Window
+1. Accessing the help window
+   1. **Test case:** `help`
+      **Expected:** The help window opens.
+
+
+
+
+
+## **Appendix C: Effort**
 TODO
 
-## **Appendix: Planned Enhancements**
-TODO add feature flaws
+## **Appendix D: Planned Enhancements**
+
+Our current version of Elder Scrolls enables users to efficiently manage volunteers, befriendees, and their interactions. However, we have identified planned enhancements that will further improve the user experience and functionality of the application. 
+
+* Team size: 5. (Max 10 planned enhancements)
+
+1. **Even more flexible Log Entry Editing**: The current `logedit` command does not allow users to reassign the volunteer or befriendee involved in a log, with the only way being to delete and re-add a new log. This could be inconvenient if someone accidentally inputs the wrong pair of indices resulting in a wrong pair being referenced. Hence, we plan to make `logedit` support reassignment of logs to other, valid pairs. 
+
+2. **Enhanced find feature**: The current `find` command returns valid entries based on full matching of user inputs. We plan to enhance our `find` command with partial name keyword/tag search functionality, enabling users to find contacts based on partial name/tag matches. Improves search efficiency and usability in case a user may not fully remember a contact's name or tag.
+
+3. **Add customizability to constraints of logs added**: Currently, logs added can have dates in the future. While this may be desirable (for e.g. to log a planned visit with todos, and subsequently update remarks after the visit), it may also be undesirable (for e.g. to prevent accidental future date inputs). We plan to add a configuration option to allow users to set constraints on the dates of logs added, such that users can customize the behavior to suit their needs.
+
+4. **Flexible Grouping of Volunteer and Befriendee**: Currently, our system only supports 1-1 pairing of volunteer and befriendee. We recognise that expanding beyond will bring stronger flexibility and generalizability, and hence plan to expand the current 1-to-1 pairing system to allow for more flexible grouping of volunteers and befriendees. Specifically, this would allow multiple volunteers to be paired with a single befriendee, vice versa, or allow a group of volunteers to be paired with a group of befriendees. This would be consistent with logadd, logedit, and logdelete commands.
+
+
+
+
+

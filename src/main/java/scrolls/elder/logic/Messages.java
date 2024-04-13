@@ -1,5 +1,6 @@
 package scrolls.elder.logic;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -62,6 +63,9 @@ public class Messages {
      * Formats the {@code log} for display to the user.
      */
     public static String formatLog(Log log) {
+        LocalDate startDateWithoutTime = log.getStartDate()
+                .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
         final StringBuilder builder = new StringBuilder();
         builder.append("Title: ")
                 .append(log.getLogTitle())
@@ -70,7 +74,7 @@ public class Messages {
                 .append("; Befriendee ID: ")
                 .append(log.getBefriendeeId())
                 .append("; Start Date: ")
-                .append(log.getStartDate())
+                .append(startDateWithoutTime)
                 .append("; Duration: ")
                 .append(log.getDuration())
                 .append("; Remarks: ")
