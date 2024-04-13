@@ -19,7 +19,9 @@ public class PairCommandParser implements Parser<PairCommand> {
      */
     public PairCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String[] pairIndexes = args.trim().split(" ");
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+
+        String[] pairIndexes = argMultimap.getPreamble().split("\\s+");
         Index index1;
         Index index2;
 
