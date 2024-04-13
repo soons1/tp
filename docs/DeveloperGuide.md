@@ -965,6 +965,67 @@ testers are expected to do more *exploratory* testing.
    3. Test case: `findlog 3 r/befriendee`
       Expected: Shows the list of logs associated with the befriendee at the index 1.
 
+### Undo previously executed commands
+1. Undo a command that mutates the data in Elder Scrolls (`add`, `edit`, `delete`, `pair`, `unpair`, `logadd`, `logedit`, `logdelete`, `clear`)
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+   2. Test case: `delete 3 r/volunteer` followed by `undo` <br>
+      Expected: After the first command, the third contact in the volunteer list is deleted. <br>
+      Subsequently after the second command is executed, the deletion of the third contact in the volunteer list is undone.
+      The status bar displays that the previous operation has been undone. 
+   3. Test case: `edit 1 r/volunteer n/alex` followed by `undo` <br>
+      Expected: After the first command is executed, the first person in the volunteer list has their name edited to "alex", the logs previously associated with "Alex Yeoh" now display "alex" as the volunteer associated with them. <br>
+      Subsequently, after the second command is executed, the edit made on the name of the first volunteer in the volunteer list is undone, and their name is back to being "Alex Yeoh".
+      The status bar displays that the previous operation has been undone.
+      <br><br>
+   
+2. Executing an undo command when the application is newly launched
+   1. Prerequisites: Exit the application and launch it again, making sure to not execute any commands before the testcase.
+   2. Test case: `undo` <br>
+      Expected: No operation is undone. Error details indicating "No previous operation to be undone" shown in the status message. Status bar remains the same.
+      <br><br>
+   
+3. Executing an undo command after an operation that does not modify data in Elder scrolls is executed
+   1. Prerequisites: Exit the application and launch it again, making sure to not execute any commands before the testcase. Start with sample data. Refer to the previous test cases on how to load sample data.
+   2. Test case: `list` followed by `undo` <br>
+      Expected: All persons should be listed after the first command, with a success message displayed in the status message. <br>
+      Subsequently, after executing the second command, no operation is undone, the user's view of the volunteer, befriendee and log lists remains the same. 
+      Error details indicating "No previous operation to be undone" shown in the status message. Status bar remains the same. 
+   3. Test case: `find --paired` followed by `undo` <br>
+      Expected: After the first command, lists of all paired befriendees and volunteers should be shown. <br>
+      Subsequently, after executing the second command, no operation is undone, the user's view of the volunteer, befriendee and log lists remains the same.
+      Error details indicating "No previous operation to be undone" shown in the status message. Status bar remains the same.
+   4. Test case: `findlog 1 r/volunteer` followed by `undo` <br>
+      Expected: After the first command, the list of logs associated with the volunteer at index 1 should be shown. <br>
+      Subsequently, after executing the second command, no operation is undone, the user's view of the volunteer, befriendee and log lists remains the same.
+      Error details indicating "No previous operation to be undone" shown in the status message. Status bar remains the same.
+
+### Redo changes made by previous Undo command
+1. Redo a command that has been undone
+   1. Prerequisites: Start with the sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
+   2. Test case: `delete 3 r/volunteer` followed by `undo` followed by `redo` <br>
+      Expected: After the first command, the third volunteer in the volunteer list is deleted. After the second command, the deletion of the third volunteer is undone. <br>
+      Subsequently, after the `redo` command is executed, the third volunteer in the volunteer is once again deleted, reverting the effects of the undo command that was executed.
+      The status bar displays that the previous undo operation has been reversed.
+   3. Test case: `edit 1 r/volunteer n/alex` followed by `undo` followed by `redo` <br>
+      Expected: After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh", after the second command, the edit made on the first volunteer's name will be undone, and their name will be reverted back to "Alex Yeoh". <br>
+      Subsequently, after the `redo` command is executed, the first volunteer in the volunteer list will once again have their name edited to "alex", reverting the effects of the undo command that was executed.
+      The status bar displays that the previous undo operation has been reversed.
+      <br><br>
+
+2. Executing a redo command when the application is newly launched
+   1. Prerequisites: Exit the application and launch it again, making sure to not execute any commands before the testcase.
+   2. Test case: `redo` <br>
+      Expected: No undo operation is reversed. Error details indicating "No previous undo operation to be reversed" shown in the status message. Status bar remains the same.
+      <br><br>
+
+3. Executing a redo command after executing an undo command followed by a command mutating the data in Elder Scrolls.
+   1. Prerequisites: Start with the sample data. Refer to the previous test cases to load sample data. Execute `delete 3 r/volunteer` followed by `undo`
+      as done in the test case for the `undo` command
+   2. Test case: `edit 1 r/volunteer n/alex` followed by `redo` <br>
+      Expected: After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh". <br>
+      Subsequently, when the `redo` command is executed, the `undo` operation of the `delete 3 r/volunteer` command will not be reversed. 
+      Error details indicating "No previous undo operation to be reversed" shown in the status message. Status bar remains the same.
+
 ### Saving data
 1. Dealing with missing/corrupted data files
 
