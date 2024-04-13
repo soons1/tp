@@ -13,10 +13,12 @@ activate Model
 Model -> DatastoreVersionStorage : canUndo()
 activate DatastoreVersionStorage
 DatastoreVersionStorage --> Model
+deactivate DatastoreVersionStorage
 [<-- Model
 
 [-> Model : undoChanges()
 Model -> DatastoreVersionStorage : executeUndo()
+activate DatastoreVersionStorage
 DatastoreVersionStorage --> Model : prevDatastore
 deactivate DatastoreVersionStorage
 
