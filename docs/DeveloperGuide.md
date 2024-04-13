@@ -654,11 +654,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 3a. The selected pair is not currently paired.
-    * 5a1. Elder Scrolls displays an error message indicating that the selected pair is not currently paired.
+    * 3a1. Elder Scrolls displays an error message indicating that the selected pair is not currently paired.
       Use case resumes at step 2.
 
 * 3b. The entered details for the log are incomplete or invalid.
-    * 3a1. Elder Scrolls shows an error message to prompt user to correct the incomplete or invalid details.
+    * 3b1. Elder Scrolls shows an error message to prompt user to correct the incomplete or invalid details.
       Use case resumes at step 2.
 
 **Use case: UC07 - Find a person based on name keyword**
@@ -666,7 +666,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to find a person based on a name keyword.
-1. Elder Scrolls displays a list of contacts matching the name keyword.
+2. Elder Scrolls displays a list of contacts matching the name keyword.
 
    Use case ends.
 
