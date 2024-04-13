@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute EditCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":EditCommand" as EditCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate EditCommand
+
+'get PersonStore'
+EditCommand -> Model : getMutableDatastore()
+activate Model
+Model --> EditCommand : Datastore
+deactivate Model
+
+EditCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> EditCommand : PersonStore
+deactivate Datastore
+
+EditCommand -> Datastore : getMutableLogStore()
+activate Datastore
+Datastore --> EditCommand : LogStore
+deactivate Datastore
+
+EditCommand -> Datastore : setPerson(Person)
+activate Datastore
+Datastore --> EditCommand :
+deactivate Datastore
+
+EditCommand -> Model : commitDatastore()
+activate Model
+Model --> EditCommand :
+deactivate Model
+
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
+CommandResult --> EditCommand
+deactivate CommandResult
+
+<-- EditCommand : result
+
+@enduml

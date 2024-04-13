@@ -9,10 +9,10 @@ participant ":LogDeleteCommandParser" as LogDeleteCommandParser LOGIC_COLOR
 participant "p:LogDeleteCommand" as LogDeleteCommand LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("LogDelete ...")
+[-> LogicManager : execute("logdelete ...")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("LogDelete ...")
+LogicManager -> AddressBookParser : parseCommand("logdelete ...")
 activate AddressBookParser
 
 create LogDeleteCommandParser

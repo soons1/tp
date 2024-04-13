@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+mainframe Execute AddCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":AddCommand" as AddCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Datastore" as Datastore MODEL_COLOR
+end box
+
+activate AddCommand
+
+'get PersonStore'
+AddCommand -> Model : getMutableDatastore()
+activate Model
+Model --> AddCommand : Datastore
+deactivate Model
+
+AddCommand -> Datastore : getMutablePersonStore()
+activate Datastore
+Datastore --> AddCommand : PersonStore
+deactivate Datastore
+
+AddCommand -> Datastore : addPerson(Person)
+activate Datastore
+Datastore --> AddCommand :
+deactivate Datastore
+
+AddCommand -> Model : commitDatastore()
+activate Model
+Model --> AddCommand :
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddCommand
+deactivate CommandResult
+
+<-- AddCommand : result
+
+@enduml

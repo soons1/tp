@@ -170,6 +170,98 @@ Classes used by multiple components are in the `scrolls.elder.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add Person feature
+
+#### Implementation
+
+**`AddCommand` Class:** <br>
+
+The `AddCommand` class is responsible for adding a new `Person` into the application and the `AddCommandParser` class is responsible for parsing the user input to create a `AddCommand` object.
+
+The following sequence diagram shows how an add operation goes through the `Logic` component:
+
+![AddSequenceDiagram](images/AddSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/AddSequenceDiagram2.png" alt="AddSequenceDiagram2" width="600">
+</div>
+
+
+#### Design considerations:
+
+**Aspect: Should the name attribute be case-sensitive?:**
+
+* **Alternative 1 (current choice):** Name attribute is not case-sensitive.
+    * Pros: Prevents accidental capitalization or de-capitalization of names.
+    * Cons: In cases where two people have the same name with different capitalization, it is not accepted.
+
+* **Alternative 2:** Name attribute is case-sensitive.
+  itself.
+    * Pros: Two people who have the same name with different capitalization is allowed in the application.
+    * Cons: Accidental capitalization can cause duplicate entries in the application.
+
+### Edit Person feature
+
+#### Implementation
+
+**`EditCommand` Class:** <br>
+
+The `EditCommand` class is responsible for editing the attributes of an existing `Person` in the application and the `EditCommandParser` class is responsible for parsing the user input to create a `EditCommand` object.
+
+The following sequence diagram shows how an edit operation goes through the `Logic` component:
+
+![EditSequenceDiagram](images/EditSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/EditSequenceDiagram2.png" alt="EditSequenceDiagram2" width="600">
+</div>
+
+
+#### Design considerations:
+
+**Aspect: How should the name in latest logs and log list be updated if name is edited:**
+
+* **Alternative 1 (current choice):** Logs are updated during the execution of EditCommand.
+    * Pros: Edited name is reflected in the latest logs and log list immediately.
+    * Cons: Increases the complexity of implementation of the EditCommand.
+
+* **Alternative 2:** Logs are updated in a subsequent command
+  itself.
+    * Pros: Simplifies the implementation of the EditCommand and a separation of log and person commands.
+    * Cons: Real-time information in logs may not be updated.
+
+
+### Delete Person feature
+
+#### Implementation
+
+**`DeleteCommand` Class:** <br>
+
+The `DeleteCommand` class is responsible for removing an existing `Person` from the application and the `DeleteCommandParser` class is responsible for parsing the user input to create a `DeleteCommand` object.
+
+The following sequence diagram shows how a delete operation goes through the `Logic` component:
+
+![DeleteSequenceDiagram](images/DeleteSequenceDiagram-Logic.png)
+
+<div style="text-align:center;">
+  <img src="images/DeleteSequenceDiagram2.png" alt="DeleteSequenceDiagram2" width="600">
+</div>
+
+
+#### Design considerations:
+
+**Aspect: Should users be allowed to delete a person with an existing pair and logs:**
+
+* **Alternative 1 (current choice):** Only allow deletion of a person if they are not paired with anyone and have no logs.
+    * Pros: Prevents accidental deletion who is still a part of the volunteer programme.
+    * Cons: To delete a person with logs, the user must first delete logs associated with that person.
+  
+* **Alternative 2:** Deletion of a person with an existing pair and logs is allowed.
+  itself.
+    * Pros: Simplifies the deletion process.
+    * Cons: Accidental deletion of a person who is still a part of the volunteer programme is possible.
+
+
 ### Find feature
 
 #### Implementation
@@ -228,7 +320,7 @@ The following sequence diagram shows how a Find operation goes through the `Logi
 
 * **Alternative 2**: Consolidating search criteria into a single unified predicate.
   * Pros: Simplifies filtering logic by reducing the number of separate predicates.
-    * Cons: May limit the flexibility to apply different search parameters independently or require more complex predicate structures.
+  * Cons: May limit the flexibility to apply different search parameters independently or require more complex predicate structures.
 
 
 
@@ -273,7 +365,7 @@ For the unpair operation, the sequence diagram is similar to the pair operation,
 
 The Add Log feature allows users to add a new log entry to the application.
 
-The `LogAddCommand` class is responsible for creating a new log entry, and the `LogAddCommandParser` class is responsible for parsing the user input to create a `LogAddCommand` object.
+The `LogEditCommand` class is responsible for creating a new log entry, and the `LogAddCommandParser` class is responsible for parsing the user input to create a `LogAddCommand` object.
 
 The following sequence diagram shows how a LogAdd operation goes through the `Logic` component:
 
@@ -340,7 +432,7 @@ The following sequence diagram shows how a LogEdit operation goes through the `L
 
 #### Implementation
 
-The Delete Log feature allows users to delete an existing log entry in the application.
+The Delete Log feature allows users to remove an existing log entry from the application.
 
 The `LogDeleteCommand` class is responsible for deleting an existing log entry, and the `LogDeleteCommandParser` class is responsible for parsing the user input to create a `LogDeleteCommand` object.
 
@@ -753,24 +845,122 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Adding a person
+
+1. Adding a person while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list.
+
+    1. Test case: `add n/Michelle r/volunteer p/98909221 e/mich@gmail.com a/Wow street, blk 123, t/smart`<br>
+       Expected: Contact with the above details is added to the volunteer list. Details of the added contact shown in the status message.
+
+    1. Test case: `add n/Giggs p/88221143 e/gig@hotmail.com a/Hello street, block 4, #04-01`<br>
+       Expected: No person is added. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect add commands to try: `add`, `add n/`<br>
+       Expected: Similar to previous.
+   
+2. Adding a person where the name already exists in the volunteer list
+
+    1. Prerequisites: List all persons using the `list` command. There exists a volunteer contact where the name is "Michelle".
+
+    1. Test case: `add n/Michelle r/volunteer p/98909221 e/mich@gmail.com a/Wow street, blk 123, t/smart`<br>
+       Expected: No person is added. Error details shown in the status message. Status bar remains the same.
+
+### Editing a person
+
+1. Editing a person while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. The person indicated to be edited
+
+    1. Test case: `edit 1 r/befriendee p/91225454 e/zhuoran@example.com`<br>
+       Expected: Details of the first befriendee on the befriendee list is edited. Updated details of the edited contact shown in the status message.
+
+    1. Test case: `edit 1 n/Josh`<br>
+       Expected: No contact is edited. Error details indicating "Role must be specified..." shown in the status message. Status bar remains the same.
+
+    1. Test case: `edit 0`<br>
+       Expected: No contact is edited. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+   1. Other incorrect edit command to try: `edit x r/volunteer n/James` (where x is larger than the volunteer list size)<br>
+      Expected: No contact is edited. Error details indicating "The person index provided is invalid" shown in the status message. Status bar remains the same.
+
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a person while all befriendees and volunteers are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index not paired with anyone and does not have any logs.
+
+   1. Test case: `delete 3 r/volunteer`<br>
+      Expected: Third contact is deleted from the volunteer list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: No person is deleted. Error details indicating "Role must be specified..." shown in the status message. Status bar remains the same.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `delete 0 r/volunteer`<br>
+      Expected: No person is deleted. Error details indicating "Index is not a non-zero" shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+2. Deleting a person where the contact is paired
 
-1. _{ more test cases …​ }_
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The befriendee at index 1 of the befriendee list is paired with the volunteer at index 1 of the volunteer list.
+
+   1. Test case: `delete 1 r/volunteer`<br>
+      Expected: No person is deleted. Error details indicating "Unable to delete contact: Contact is paired..." shown in the status message. Status bar remains the same.
+
+3. Deleting a person where the contact has a log
+
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The befriendee at index 2 of the befriendee list exists, is not paired but has a log in the log list.
+
+   1. Test case: `delete 2 r/befriendee`<br>
+      Expected: No person is deleted. Error details indicating "Unable to delete contact: Contact has a log in Elder Scrolls..." shown in the status message. Status bar remains the same.
+
+
+### Pairing two persons
+
+1. Pairing two persons while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired.
+
+    1. Test case: `pair 1 1`<br>
+       Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are paired. Details of the two persons shown in the status message.
+
+    1. Test case: `pair`<br>
+       Expected: No person is paired. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+   1. Other incorrect pair command to try: `pair 1 x` (where x is larger than the volunteer list size)<br>
+      Expected: No person is paired. Error details indicating "The person index provided is invalid" shown in the status message. Status bar remains the same.
+
+2. Pairing two persons where one or both of the persons are already paired
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and one or both are already paired.
+
+    1. Test case: `pair 1 2`<br>
+       Expected: No person is paired. Error details indicating "One or both of the persons are already paired..." shown in the status message. Status bar remains the same.
+       
+
+### Unpairing two persons
+
+1. Unpairing two persons while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are paired with each other.
+
+    1. Test case: `unpair 1 1`<br>
+       Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are unpaired. Details of the two persons shown in the status message.
+
+    1. Test case: `unpair 3`<br>
+       Expected: No person is unpaired. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect unpair command to try: `unpair 1 x` (where x is larger than the volunteer list size)<br>
+       Expected: No person is unpaired. Error details indicating "The person index provided is invalid" shown in the status message. Status bar remains the same.
+
+2. Unpairing two persons where the persons are not paired with each other
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired with each other.
+
+    1. Test case: `unpair 2 3`<br>
+       Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
+
 
 ### Saving data
 
