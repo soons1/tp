@@ -26,8 +26,8 @@ public class UnpairCommandParser implements Parser<UnpairCommand> {
         try {
             index1 = ParserUtil.parseIndex(pairIndexes[0]);
             index2 = ParserUtil.parseIndex(pairIndexes[1]);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpairCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpairCommand.MESSAGE_USAGE), e);
         }
 
         return new UnpairCommand(index1, index2);

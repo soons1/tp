@@ -51,8 +51,8 @@ public class LogAddCommandParser implements Parser<LogAddCommand> {
         try {
             index1 = ParserUtil.parseIndex(pairIndexes[0]);
             index2 = ParserUtil.parseIndex(pairIndexes[1]);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE), e);
         }
 
         String title = argMultimap.getValue(CliSyntax.PREFIX_TITLE).get().trim();
