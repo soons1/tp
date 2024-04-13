@@ -167,6 +167,7 @@ Constraints:
 * `e/EMAIL` must be a valid email address.
 * `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
 * `t/TAG` must be alphanumeric.
+* `n/NAME`, `r/ROLE`, `p/PHONE_NUMBER`, `e/EMAIL` and `a/ADDRESS` must be provided and cannot be empty.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0).
@@ -352,10 +353,12 @@ Adds a log between a pair of befriendee and volunteer. If it is the most recent 
 
 Format: `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
+Constraints:
 * The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
 * The two persons must be paired before a log can be added.
 * The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
 * The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
+* `t/TITLE`, `s/START_DATE`, `d/DURATION` and `r/REMARKS` must be provided and cannot be empty.
 
 Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
@@ -367,6 +370,7 @@ Edits an existing log in Elder Scrolls.
 
 Format: `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`
 
+Constraints:
 * Edits the log at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
