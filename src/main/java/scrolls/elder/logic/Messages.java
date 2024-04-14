@@ -69,10 +69,6 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append("Title: ")
                 .append(log.getLogTitle())
-                .append("; Volunteer ID: ")
-                .append(log.getVolunteerId())
-                .append("; Befriendee ID: ")
-                .append(log.getBefriendeeId())
                 .append("; Start Date: ")
                 .append(startDateWithoutTime)
                 .append("; Duration: ")
