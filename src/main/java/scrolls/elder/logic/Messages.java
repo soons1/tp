@@ -16,8 +16,8 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_INVALID_LOG_DISPLAYED_INDEX = "The log index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid.";
+    public static final String MESSAGE_INVALID_LOG_DISPLAYED_INDEX = "The log index provided is invalid.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW_WITH_ROLE = "%1$d persons listed with role %2$s!";
 
@@ -69,10 +69,6 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append("Title: ")
                 .append(log.getLogTitle())
-                .append("; Volunteer ID: ")
-                .append(log.getVolunteerId())
-                .append("; Befriendee ID: ")
-                .append(log.getBefriendeeId())
                 .append("; Start Date: ")
                 .append(startDateWithoutTime)
                 .append("; Duration: ")

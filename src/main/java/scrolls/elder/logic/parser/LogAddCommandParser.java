@@ -44,15 +44,15 @@ public class LogAddCommandParser implements Parser<LogAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE));
         }
 
-        String[] pairIndexes = argMultimap.getPreamble().trim().split(" ");
+        String[] pairIndexes = argMultimap.getPreamble().split("\\s+");
         Index index1;
         Index index2;
 
         try {
             index1 = ParserUtil.parseIndex(pairIndexes[0]);
             index2 = ParserUtil.parseIndex(pairIndexes[1]);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE), e);
         }
 
         String title = argMultimap.getValue(CliSyntax.PREFIX_TITLE).get().trim();

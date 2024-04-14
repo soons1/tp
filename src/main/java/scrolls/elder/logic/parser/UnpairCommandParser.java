@@ -19,15 +19,17 @@ public class UnpairCommandParser implements Parser<UnpairCommand> {
      */
     public UnpairCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String[] pairIndexes = args.trim().split(" ");
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+
+        String[] pairIndexes = argMultimap.getPreamble().split("\\s+");
         Index index1;
         Index index2;
 
         try {
             index1 = ParserUtil.parseIndex(pairIndexes[0]);
             index2 = ParserUtil.parseIndex(pairIndexes[1]);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpairCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpairCommand.MESSAGE_USAGE), e);
         }
 
         return new UnpairCommand(index1, index2);
