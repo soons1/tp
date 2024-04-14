@@ -12,7 +12,7 @@ import scrolls.elder.model.Model;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Previous operation has been undone!";
-    public static final String MESSAGE_UNDO_ERROR = "No previous operation to be undone";
+    public static final String MESSAGE_UNDO_ERROR = "No previous operation to be undone.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

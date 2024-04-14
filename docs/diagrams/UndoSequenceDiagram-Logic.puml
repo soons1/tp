@@ -34,7 +34,10 @@ UndoCommand -> Model : canUndoDatastore()
 activate Model
 
 Model --> UndoCommand
+deactivate Model
+
 UndoCommand -> Model : undoChanges()
+activate Model
 Model --> UndoCommand
 deactivate Model
 
