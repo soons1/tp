@@ -19,7 +19,9 @@ public class UnpairCommandParser implements Parser<UnpairCommand> {
      */
     public UnpairCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String[] pairIndexes = args.trim().split(" ");
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+
+        String[] pairIndexes = argMultimap.getPreamble().split("\\s+");
         Index index1;
         Index index2;
 

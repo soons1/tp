@@ -44,7 +44,7 @@ public class LogAddCommandParser implements Parser<LogAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LogAddCommand.MESSAGE_USAGE));
         }
 
-        String[] pairIndexes = argMultimap.getPreamble().trim().split(" ");
+        String[] pairIndexes = argMultimap.getPreamble().split("\\s+");
         Index index1;
         Index index2;
 
