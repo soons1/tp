@@ -933,7 +933,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `pair 1 2`<br>
        Expected: No person is paired. Error details indicating "One or both of the persons are already paired..." shown in the status message. Status bar remains the same.
-       
+
 
 ### Unpairing two persons
 1. Unpairing two persons while all befriendees and volunteers are being shown
@@ -955,6 +955,51 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
+
+
+### Adding a log
+1. Adding a log while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer.
+
+    1. Test case: `logadd 1 1 t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee`<br>
+       Expected: A log is added for the paired befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list.
+
+    1. Test case: `logadd 1 1 t/Icebreaker session d/2 `<br>
+       Expected: No log is added. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logadd command to try: `logadd 1 x t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee` (where x is larger than the volunteer list size)<br>
+       Expected: No log is added. Error details indicating "The person index provided is invalid." shown in the status message. Status bar remains the same.
+
+
+### Editing a log
+1. Editing a log while all logs are being shown
+
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+
+    1. Test case: `logedit 1 t/Cinema visit`<br>
+       Expected: The log at index 1 of the log list is edited. Updated details of the edited log shown in the status message.
+
+    1. Test case: `logedit 1`<br>
+       Expected: No log is edited. Error details indicating "At least one field to edit must be provided." shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logedit command to try: `logedit x t/Cinema visit` (where x is larger than the log list size)<br>
+       Expected: No log is edited. Error details indicating "The log index provided is invalid." shown in the status message. Status bar remains the same.
+
+### Deleting a log
+1. Deleting a log while all logs are being shown
+
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+
+    1. Test case: `logdelete 3`<br>
+       Expected: The log at index 3 of the log list is deleted. Details of the deleted log shown in the status message.
+
+    1. Test case: `logdelete`<br>
+       Expected: No log is deleted. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logdelete command to try: `logdelete x` (where x is larger than the log list size)<br>
+       Expected: No log is deleted. Error details indicating "Unable to delete log: The log index provided is invalid." shown in the status message. Status bar remains the same.
+
 
 ### Finding Logs associated with a person
 1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
