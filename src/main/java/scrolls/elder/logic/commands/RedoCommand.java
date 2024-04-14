@@ -12,7 +12,7 @@ import scrolls.elder.model.Model;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_SUCCESS = "Previous undo operation has been reversed!";
-    public static final String MESSAGE_REDO_ERROR = "No previous undo operation to be reversed";
+    public static final String MESSAGE_REDO_ERROR = "No previous undo operation to be reversed.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
