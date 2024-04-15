@@ -12,7 +12,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Elder Scrolls is based on the [AddressBook-Level3 project](https://nus-cs2103-ay2324s2.github.io/tp/) created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -569,8 +569,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -593,34 +591,35 @@ _{more aspects and alternatives to be added}_
 * is a manager of a befriending volunteer organisation
 * has a need to keep track of many befriendees/elderly of the volunteer programme
 * has a need to keep track of volunteers in the organisation
+* has a need to keep track of logs of activities/visits made by volunteers to befriendees
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage the volunteer organisation faster than a typical mouse/GUI driven app
+**Value proposition**: manage the volunteer organisation faster than a typical mouse/GUI driven app. Our application aims to provide fast access to all contacts with intuitive search and filtering, enable pairing of volunteers to elderly befriendees, show multiple lists to enable multitasking and support efficient adding of logs between pairs of volunteers and befriendees.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​   | I want to …​                                                                           | So that I can…​                                               |
-|----------|-----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `* * *`  | manager   | add volunteers’ and elderly befriendees’ contacts                                      |                                                               |
-| `* * *`  | manager   | edit volunteers’ and elderly befriendees’ details                                      |                                                               |
-| `* * *`  | manager   | delete volunteer and elderly befriendee contacts                                       |                                                               |
-| `* * *`  | manager   | view list of volunteers and elderly befriendees                                        | keep track of the roster                                      |
-| `* * *`  | manager   | tag elderly befriendees with relevant details                                          | accommodate for any special circumstances                     |
-| `* * *`  | manager   | pair and unpair volunteers with befriendee contacts                                    | assign the pairings                                           |
-| `* * *`  | manager   | add log entries for each visit made by a volunteer to an elderly befriendee            | keep track of the visits                                      |
-| `* * *`  | manager   | search for specific elderly befriendee or volunter befriender                          | find and view the details of befriendee or volunteer          |
-| `* * *`  | manager   | search log entries based on a befriendee or volunteer                                  | find and view the details of relevant log entries             |
-| `* *`    | first-time user | access a help page                                                                     | refer to the features that come along with the application    |
-| `* *`    | first-time user | see sample befriendee and volunteer profiles                                           | try out the features with pre-loaded data                     |
-| `* *`    | manager   | have a one-stop view of all the important information about the elderly and volunteers | contact each person easily                                    |
-| `* *`    | manager   | add details directly to pairings                                                       | add information specific to pairings                          |
-| `*`      | first-time user | follow a guided tour                                                                   | be aware of how to use and access features in the application |
+| Priority | As a …​      | I want to …​                                                                | So that I can…​                                            |
+|----------|-----------------|--------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `* * *`  | manager         | add volunteers’ and elderly befriendees’ contacts                              |                                                               |
+| `* * *`  | manager         | edit volunteers’ and elderly befriendees’ details                              |                                                               |
+| `* * *`  | manager         | delete volunteer and elderly befriendee contacts                               |                                                               |
+| `* * *`  | manager         | view list of volunteers and elderly befriendees                                | keep track of the roster                                      |
+| `* * *`  | manager         | tag elderly befriendees with relevant details                                  | accommodate for any special circumstances                     |
+| `* * *`  | manager         | pair and unpair volunteers with befriendee contacts                            | assign the pairings                                           |
+| `* * *`  | manager         | add log entries for each visit made by a volunteer to an elderly befriendee    | keep track of the visits                                      |
+| `* * *`  | manager         | search for specific elderly befriendee or volunter befriender                  | find and view the details of befriendee or volunteer          |
+| `* * *`  | manager         | search log entries based on a befriendee or volunteer                          | find and view the details of relevant log entries             |
+| `* *`    | manager         | have a one-stop view of all important information regarding elderly and volunteers | contact each person easily                                |
+| `* *`    | manager         | undo and redo changes made to the contacts, pairings, and logs                 | revert changes made in error                                  |
+| `* *`    | first-time user | access a help page                                                             | refer to the features that come along with the application    |
+| `* *`    | first-time user | see sample befriendee and volunteer profiles                                   | try out the features with pre-loaded data                     |
+| `*`      | first-time user | follow a guided tour                                                           | be aware of how to use and access features in the application |
 
 
 ### Use cases
@@ -762,6 +761,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Extensions**
+
+* 1a. User wants to find person specifically amongst the volunteer.
+    * 1a1. User specifies the role as volunteer.
+    * 1a2. Elder Scrolls displays a list of volunteers matching the name keyword.
+      Use case ends.
+* 1b. User wants to find persons that are paired.
+    * 1b1. User specifies the pairing status as paired.
+    * 1b2. Elder Scrolls displays a list of paired persons matching the name keyword.
+      Use case ends.
+* 1c. User wants to find persons that are tagged with a specific tag.
+    * 1c1. User specifies the tag as a property.
+    * 1c2. Elder Scrolls displays a list of persons tagged with the specified tag.
+      Use case ends.
+
+**Use case: UC08 - Find associated logs to a specific person**
+
+**MSS**
+
+1. User requests to find logs associated with a specific person.
+2. Elder Scrolls displays a list of logs associated with the specific person.
+
+   Use case ends.
+
+
 
 ### Non-Functional Requirements
 
@@ -770,8 +794,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should have a simple menu structure with clear labels, guiding users to key actions without extensive tutorials.
 5. Should have graceful error handling with clear human-readable messages to the user to guide them in fixing their command.
-6. Ability to filter contacts based on relevant criteria (location, demographics, skills, availability) to aid in pairing.
-7. Should have a robust data storage mechanism that can handle data corruption and large data sets.
+6. Should have a robust data storage mechanism that can handle data corruption and large data sets.
 
 ### Glossary
 
@@ -1082,9 +1105,6 @@ testers are expected to do more *exploratory* testing.
 1. Accessing the help window
    1. **Test case:** `help`
       **Expected:** The help window opens.
-
-
-
 
 
 ## **Appendix C: Effort**
