@@ -49,7 +49,7 @@ public class LogAddCommand extends Command {
         + PREFIX_REMARKS + "was a good session ";
 
     public static final String MESSAGE_SUCCESS = "New log added!";
-    public static final String MESSAGE_NEGATIVE_DURATION = "Duration cannot be negative.";
+    public static final String MESSAGE_NEGATIVE_DURATION = "Duration must be positive.";
     public static final String MESSAGE_PERSONS_NOT_PAIRED = "The volunteer and befriendee are not paired.";
 
     /**

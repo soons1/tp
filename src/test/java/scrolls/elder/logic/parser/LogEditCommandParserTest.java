@@ -80,7 +80,7 @@ class LogEditCommandParserTest {
     @Test
     public void parse_invalidDurationFormat_throwsParseException() {
         assertParseFailure(parser, "1 t/Icebreaker s/2024-04-08 d/Two r/Was okay.",
-                "Invalid number format. Expected a number.");
+                "Invalid number format. Expected an integer.");
     }
     @Test
     public void parse_invalidArgs_throwsParseException() {
