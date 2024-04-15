@@ -518,7 +518,7 @@ Format: `redo`
 
 Examples:
 * After executing a successful `undo` command, if you were to call any command that modifies the data in Elder Scrolls, such as `delete`, the `redo` command will not longer be available.
-* Let's say you've just executed a `add`, and mistakenly executed a `undo` command right after. You can then call `redo` to once again execute the `add` that was previously undone.
+* Let's say you've just executed an `add`, and mistakenly executed a `undo` command right after. You can then call `redo` to once again execute the `add` that was previously undone.
 
 --------------------------------------------------------------------------------------------------------------------
 
