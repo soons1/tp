@@ -6,16 +6,10 @@ title: Elder Scrolls
 [![CI Status](https://github.com/AY2324S2-CS2103T-T09-3/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2324S2-CS2103T-T09-3/tp/actions)
 [![codecov](https://codecov.io/gh/AY2324S2-CS2103T-T09-3/tp/graph/badge.svg?token=7N2EZAM58I)](https://codecov.io/gh/AY2324S2-CS2103T-T09-3/tp)
 
-[//]: # (![Ui]&#40;images/Ui.png&#41;{: width="600"})
-
-<div style="text-align:center;">
+<div style="text-align:center; margin-bottom: 1.5em">
   <img src="images/Ui.png" alt="Ui" width="600">
+  <i>Elder Scrolls</i>
 </div>
-<div align="center">
-  <text> Elder Scrolls </text>
-  <p></p>
-</div>
-
 
 **Elder Scrolls** is a ___Volunteer Management System (VMS)___ designed to streamline the coordination of volunteers and befriendees, with a particular focus on elderly befriending programs. Elder Scrolls combines the _speed of CLI interaction_ with the benefits of a _Graphical User Interface (GUI)_. Whether you prefer the agility of typing or the convenience of visual interaction, Elder Scrolls ensures that your volunteer management tasks are completed swiftly and seamlessly.
 

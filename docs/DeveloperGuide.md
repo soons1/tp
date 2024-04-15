@@ -12,7 +12,8 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Elder Scrolls is based on the [AddressBook-Level3 project](https://nus-cs2103-ay2324s2.github.io/tp/) created by the [SE-EDU initiative](https://se-education.org).
+* The design of the Elder Scrolls user interface takes cues from Google's [Material Design system](https://m3.material.io/).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -569,8 +570,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -593,34 +592,35 @@ _{more aspects and alternatives to be added}_
 * is a manager of a befriending volunteer organisation
 * has a need to keep track of many befriendees/elderly of the volunteer programme
 * has a need to keep track of volunteers in the organisation
+* has a need to keep track of logs of activities/visits made by volunteers to befriendees
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage the volunteer organisation faster than a typical mouse/GUI driven app
+**Value proposition**: manage the volunteer organisation faster than a typical mouse/GUI driven app. Our application aims to provide fast access to all contacts with intuitive search and filtering, enable pairing of volunteers to elderly befriendees, show multiple lists to enable multitasking and support efficient adding of logs between pairs of volunteers and befriendees.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​   | I want to …​                                                                           | So that I can…​                                               |
-|----------|-----------|----------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| `* * *`  | manager   | add volunteers’ and elderly befriendees’ contacts                                      |                                                               |
-| `* * *`  | manager   | edit volunteers’ and elderly befriendees’ details                                      |                                                               |
-| `* * *`  | manager   | delete volunteer and elderly befriendee contacts                                       |                                                               |
-| `* * *`  | manager   | view list of volunteers and elderly befriendees                                        | keep track of the roster                                      |
-| `* * *`  | manager   | tag elderly befriendees with relevant details                                          | accommodate for any special circumstances                     |
-| `* * *`  | manager   | pair and unpair volunteers with befriendee contacts                                    | assign the pairings                                           |
-| `* * *`  | manager   | add log entries for each visit made by a volunteer to an elderly befriendee            | keep track of the visits                                      |
-| `* * *`  | manager   | search for specific elderly befriendee or volunter befriender                          | find and view the details of befriendee or volunteer          |
-| `* * *`  | manager   | search log entries based on a befriendee or volunteer                                  | find and view the details of relevant log entries             |
-| `* *`    | first-time user | access a help page                                                                     | refer to the features that come along with the application    |
-| `* *`    | first-time user | see sample befriendee and volunteer profiles                                           | try out the features with pre-loaded data                     |
-| `* *`    | manager   | have a one-stop view of all the important information about the elderly and volunteers | contact each person easily                                    |
-| `* *`    | manager   | add details directly to pairings                                                       | add information specific to pairings                          |
-| `*`      | first-time user | follow a guided tour                                                                   | be aware of how to use and access features in the application |
+| Priority | As a …​      | I want to …​                                                                | So that I can…​                                            |
+|----------|-----------------|--------------------------------------------------------------------------------|---------------------------------------------------------------|
+| `* * *`  | manager         | add volunteers’ and elderly befriendees’ contacts                              |                                                               |
+| `* * *`  | manager         | edit volunteers’ and elderly befriendees’ details                              |                                                               |
+| `* * *`  | manager         | delete volunteer and elderly befriendee contacts                               |                                                               |
+| `* * *`  | manager         | view list of volunteers and elderly befriendees                                | keep track of the roster                                      |
+| `* * *`  | manager         | tag elderly befriendees with relevant details                                  | accommodate for any special circumstances                     |
+| `* * *`  | manager         | pair and unpair volunteers with befriendee contacts                            | assign the pairings                                           |
+| `* * *`  | manager         | add log entries for each visit made by a volunteer to an elderly befriendee    | keep track of the visits                                      |
+| `* * *`  | manager         | search for specific elderly befriendee or volunter befriender                  | find and view the details of befriendee or volunteer          |
+| `* * *`  | manager         | search log entries based on a befriendee or volunteer                          | find and view the details of relevant log entries             |
+| `* *`    | manager         | have a one-stop view of all important information regarding elderly and volunteers | contact each person easily                                |
+| `* *`    | manager         | undo and redo changes made to the contacts, pairings, and logs                 | revert changes made in error                                  |
+| `* *`    | first-time user | access a help page                                                             | refer to the features that come along with the application    |
+| `* *`    | first-time user | see sample befriendee and volunteer profiles                                   | try out the features with pre-loaded data                     |
+| `*`      | first-time user | follow a guided tour                                                           | be aware of how to use and access features in the application |
 
 
 ### Use cases
@@ -658,14 +658,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
-3.  User requests to delete a specific contact using its list index.
-4.  Elder Scrolls deletes the contact based on its list index.
+3.  User requests to delete a specific contact by specifying the role and using its list index.
+4.  Elder Scrolls deletes the contact based on its role and list index.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. The given list index or given role is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
@@ -673,9 +673,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The contact requested to be deleted is still paired.
 
-  * 4a1. Elder Scrolls shows an error message.
-
-    Use case resumes at step 2.
+    * 4a1. Elder Scrolls shows an error message.
+    
+      Use case resumes at step 2.
 
 **Use case: UC03 - List all contacts**
 
@@ -762,6 +762,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Extensions**
+
+* 1a. User wants to find person specifically amongst the volunteer.
+    * 1a1. User specifies the role as volunteer.
+    * 1a2. Elder Scrolls displays a list of volunteers matching the name keyword.
+      Use case ends.
+* 1b. User wants to find persons that are paired.
+    * 1b1. User specifies the pairing status as paired.
+    * 1b2. Elder Scrolls displays a list of paired persons matching the name keyword.
+      Use case ends.
+* 1c. User wants to find persons that are tagged with a specific tag.
+    * 1c1. User specifies the tag as a property.
+    * 1c2. Elder Scrolls displays a list of persons tagged with the specified tag.
+      Use case ends.
+
+**Use case: UC08 - Find associated logs to a specific person**
+
+**MSS**
+
+1. User requests to find logs associated with a specific person.
+2. Elder Scrolls displays a list of logs associated with the specific person.
+
+   Use case ends.
+
+
 
 ### Non-Functional Requirements
 
@@ -770,25 +795,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should have a simple menu structure with clear labels, guiding users to key actions without extensive tutorials.
 5. Should have graceful error handling with clear human-readable messages to the user to guide them in fixing their command.
-6. Ability to filter contacts based on relevant criteria (location, demographics, skills, availability) to aid in pairing.
-7. Should have a robust data storage mechanism that can handle data corruption and large data sets.
+6. Should have a robust data storage mechanism that can handle data corruption and large data sets.
 
 ### Glossary
 
 * **Volunteer**: An individual who offers their time and services to social service agencies or causes without financial compensation, in this context they carry out befriending activities with the beneficiaries.
 * **Befriendee**: An individual who receives support, companionship, or assistance from volunteers, in this context they are the beneficiaries of the befriending activities.
-* **Befriending**: The act of providing companionship, support, or assistance to individuals in need, typically carried out by volunteers to enhance the well-being and quality of life of the befriendees. Examples include social visits, outings, and emotional support.
-* **Volunteer Management System (VMS)**: A digital volunteer management tool designed to aid an organisation in the management of volunteers to improve productivity and potentially enhance the volunteer experience.
 * **Elder Scrolls**: The Volunteer Management System (VMS) developed by our team for efficient management and bookkeeping of volunteers, befriendees, and their interactions.
-* **Befriending Volunteer Organisations**: An organisation that aims to provide companionship to seniors by pairing them with volunteers
 * **Tagging**: Adding an arbitrary detail(s) to a volunteer or befriendee profile to aid in identifying special conditions
 * **Index**: The position or number assigned to each item in a list, used for reference when performing actions such as editing or deleting entries in Elder Scrolls.
 * **Pairing**: The process of associating a volunteer with a befriendee in Elder Scrolls, allowing them to work together on activities or support services.
 * **Logs**: Records of interactions, activities, or events between volunteers and befriendees in Elder Scrolls, used for tracking service hours, progress, and communication.
 * **Command Line Interface (CLI)**: A text-based interface used for interacting with Elder Scrolls through commands typed into a terminal or command prompt.
 * **Graphical User Interface (GUI)**: A visual interface used for interacting with Elder Scrolls, providing intuitive controls and displays for managing volunteers, befriendees and logs.
-* **Backup**: A copy of Elder Scrolls data stored separately from the main application, used to safeguard against data loss or corruption.
-* **Open Source**: Software whose source code is freely available to the public, allowing users to view, modify, and distribute it according to open-source licenses.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -933,7 +952,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `pair 1 2`<br>
        Expected: No person is paired. Error details indicating "One or both of the persons are already paired..." shown in the status message. Status bar remains the same.
-       
+
 
 ### Unpairing two persons
 1. Unpairing two persons while all befriendees and volunteers are being shown
@@ -955,6 +974,51 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
+
+
+### Adding a log
+1. Adding a log while all befriendees and volunteers are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer.
+
+    1. Test case: `logadd 1 1 t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee`<br>
+       Expected: A log is added for the paired befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list.
+
+    1. Test case: `logadd 1 1 t/Icebreaker session d/2 `<br>
+       Expected: No log is added. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logadd command to try: `logadd 1 x t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee` (where x is larger than the volunteer list size)<br>
+       Expected: No log is added. Error details indicating "The person index provided is invalid." shown in the status message. Status bar remains the same.
+
+
+### Editing a log
+1. Editing a log while all logs are being shown
+
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+
+    1. Test case: `logedit 1 t/Cinema visit`<br>
+       Expected: The log at index 1 of the log list is edited. Updated details of the edited log shown in the status message.
+
+    1. Test case: `logedit 1`<br>
+       Expected: No log is edited. Error details indicating "At least one field to edit must be provided." shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logedit command to try: `logedit x t/Cinema visit` (where x is larger than the log list size)<br>
+       Expected: No log is edited. Error details indicating "The log index provided is invalid." shown in the status message. Status bar remains the same.
+
+### Deleting a log
+1. Deleting a log while all logs are being shown
+
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+
+    1. Test case: `logdelete 3`<br>
+       Expected: The log at index 3 of the log list is deleted. Details of the deleted log shown in the status message.
+
+    1. Test case: `logdelete`<br>
+       Expected: No log is deleted. Error details indicating "Invalid command format!" shown in the status message. Status bar remains the same.
+
+    1. Other incorrect logdelete command to try: `logdelete x` (where x is larger than the log list size)<br>
+       Expected: No log is deleted. Error details indicating "Unable to delete log: The log index provided is invalid." shown in the status message. Status bar remains the same.
+
 
 ### Finding Logs associated with a person
 1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
@@ -1026,15 +1090,6 @@ testers are expected to do more *exploratory* testing.
       Subsequently, when the `redo` command is executed, the `undo` operation of the `delete 3 r/volunteer` command will not be reversed. 
       Error details indicating "No previous undo operation to be reversed" shown in the status message. Status bar remains the same.
 
-### Saving data
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
-
-
 
 ### Clearing Elder Scrolls data
 1. Clearing all data
@@ -1053,11 +1108,29 @@ testers are expected to do more *exploratory* testing.
       **Expected:** The help window opens.
 
 
-
-
-
 ## **Appendix C: Effort**
-TODO
+
+### Difficulty Estimation
+
+Overall, the team believes that the features we have chosen to undertake are fairly complex, as they involve fundamental changes to the application state, as is the case with `undo` and `redo`. Additionally, the addition of `log` features and separation of person types meant that the existing relationships between entities inherited from AB3 had to be restructured significantly.
+
+The team also made significant changes to the UI, in an attempt to modernise the look and feel of the application. With meticulous reference to modern design systems, the team made significant changes to the styling of the application. These changes were challenging as they required a good understanding of JavaFX and the ability to work within the confines of the existing codebase.
+
+### Challenges Faced
+
+1. **Global ID vs Indexed ID**: We initially decided on using a global ID for each person, but later realised upon further exploration of the codebase that refactoring all instances of list indexing would be an outsized task. Thus, the team compromised by using global IDs for identifications, but still using list indices for client-facing commands.
+2. **Adding Logs**: The team faced challenges in adding logs to the application, as it required a significant restructuring of the existing codebase. Given that logs were an entirely new set of entities to be stored in the application, where AB3 had only a single entity, we quickly realised that the existing structure of the `model` was not sufficient to handle the new requirements. This led to a significant amount of refactoring and restructuring of the `Model` and `Storage` classes.
+3. **Relationships between entities**: Given that the new features included two different classes of `Person` as well as a `Log` class associated with both, the team spent a significant amount of time planning and testing the correctness of the relations between these entities. Through defensive programming and good test coverage, we were able to ensure that all user operations modifying these relationships were correctly reflected in the application state.
+
+### Effort Required
+
+Overall, over the thousands of lines of code changed, the team estimates that a few dozen man-hours were spent on the project. The team met regularly to discuss the project, and each member contributed significantly to the project through an even distribution of work over the main areas: adding commands, restructuring logic and backend, UI. The team also spent a significant amount of time on testing, as the new features added to the application were complex and required a significant amount of additional test code to ensure that they worked as expected.
+
+As a result, we were able to deliver on planned features while increasing our code coverage over the inherited project.
+
+### Achievements
+
+A robust and extensible application was delivered, with a significant amount of new features added to the application. The team was able to deliver on planned features, and the performance of new features, such as `log` operations, were significantly improved over old features of the inherited project.
 
 ## **Appendix D: Planned Enhancements**
 
@@ -1069,9 +1142,17 @@ Our current version of Elder Scrolls enables users to efficiently manage volunte
 
 2. **Enhanced find feature**: The current `find` command returns valid entries based on full matching of user inputs. We plan to enhance our `find` command with partial name keyword/tag search functionality, enabling users to find contacts based on partial name/tag matches. Improves search efficiency and usability in case a user may not fully remember a contact's name or tag.
 
-3. **Add customizability to constraints of logs added**: Currently, logs added can have dates in the future. While this may be desirable (for e.g. to log a planned visit with todos, and subsequently update remarks after the visit), it may also be undesirable (for e.g. to prevent accidental future date inputs). We plan to add a configuration option to allow users to set constraints on the dates of logs added, such that users can customize the behavior to suit their needs.
+3. **Better find command format**: While the current `find` command supports a more concise and naturalised search, users may feel that the parameter format is not standardised across all commands, leading to inconvenience for those with bad memory. We plan to implement and support standardised `find` command parameters (such as `n/NAME_KEYWORD`, `p/PAIR_STATUS` etc.) that would help streamline the formatting across all our commands. This would also naturally include appropriate exception handling for invalid input parameters as well.
 
-4. **Flexible Grouping of Volunteer and Befriendee**: Currently, our system only supports 1-1 pairing of volunteer and befriendee. We recognise that expanding beyond will bring stronger flexibility and generalizability, and hence plan to expand the current 1-to-1 pairing system to allow for more flexible grouping of volunteers and befriendees. Specifically, this would allow multiple volunteers to be paired with a single befriendee, vice versa, or allow a group of volunteers to be paired with a group of befriendees. This would be consistent with logadd, logedit, and logdelete commands.
+4. **Add customizability to constraints of logs added**: Currently, logs added can have dates in the future. While this may be desirable (for e.g. to log a planned visit with todos, and subsequently update remarks after the visit), it may also be undesirable (for e.g. to prevent accidental future date inputs). We plan to add a configuration option to allow users to set constraints on the dates of logs added, such that users can customize the behavior to suit their needs.
+
+5. **Flexible Grouping of Volunteer and Befriendee**: Currently, our system only supports 1-1 pairing of volunteer and befriendee. We recognise that expanding beyond will bring stronger flexibility and generalizability, and hence plan to expand the current 1-to-1 pairing system to allow for more flexible grouping of volunteers and befriendees. Specifically, this would allow multiple volunteers to be paired with a single befriendee, vice versa, or allow a group of volunteers to be paired with a group of befriendees. This would be consistent with logadd, logedit, and logdelete commands.
+
+6. **More Informative Pairing and Unpairing Outputs**: Currently, the `pair` and `unpair` commands do not provide exact and detailed feedback during failure of the operation (e.g. person already paired, or persons are not paired together). While the user can thereafter search to find these details using the `find` command, we plan to enhance these commands to provide stronger feedback, including which person is paired, whom each person is currently paired with, and provide shortcuts for a user to easily unpair that person (e.g. by providing copy-paste formatted commands in the output).
+
+7. **More Customizable UI for output**: Currently, while the entire window is adjustable with each list scaling individually, the output message window is not height adjustable. To improve user experience, we plan to make the output message window height adjustable, allowing users to adjust the height of the output message window to their preference.
+
+8. **More Specific Error Messages showing specific parameter absence/invalidity**: While the current error messages are informative, they do not provide specific details on which parameter is missing or invalid. We plan to enhance the error messages to provide more specific details on which parameter is missing or invalid, allowing users to quickly identify and rectify the issue. (E.g. for `add` command, the error message will specify which parameter is missing or invalid).
 
 
 
