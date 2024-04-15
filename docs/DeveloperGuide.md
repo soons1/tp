@@ -1184,6 +1184,8 @@ Our current version of Elder Scrolls enables users to efficiently manage volunte
 
 8. **More Specific Error Messages showing specific parameter absence/invalidity**: While the current error messages are informative, they do not provide specific details on which parameter is missing or invalid. We plan to enhance the error messages to provide more specific details on which parameter is missing or invalid, allowing users to quickly identify and rectify the issue. (E.g. for `add` command, the error message will specify which parameter is missing or invalid).
 
+9. **Better duplicate person detection**: Currently, our application disallows duplicate people without case sensitivity, meaning 2 contacts with names `John Doe` and `john doe` respectively are considered duplicate people. However, extra white spaces in the name will cause contacts to be considered different people, even if everything else is equal. Thus, we plan to enhance the duplicate detection in our application to warn the user when inputting such near match cases. This will give users the ability to confirm if they intend to add a new contact resembling an existing one, with extra white spaces.
+
 
 
 
