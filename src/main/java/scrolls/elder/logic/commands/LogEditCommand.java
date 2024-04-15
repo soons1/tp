@@ -54,7 +54,7 @@ public class LogEditCommand extends Command {
 
     public static final String MESSAGE_EDIT_LOG_SUCCESS = "Edited Log successfully: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_NEGATIVE_DURATION = "Duration cannot be negative.";
+    public static final String MESSAGE_NEGATIVE_DURATION = "Duration must be positive.";
 
     private final Index index;
     private final EditLogDescriptor editLogDescriptor;

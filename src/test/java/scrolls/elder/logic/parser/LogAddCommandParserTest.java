@@ -52,7 +52,7 @@ class LogAddCommandParserTest {
     @Test
     public void parse_invalidDurationFormat_throwsParseException() {
         assertParseFailure(parser, "1 2 t/Movies s/2024-03-07 d/Two r/Good",
-                "Invalid number format. Expected a number.");
+                "Invalid number format. Expected an integer.");
     }
 
     @Test
