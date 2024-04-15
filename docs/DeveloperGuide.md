@@ -9,6 +9,8 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
 
 ## **Acknowledgements**
 
@@ -28,6 +30,9 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
 
 ### Architecture
 
