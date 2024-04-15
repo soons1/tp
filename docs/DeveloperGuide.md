@@ -13,6 +13,7 @@ title: Developer Guide
 ## **Acknowledgements**
 
 * Elder Scrolls is based on the [AddressBook-Level3 project](https://nus-cs2103-ay2324s2.github.io/tp/) created by the [SE-EDU initiative](https://se-education.org).
+* The design of the Elder Scrolls user interface takes cues from Google's [Material Design system](https://m3.material.io/).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1108,7 +1109,28 @@ testers are expected to do more *exploratory* testing.
 
 
 ## **Appendix C: Effort**
-TODO
+
+### Difficulty Estimation
+
+Overall, the team believes that the features we have chosen to undertake are fairly complex, as they involve fundamental changes to the application state, as is the case with `undo` and `redo`. Additionally, the addition of `log` features and separation of person types meant that the existing relationships between entities inherited from AB3 had to be restructured significantly.
+
+The team also made significant changes to the UI, in an attempt to modernise the look and feel of the application. With meticulous reference to modern design systems, the team made significant changes to the styling of the application. These changes were challenging as they required a good understanding of JavaFX and the ability to work within the confines of the existing codebase.
+
+### Challenges Faced
+
+1. **Global ID vs Indexed ID**: We initially decided on using a global ID for each person, but later realised upon further exploration of the codebase that refactoring all instances of list indexing would be an outsized task. Thus, the team compromised by using global IDs for identifications, but still using list indices for client-facing commands.
+2. **Adding Logs**: The team faced challenges in adding logs to the application, as it required a significant restructuring of the existing codebase. Given that logs were an entirely new set of entities to be stored in the application, where AB3 had only a single entity, we quickly realised that the existing structure of the `model` was not sufficient to handle the new requirements. This led to a significant amount of refactoring and restructuring of the `Model` and `Storage` classes.
+3. **Relationships between entities**: Given that the new features included two different classes of `Person` as well as a `Log` class associated with both, the team spent a significant amount of time planning and testing the correctness of the relations between these entities. Through defensive programming and good test coverage, we were able to ensure that all user operations modifying these relationships were correctly reflected in the application state.
+
+### Effort Required
+
+Overall, over the thousands of lines of code changed, the team estimates that a few dozen man-hours were spent on the project. The team met regularly to discuss the project, and each member contributed significantly to the project through an even distribution of work over the main areas: adding commands, restructuring logic and backend, UI. The team also spent a significant amount of time on testing, as the new features added to the application were complex and required a significant amount of additional test code to ensure that they worked as expected.
+
+As a result, we were able to deliver on planned features while increasing our code coverage over the inherited project.
+
+### Achievements
+
+A robust and extensible application was delivered, with a significant amount of new features added to the application. The team was able to deliver on planned features, and the performance of new features, such as `log` operations, were significantly improved over old features of the inherited project.
 
 ## **Appendix D: Planned Enhancements**
 
