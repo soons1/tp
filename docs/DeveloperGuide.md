@@ -930,26 +930,29 @@ testers are expected to do more *exploratory* testing.
    * Expected: Lists of sample volunteers, befriendees and logs are shown.
 
 ### Find a specific person based on name keywords, pairing status, or tags
-1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
 1. Find a volunteer by name keywords
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find`
       Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered. 
    1. Test case: `find David`
       Expected: Shows the list of volunteers and befriendees with the name "David".
    1. Test case: `find david alex`
-      Expected: Shows the list of volunteers and befriendees with either the name "Alice" or "David".
+      Expected: Shows the list of volunteers and befriendees with either the name "David" or "Alex".
 
 2. Find a person by pairing status
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find --paired`
       Expected: Shows a list of all paired volunteers and befriendees. The list may contain multiple paired persons.
    1. Test case: `find --unpaired`
       Expected: Shows a list of all unpaired volunteers and befriendees. The list may contain multiple unpaired persons.
 
 3. Find a person by tags
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find t/student`
-      Expected: Shows a list of all volunteers and befriendees with the tag "student".
+    Expected: Shows a list of all volunteers and befriendees with the tag "student".
 
 4. Restrict find operation to volunteers or befriendees
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find r/volunteer --paired`
       Expected: Shows list of all volunteers that are paired. Befriendee list is untouched.
    1. Test case: `find r/befriendee t/handicapped`
@@ -979,10 +982,10 @@ testers are expected to do more *exploratory* testing.
 ### Editing a person
 1. Editing a person while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. The person indicated to be edited
+    1. Prerequisites: List all persons using the `list` command. The person indicated to be edited should exist in the volunteer or befriendee list.
 
     1. Test case: `edit 1 r/befriendee p/91225454 e/zhuoran@example.com`<br>
-       Expected: Details of the first befriendee on the befriendee list is edited. Updated details of the edited contact shown in the status message.
+       Expected: Details of the first befriendee on the befriendee list are edited. Updated details of the edited contact shown in the status message.
 
     1. Test case: `edit 1 n/Josh`<br>
        Expected: No contact is edited. Error details indicating "Role must be specified..." shown in the status message. Status bar remains the same.
@@ -997,7 +1000,7 @@ testers are expected to do more *exploratory* testing.
 ### Deleting a person
 1. Deleting a person while all befriendees and volunteers are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index not paired with anyone and does not have any logs.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index is not paired with anyone and does not have any logs.
 
    1. Test case: `delete 3 r/volunteer`<br>
       Expected: Third contact is deleted from the volunteer list. Details of the deleted contact shown in the status message.
@@ -1026,7 +1029,7 @@ testers are expected to do more *exploratory* testing.
 ### Pairing two persons
 1. Pairing two persons while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are not paired.
 
     1. Test case: `pair 1 1`<br>
        Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are paired. Details of the two persons shown in the status message.
@@ -1039,7 +1042,7 @@ testers are expected to do more *exploratory* testing.
 
 2. Pairing two persons where one or both of the persons are already paired
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and one or both are already paired.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and one or both are already paired.
 
     1. Test case: `pair 1 2`<br>
        Expected: No person is paired. Error details indicating "One or both of the persons are already paired..." shown in the status message. Status bar remains the same.
@@ -1048,7 +1051,7 @@ testers are expected to do more *exploratory* testing.
 ### Unpairing two persons
 1. Unpairing two persons while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are paired with each other.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are paired with each other.
 
     1. Test case: `unpair 1 1`<br>
        Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are unpaired. Details of the two persons shown in the status message.
@@ -1061,18 +1064,15 @@ testers are expected to do more *exploratory* testing.
 
 2. Unpairing two persons where the persons are not paired with each other
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired with each other.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are not paired with each other.
 
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
 
-[//]: # (Page Break:)
-<div style="page-break-after: always;"> </div>  
-
 ### Adding a log
 1. Adding a log while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer. The contacts at the indicated indices exist and are paired with each other.
 
     1. Test case: `logadd 1 1 t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee`<br>
        Expected: A log is added for the paired befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list.
@@ -1087,7 +1087,7 @@ testers are expected to do more *exploratory* testing.
 ### Editing a log
 1. Editing a log while all logs are being shown
 
-    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list. The log at the indicated index should exist in the logs list.
 
     1. Test case: `logedit 1 t/Cinema visit`<br>
        Expected: The log at index 1 of the log list is edited. Updated details of the edited log shown in the status message.
@@ -1101,7 +1101,7 @@ testers are expected to do more *exploratory* testing.
 ### Deleting a log
 1. Deleting a log while all logs are being shown
 
-    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list. The log at the indicated index should exist in the logs list.
 
     1. Test case: `logdelete 3`<br>
        Expected: The log at index 3 of the log list is deleted. Details of the deleted log shown in the status message.
@@ -1114,13 +1114,17 @@ testers are expected to do more *exploratory* testing.
 
 
 ### Finding Logs associated with a person
-1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
-    1. Test case: `findlog`
-      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
-   2. Test case: `findlog 1 r/volunteer`
-      Expected: Shows the list of logs associated with the volunteer at the index 1.
-   3. Test case: `findlog 3 r/befriendee`
-      Expected: Shows the list of logs associated with the befriendee at the index 1.
+1. Find Logs for a person while all volunteers and befriendees are shown
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase. The contact at the indicated index should exist in the volunteer or befriendee list.
+   2. Test case: `findlog`
+   Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
+   3. Test case: `findlog 1 r/volunteer`
+   Expected: Shows the list of logs associated with the volunteer at the index 1.
+   4. Test case: `findlog 2 r/befriendee`
+   Expected: Shows the list of logs associated with the befriendee at the index 2.
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Undo previously executed commands
 1. Undo a command that mutates the data in Elder Scrolls (`add`, `edit`, `delete`, `pair`, `unpair`, `logadd`, `logedit`, `logdelete`, `clear`)
@@ -1164,7 +1168,7 @@ testers are expected to do more *exploratory* testing.
       Subsequently, after the `redo` command is executed, the third volunteer in the volunteer is once again deleted, reverting the effects of the undo command that was executed.
       The status bar displays that the previous undo operation has been reversed.
    3. **Test case:** `edit 1 r/volunteer n/alex` followed by `undo` followed by `redo` <br>
-      **Expected:** After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh", after the second command, the edit made on the first volunteer's name will be undone, and their name will be reverted back to "Alex Yeoh". <br>
+      **Expected:** After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh". After the second command, the edit made on the first volunteer's name will be undone, and their name will be reverted back to "Alex Yeoh". <br>
       Subsequently, after the `redo` command is executed, the first volunteer in the volunteer list will once again have their name edited to "alex", reverting the effects of the undo command that was executed.
       The status bar displays that the previous undo operation has been reversed.
       <br><br>
