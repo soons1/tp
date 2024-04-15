@@ -9,6 +9,8 @@ title: Developer Guide
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
 
 ## **Acknowledgements**
 
@@ -22,6 +24,8 @@ title: Developer Guide
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
 
 ## **Design**
 
@@ -40,7 +44,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -72,13 +76,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `LogListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -87,9 +91,12 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` and `Log` objects that reside in the `Model`.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
+
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -118,11 +125,12 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/src/main/java/scrolls/elder/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="600" />
-
 
 The `Model` component,
 
@@ -133,7 +141,7 @@ The `Model` component,
 
 #### Datastore
 
-<img src="images/DatastoreClassDiagram.png" width="600" />
+<img src="images/DatastoreClassDiagram.png" width="550" />
 
 Contains the `PersonStore`:
 
@@ -149,7 +157,8 @@ Contains the `LogStore`:
 
 </div>
 
-
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/master/src/main/java/scrolls/elder/storage/Storage.java)
@@ -197,7 +206,6 @@ The following sequence diagram shows how an add operation goes through the `Logi
     * Cons: In cases where two people have the same name with different capitalization, it is not accepted.
 
 * **Alternative 2:** Name attribute is case-sensitive.
-  itself.
     * Pros: Two people who have the same name with different capitalization is allowed in the application.
     * Cons: Accidental capitalization can cause duplicate entries in the application.
 
@@ -262,7 +270,8 @@ The following sequence diagram shows how a delete operation goes through the `Lo
     * Pros: Simplifies the deletion process.
     * Cons: Accidental deletion of a person who is still a part of the volunteer programme is possible.
 
-
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 ### Find feature
 
 #### Implementation
@@ -347,6 +356,9 @@ The following sequence diagram shows how a pair operation goes through the `Logi
 
 For the unpair operation, the sequence diagram is similar to the pair operation, with the `UnpairCommand` class executing the unpair operation.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 #### Design considerations:
 
 **Aspect: What attribute(s) should be saved in the `Person` object:**
@@ -370,7 +382,9 @@ The `LogEditCommand` class is responsible for creating a new log entry, and the 
 
 The following sequence diagram shows how a LogAdd operation goes through the `Logic` component:
 
-![LogAddSequenceDiagram](images/LogAddSequenceDiagram-Logic.png)
+<div style="text-align:center;">
+  <img src="images/LogAddSequenceDiagram-Logic.png" alt="LogAddSequenceDiagram-Logic" width="600">
+</div>
 
 <div style="text-align:center;">
   <img src="images/LogAddSequenceDiagram2.png" alt="LogAddSequenceDiagram2" width="600">
@@ -429,6 +443,9 @@ The following sequence diagram shows how a LogEdit operation goes through the `L
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
     * Cons: Restricts the flexibility of the `LogEdit` feature
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 ### Delete Log feature
 
 #### Implementation
@@ -457,6 +474,8 @@ The following sequence diagram shows how a LogDelete operation goes through the 
     * Pros: Simplifies the process of deleting a log entry.
     * Cons: Another component of the application must be responsible for updating the `latestLogId` attribute of the `Person` objects.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Find Log feature
 
@@ -509,6 +528,9 @@ Step 2. The user executes `delete 5 r/volunteer` command to delete the 5th volun
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitDatastore()`, causing another modified datastore state to be saved into the `datastoreVersions`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
@@ -527,6 +549,9 @@ than attempting to perform the undo.
 
 </div>
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
@@ -538,6 +563,9 @@ The following sequence diagram shows how an undo operation goes through the `Log
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 The `redo` command does the opposite — it calls `Model#redoChanges()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the datastore to that state.
 
@@ -552,6 +580,9 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 Step 6. The user executes `clear`, which calls `Model#commitDatastore()`. Since the `currentStatePointer` is not pointing at the end of the `datastoreVersions`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -622,6 +653,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | first-time user | see sample befriendee and volunteer profiles                                   | try out the features with pre-loaded data                     |
 | `*`      | first-time user | follow a guided tour                                                           | be aware of how to use and access features in the application |
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Use cases
 
@@ -658,14 +691,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
-3.  User requests to delete a specific contact using its list index.
-4.  Elder Scrolls deletes the contact based on its list index.
+3.  User requests to delete a specific contact.
+4.  Elder Scrolls deletes the specified contact.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. The specific contact given by the user is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
@@ -673,16 +706,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The contact requested to be deleted is still paired.
 
-  * 4a1. Elder Scrolls shows an error message.
+    * 4a1. Elder Scrolls shows an error message.
+    
+      Use case resumes at step 2.
 
-    Use case resumes at step 2.
-
-**Use case: UC03 - List all contacts**
+**Use case: UC03 - List all contacts and logs**
 
 **MSS**
 
-1. User requests to list all contacts
-2. Elder Scrolls shows a list of all contacts
+1. User requests to list all contacts and logs
+2. Elder Scrolls shows a list of all contacts and logs
 
    Use case ends.
 
@@ -690,8 +723,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2.  Elder Scrolls shows a list of contacts.
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
 3.  User requests to pair a specific volunteer and befriendee in the list.
 4.  Elder Scrolls pairs the specified volunteer and befriendee.
 
@@ -699,45 +732,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. One or both of the specified persons are invalid.
 
-    * 3a1. Elder Scrolls shows an error message indicating that the given list index is invalid.
-
-      Use case resumes at step 2.
-
-* 3b. One or both given persons at specified list index are already paired.
-
-    * 3b1. Elder Scrolls shows an error message indicating that the given person(s) are already paired.
+    * 3a1. Elder Scrolls shows an error message indicating that the specified person(s) given are invalid.
 
       Use case resumes at step 2.
 
-**Use case: UC05 - Tag contacts**
+* 3b. One or both of the specified persons are already paired.
+
+    * 3b1. Elder Scrolls shows an error message indicating that the specified person(s) are already paired.
+
+      Use case resumes at step 2.
+
+**Use case: UC05 - Edit field for a specific contact**
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2.  Elder Scrolls shows a list of contacts.
-3.  User requests to tag a specific person with a property.
-4.  Elder Scrolls tags the specified person in the list with that specified property.
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
+3.  User requests to edit a field for a specific contact, with a new specified value.
+4.  Elder Scrolls edits the field for the specified person in the list with the new specified value.
 
     Use case ends.
 
 **Extensions**
 
-
-* 3a. The given list index is invalid.
-
+* 3a. The specific contact given by the user is invalid.
     * 3a1. Elder Scrolls shows an error message.
-
       Use case resumes at step 2.
+  
+* 3b. The field that the user wants to edit is not specified
+    * 3b1. Elder Scrolls shows an error message to prompt the user to specify a field to edit.
+      Use case resumes at step 2.
+  
+* 3c. The new specified value is not provided by the user
+    * 3c1. Elder Scrolls shows an error message to prompt the user to specify a new value for the field the user wishes to edit.
+      Use case resumes at step 2. 
 
 
 **Use case: UC06 - Add a log entry for volunteer-befriendee pairs**
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2. Elder Scrolls shows a list of contacts.
+1. User <u>requests to list all contacts and logs (UC03)</u>.
+2. Elder Scrolls shows a list of contacts and logs.
 3. User requests to add a log entry for two paired individuals, and enters details of the activity log, including date, time, and remarks.
 4. Elder Scrolls records the log entry for the selected pair.
 
@@ -786,7 +824,57 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Use case: UC09 - Edit field for a specific log**
 
+**MSS**
+
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
+3.  User requests to edit a field in a specific log, with a new specified value.
+4.  Elder Scrolls edits that field for that specific log in the list with the new specified value.
+    
+    Use case ends.
+
+**Extensions**
+
+* 3a. The given specific log is invalid.
+    * 3a1. Elder Scrolls shows an error message.
+      Use case resumes at step 2.
+
+* 3b. The field that the user wants to edit is not specified
+    * 3b1. Elder Scrolls shows an error message to prompt the user to specify a field to edit.
+      Use case resumes at step 2.
+
+**Use case: UC10 - Undo a command**
+
+**MSS**
+
+1. User requests to execute a command.
+2. Elder Scrolls executes the command.
+3. User requests to undo the command.
+4. Elder Scrolls undoes the command.
+   
+   Use case ends
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
+**Extensions**
+
+* 3a. The command that was previously executed does not mutate data in the application
+    * 1a1. Elder Scrolls shows an error message to tell the user there is no previous operation to be undone.
+      Use case resumes at step 2.
+
+**Use case: UC11 - Redo a command**
+
+**MSS**
+
+1. User <u>requests to undo a command (UC10)</u>.
+2. Elder Scrolls undoes the command.
+3. User requests to revert the effects of the undo command.
+4. Elder Scrolls reverts the effect of the undo command.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
@@ -811,6 +899,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix B: Instructions for manual testing**
 
@@ -835,30 +925,32 @@ testers are expected to do more *exploratory* testing.
 1. Close Elder Scrolls.
 2. Delete the file `./data/datastore.json` if it exists.
 3. Launch Elder Scrolls.
-4. Click on the `Volunteers` tab.
-   * Expected: Lists of sample volunteers, befriendees and logs are shown.
+   Expected: Lists of sample volunteers, befriendees and logs are shown.
 
 ### Find a specific person based on name keywords, pairing status, or tags
-1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
 1. Find a volunteer by name keywords
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find`
       Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered. 
    1. Test case: `find David`
       Expected: Shows the list of volunteers and befriendees with the name "David".
    1. Test case: `find david alex`
-      Expected: Shows the list of volunteers and befriendees with either the name "Alice" or "David".
+      Expected: Shows the list of volunteers and befriendees with either the name "David" or "Alex".
 
 2. Find a person by pairing status
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find --paired`
       Expected: Shows a list of all paired volunteers and befriendees. The list may contain multiple paired persons.
    1. Test case: `find --unpaired`
       Expected: Shows a list of all unpaired volunteers and befriendees. The list may contain multiple unpaired persons.
 
 3. Find a person by tags
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find t/student`
-      Expected: Shows a list of all volunteers and befriendees with the tag "student".
+    Expected: Shows a list of all volunteers and befriendees with the tag "student".
 
 4. Restrict find operation to volunteers or befriendees
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
    1. Test case: `find r/volunteer --paired`
       Expected: Shows list of all volunteers that are paired. Befriendee list is untouched.
    1. Test case: `find r/befriendee t/handicapped`
@@ -888,10 +980,10 @@ testers are expected to do more *exploratory* testing.
 ### Editing a person
 1. Editing a person while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. The person indicated to be edited
+    1. Prerequisites: List all persons using the `list` command. The person indicated to be edited should exist in the volunteer or befriendee list.
 
     1. Test case: `edit 1 r/befriendee p/91225454 e/zhuoran@example.com`<br>
-       Expected: Details of the first befriendee on the befriendee list is edited. Updated details of the edited contact shown in the status message.
+       Expected: Details of the first befriendee on the befriendee list are edited. Updated details of the edited contact shown in the status message.
 
     1. Test case: `edit 1 n/Josh`<br>
        Expected: No contact is edited. Error details indicating "Role must be specified..." shown in the status message. Status bar remains the same.
@@ -906,7 +998,7 @@ testers are expected to do more *exploratory* testing.
 ### Deleting a person
 1. Deleting a person while all befriendees and volunteers are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index not paired with anyone and does not have any logs.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The index indicated exists, the contact at that index is not paired with anyone and does not have any logs.
 
    1. Test case: `delete 3 r/volunteer`<br>
       Expected: Third contact is deleted from the volunteer list. Details of the deleted contact shown in the status message.
@@ -935,7 +1027,7 @@ testers are expected to do more *exploratory* testing.
 ### Pairing two persons
 1. Pairing two persons while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are not paired.
 
     1. Test case: `pair 1 1`<br>
        Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are paired. Details of the two persons shown in the status message.
@@ -948,7 +1040,7 @@ testers are expected to do more *exploratory* testing.
 
 2. Pairing two persons where one or both of the persons are already paired
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and one or both are already paired.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and one or both are already paired.
 
     1. Test case: `pair 1 2`<br>
        Expected: No person is paired. Error details indicating "One or both of the persons are already paired..." shown in the status message. Status bar remains the same.
@@ -957,7 +1049,7 @@ testers are expected to do more *exploratory* testing.
 ### Unpairing two persons
 1. Unpairing two persons while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are paired with each other.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are paired with each other.
 
     1. Test case: `unpair 1 1`<br>
        Expected: The befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list are unpaired. Details of the two persons shown in the status message.
@@ -970,16 +1062,15 @@ testers are expected to do more *exploratory* testing.
 
 2. Unpairing two persons where the persons are not paired with each other
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exists and are not paired with each other.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The contacts at the indicated indices exist and are not paired with each other.
 
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
 
-
 ### Adding a log
 1. Adding a log while all befriendees and volunteers are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in both the befriendees and volunteers list. The first index refers to the befriendee and the second index refers to the volunteer. The contacts at the indicated indices exist and are paired with each other.
 
     1. Test case: `logadd 1 1 t/Icebreaker session s/2022-03-05 d/2 r/got to know more about befriendee`<br>
        Expected: A log is added for the paired befriendee at index 1 of the befriendee list and the volunteer at index 1 of the volunteer list.
@@ -994,7 +1085,7 @@ testers are expected to do more *exploratory* testing.
 ### Editing a log
 1. Editing a log while all logs are being shown
 
-    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list. The log at the indicated index should exist in the logs list.
 
     1. Test case: `logedit 1 t/Cinema visit`<br>
        Expected: The log at index 1 of the log list is edited. Updated details of the edited log shown in the status message.
@@ -1008,7 +1099,7 @@ testers are expected to do more *exploratory* testing.
 ### Deleting a log
 1. Deleting a log while all logs are being shown
 
-    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list.
+    1. Prerequisites: List all logs using the `list` command. Multiple logs in logs list. The log at the indicated index should exist in the logs list.
 
     1. Test case: `logdelete 3`<br>
        Expected: The log at index 3 of the log list is deleted. Details of the deleted log shown in the status message.
@@ -1021,13 +1112,17 @@ testers are expected to do more *exploratory* testing.
 
 
 ### Finding Logs associated with a person
-1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
-    1. Test case: `findlog`
-      Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
-   2. Test case: `findlog 1 r/volunteer`
-      Expected: Shows the list of logs associated with the volunteer at the index 1.
-   3. Test case: `findlog 3 r/befriendee`
-      Expected: Shows the list of logs associated with the befriendee at the index 1.
+1. Find Logs for a person while all volunteers and befriendees are shown
+   1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase. The contact at the indicated index should exist in the volunteer or befriendee list.
+   2. Test case: `findlog`
+   Expected: No change in list. Error displayed show an invalid command format, where at least one of the optional parameters must be entered.
+   3. Test case: `findlog 1 r/volunteer`
+   Expected: Shows the list of logs associated with the volunteer at the index 1.
+   4. Test case: `findlog 2 r/befriendee`
+   Expected: Shows the list of logs associated with the befriendee at the index 2.
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Undo previously executed commands
 1. Undo a command that mutates the data in Elder Scrolls (`add`, `edit`, `delete`, `pair`, `unpair`, `logadd`, `logedit`, `logdelete`, `clear`)
@@ -1071,7 +1166,7 @@ testers are expected to do more *exploratory* testing.
       Subsequently, after the `redo` command is executed, the third volunteer in the volunteer is once again deleted, reverting the effects of the undo command that was executed.
       The status bar displays that the previous undo operation has been reversed.
    3. **Test case:** `edit 1 r/volunteer n/alex` followed by `undo` followed by `redo` <br>
-      **Expected:** After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh", after the second command, the edit made on the first volunteer's name will be undone, and their name will be reverted back to "Alex Yeoh". <br>
+      **Expected:** After the first command, the first volunteer in the volunteer list will have their name edited to "alex" from "Alex Yeoh". After the second command, the edit made on the first volunteer's name will be undone, and their name will be reverted back to "Alex Yeoh". <br>
       Subsequently, after the `redo` command is executed, the first volunteer in the volunteer list will once again have their name edited to "alex", reverting the effects of the undo command that was executed.
       The status bar displays that the previous undo operation has been reversed.
       <br><br>
@@ -1107,6 +1202,10 @@ testers are expected to do more *exploratory* testing.
    1. **Test case:** `help`
       **Expected:** The help window opens.
 
+--------------------------------------------------------------------------------------------------------------------
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix C: Effort**
 
@@ -1122,6 +1221,9 @@ The team also made significant changes to the UI, in an attempt to modernise the
 2. **Adding Logs**: The team faced challenges in adding logs to the application, as it required a significant restructuring of the existing codebase. Given that logs were an entirely new set of entities to be stored in the application, where AB3 had only a single entity, we quickly realised that the existing structure of the `model` was not sufficient to handle the new requirements. This led to a significant amount of refactoring and restructuring of the `Model` and `Storage` classes.
 3. **Relationships between entities**: Given that the new features included two different classes of `Person` as well as a `Log` class associated with both, the team spent a significant amount of time planning and testing the correctness of the relations between these entities. Through defensive programming and good test coverage, we were able to ensure that all user operations modifying these relationships were correctly reflected in the application state.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 ### Effort Required
 
 Overall, over the thousands of lines of code changed, the team estimates that a few dozen man-hours were spent on the project. The team met regularly to discuss the project, and each member contributed significantly to the project through an even distribution of work over the main areas: adding commands, restructuring logic and backend, UI. The team also spent a significant amount of time on testing, as the new features added to the application were complex and required a significant amount of additional test code to ensure that they worked as expected.
@@ -1131,6 +1233,10 @@ As a result, we were able to deliver on planned features while increasing our co
 ### Achievements
 
 A robust and extensible application was delivered, with a significant amount of new features added to the application. The team was able to deliver on planned features, and the performance of new features, such as `log` operations, were significantly improved over old features of the inherited project.
+
+--------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix D: Planned Enhancements**
 
@@ -1153,6 +1259,8 @@ Our current version of Elder Scrolls enables users to efficiently manage volunte
 7. **More Customizable UI for output**: Currently, while the entire window is adjustable with each list scaling individually, the output message window is not height adjustable. To improve user experience, we plan to make the output message window height adjustable, allowing users to adjust the height of the output message window to their preference.
 
 8. **More Specific Error Messages showing specific parameter absence/invalidity**: While the current error messages are informative, they do not provide specific details on which parameter is missing or invalid. We plan to enhance the error messages to provide more specific details on which parameter is missing or invalid, allowing users to quickly identify and rectify the issue. (E.g. for `add` command, the error message will specify which parameter is missing or invalid).
+
+9. **Better duplicate person detection**: Currently, our application disallows duplicate people without case sensitivity, meaning 2 contacts with names `John Doe` and `john doe` respectively are considered duplicate people. However, extra white spaces in the name will cause contacts to be considered different people, even if everything else is equal. Thus, we plan to enhance the duplicate detection in our application to warn the user when inputting such near match cases. This will give users the ability to confirm if they intend to add a new contact resembling an existing one, with extra white spaces.
 
 
 

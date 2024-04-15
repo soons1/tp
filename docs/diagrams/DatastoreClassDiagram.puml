@@ -45,9 +45,13 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person --> pairedWithName
+Person *--> pairedWithId
+Person *--> latestLogId
 Person -up-> "*" Tag
 Person *--> Role
-Person -left-> timeServed
+Person *-left-> timeServed
+Person *-left-> personId
 
 Volunteer .up.|> Person
 Befriendee .up.|> Person
@@ -60,9 +64,6 @@ Person -[hidden]right--> Befriendee
 
 ReadOnlyPersonStore -[hidden]right--> Datastore
 ReadOnlyLogStore -[hidden]right--> ReadOnlyPersonStore
-
-Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

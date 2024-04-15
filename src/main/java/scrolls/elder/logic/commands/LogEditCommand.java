@@ -127,12 +127,15 @@ public class LogEditCommand extends Command {
 
         int durationDiff = editedLog.getDuration() - logToEdit.getDuration();
 
+        // Retrieve the volunteer and befriendee from the log to be edited
         Person befriendee = personStore.getPersonFromID(logToEdit.getBefriendeeId());
         Person volunteer = personStore.getPersonFromID(logToEdit.getVolunteerId());
 
+        // Get the latest log id of the volunteer and befriendee after editing the log
         Integer latestLogIdBefriendee = getLatestLogId(befriendee, editedLog, store, editedLog.getLogId());
         Integer latestLogIdVolunteer = getLatestLogId(volunteer, editedLog, store, editedLog.getLogId());
 
+        // Update the volunteer and befriendee with the new timeServed and latestLogId
         Person updatedBefriendee = createUpdatedPerson(befriendee, durationDiff, latestLogIdBefriendee);
         Person updatedVolunteer = createUpdatedPerson(volunteer, durationDiff, latestLogIdVolunteer);
         personStore.setPerson(befriendee, updatedBefriendee);
@@ -147,24 +150,31 @@ public class LogEditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_LOG_SUCCESS, Messages.formatLog(editedLog)));
     }
 
-    private Person createUpdatedPerson(Person p, int duration, Integer logId) {
-        assert p != null;
+    /**
+     * Create and return a {@code Person} with the details of {@code personToUpdate}
+     * edited with the updated timeServed and latestLogId.
+     */
+    private Person createUpdatedPerson(Person personToUpdate, int duration, Integer logId) {
+        assert personToUpdate != null;
 
-        Name name = p.getName();
-        Phone phone = p.getPhone();
-        Email email = p.getEmail();
-        Address address = p.getAddress();
-        Set<Tag> tags = p.getTags();
-        Role role = p.getRole();
-        Optional<Name> pairedWithName = p.getPairedWithName();
-        Optional<Integer> pairedWithId = p.getPairedWithId();
-        int updatedTimeServed = p.getTimeServed() + duration;
+        Name name = personToUpdate.getName();
+        Phone phone = personToUpdate.getPhone();
+        Email email = personToUpdate.getEmail();
+        Address address = personToUpdate.getAddress();
+        Set<Tag> tags = personToUpdate.getTags();
+        Role role = personToUpdate.getRole();
+        Optional<Name> pairedWithName = personToUpdate.getPairedWithName();
+        Optional<Integer> pairedWithId = personToUpdate.getPairedWithId();
+        int updatedTimeServed = personToUpdate.getTimeServed() + duration;
         Optional<Integer> latestLogId = Optional.of(logId);
 
-        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, updatedTimeServed, latestLogId);
+        return PersonFactory.withIdFromParams(personToUpdate.getPersonId(), name, phone, email, address, role,
+                tags, pairedWithName, pairedWithId, updatedTimeServed, latestLogId);
     }
 
+    /**
+     * Returns the latest log id of the person after editing the log.
+     */
     private Integer getLatestLogId(Person person, Log editedLog, LogStore logStore, Integer toAddId) {
         Date editedDate = editedLog.getStartDate();
 
