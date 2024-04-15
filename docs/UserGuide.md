@@ -107,8 +107,8 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
     find r/befriendee John
     ```
    <div style="text-align:center; margin-bottom: 1.5em">
-    <img src="images/findJohnResult.png" alt="result for 'find John'" width="630"> <br>
-    <i>Here, we've specified the <code>r/befriendee</code> filter, which ensures we only search in the <code>Befriendees</code> list, leaving the <code>Volunteers</code> list untouched.</i>
+        <img src="images/findJohnResult.png" alt="result for 'find John'" width="630"> <br>
+        <i>Here, we've specified the <code>r/befriendee</code> filter, which ensures we only search in the <code>Befriendees</code> list, leaving the <code>Volunteers</code> list untouched.</i> 
    </div>
 
 4. Now that we've found John, let's pair him with Bernice. Bernice sits at the 2nd index in the volunteer list, so we can pair them using the **`pair` command**.
@@ -117,8 +117,8 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
     pair 1 2
     ```
    <div style="text-align:center; margin-bottom: 1.5em">
-    <img src="images/pairResult.png" alt="result for 'pair 1 2'" width="630"> <br>
-    <i>You should see the <code>Paired with:</code> field in Bernice and John's cards updated to reflect the pairing.</i>
+        <img src="images/pairResult.png" alt="result for 'pair 1 2'" width="630"> <br>
+        <i>You should see the <code>Paired with:</code> field in Bernice and John's cards reflect the new pairing.</i> 
    </div>
 
 
@@ -290,7 +290,7 @@ Examples:
 
 #### 3.1.4 Unpairing a befriendee and volunteer : `unpair`
 
-Pairs an existing befriendee and volunteer in Elder Scrolls.
+Unpairs an existing befriendee and volunteer in Elder Scrolls.
 
 Format: `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`
 
@@ -317,11 +317,11 @@ Examples:
 
 #### 3.1.5 Listing all persons : `list`
 
-Shows a list of all persons in Elder Scrolls.
+Shows a list of all persons and logs in Elder Scrolls.
 
 Format: `list`
 
-* Persons are listed in the order they were added, from earliest to latest.
+* Persons and Logs are listed separately, and in the order they were added, from earliest to latest.
 * The list command is commonly used with the `find` command to reset the view after a search.
 
 [//]: # (Page Break:)
@@ -426,7 +426,7 @@ Examples:
 
 #### 3.2.1 Adding a log : `logadd`
 
-Adds a log between a pair of befriendee and volunteer. If it is the most recent log for a befriendee or volunteer, their `latest log` card details updates accordingly.
+Adds a log for an existing paired befriendee and volunteer. If the added log is their most recent log, the respective persons' `latest log` card details updates accordingly.
 
 Format: `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`
 
@@ -435,7 +435,8 @@ Constraints:
 * The two persons must be paired before a log can be added.
 * The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
 * The `DURATION` **must be a positive integer** ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
-* `t/TITLE`, `s/START_DATE`, `d/DURATION` and `r/REMARKS` must be provided and cannot be empty.
+* `t/TITLE`, `s/START_DATE`, `d/DURATION` and `r/REMARKS` must be provided.
+* `s/START_DATE`, `d/DURATION` cannot be empty.
 
 Examples:
 * `logadd 1 1 t/Movies s/2020-01-09 d/3 r/had popcorn` Adds a log between the befriendee at Index 1 and the volunteer at Index 1 with the title `Movies`, start date `2020-01-09`, duration `3` and remarks `had popcorn`.
