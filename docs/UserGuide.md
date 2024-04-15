@@ -181,29 +181,80 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
 
 ### 2.1 Toolbar
 
-The toolbar at the top provides functionality for accessing help and exiting Elder Scrolls. The application window contains the following buttons:
+The toolbar at the top provides functionality for **accessing help and exiting** Elder Scrolls. The application window contains the following buttons:
 * `File`: Hovering over opens a dropdown menu, click on Exit to close the application!
 * `Help`: Hovering over opens a dropdown menu, whereby clicking on Help F1 opens a help pop-up!
 
 ### 2.2 Command Input Box
 
-The command input box at the top of the application window is where you can type commands to interact with Elder Scrolls. Press `Enter` to execute the command.
+The command input box at the top of the application window is where you can **type commands to interact** with Elder Scrolls. **Press `Enter` to execute** the command.
 
 ### 2.3 Command Output Box
 
-The command output box displays the results of the commands you have executed. It also displays error messages when an invalid command is entered. Paying close attention to the feedback provided here helps enhance your experience with Elder Scrolls!
+The command output box displays the **results of the commands** you have executed. It also **displays error messages** when an invalid command is entered. Paying close attention to the feedback provided here helps enhance your experience with Elder Scrolls!
 
 ### 2.4 Befriendee List Panel
 
-This section displays all your registered befriendees, and you may filter the display using our supported find commands. The list is updated in real time as you execute commands.
+This section **displays all your registered befriendees**, and you may filter the display using our supported find commands. The list is updated in real time as you execute commands.
+
+<p style="font-weight:500; font-size:20px">Befriendee List Card</p>
+
+Each befriendee list card displays the following information:
+
+<div style="text-align:center; margin-bottom: 1.5em">
+  <img src="images/befriendeeCard.png" alt="befriendeeCard" width="650"> <br>
+</div>
+
+1. **Index**: The index of the befriendee in the list.
+2. **Name**: The name of the befriendee.
+3. **Tags**: Tags associated with the befriendee.
+4. **Phone Number**: The phone number of the befriendee.
+5. **Address**: The address of the befriendee.
+6. **Email**: The email address of the befriendee.
+7. **Paired with**: The name of the volunteer the befriendee is paired with, if any.
+8. **Most Recent Log**: The most recent log associated with the befriendee, if any.
+
+<div style="page-break-after: always;"> </div> 
 
 ### 2.5 Volunteer List Panel
 
-Similar to the Befriendee List Panel, this section displays all your registered volunteers. The volunteer list cards also support an added aggregate statistic `Time Served`, which helps you better track volunteer hours!
+Similar to the Befriendee List Panel, this section **displays all your registered volunteers**. The volunteer list cards also support an added aggregate statistic `Time Served`, which helps you better track volunteer hours!
+
+<p style="font-weight:500; font-size:20px">Volunteer List Card</p>
+
+<div style="text-align:center; margin-bottom: 1.5em">
+  <img src="images/volunteerCard.png" alt="volunteerCard" width="630"> <br>
+</div>
+
+1. **Index**: The index of the volunteer in the list.
+2. **Name**: The name of the volunteer.
+3. **Tags**: Tags associated with the volunteer.
+4. **Phone Number**: The phone number of the volunteer.
+5. **Address**: The address of the volunteer.
+6. **Email**: The email address of the volunteer.
+7. **Paired with**: The name of the befriendee the volunteer is paired with, if any.
+8. **Time Served**: The total time volunteered by the volunteer, in hours.
+9. **Most Recent Log**: The most recent log associated with the volunteer, if any.
+
+<div style="page-break-after: always;"> </div> 
 
 ### 2.6 Log List Panel
 
-Your Log List Panel displays all logs associated with your befriendees and volunteers.
+Your Log List Panel **displays all logs associated with your befriendees and volunteers**.
+
+<p style="font-weight:500; font-size:20px">Log List Card</p>
+
+<div style="text-align:center; margin-bottom: 1.5em">
+  <img src="images/logCard.png" alt="logCard" width="630"> <br>
+</div>
+
+1. **Index**: The index of the log in the list.
+2. **Title**: The title of the log.
+3. **Start Date**: The date recorded in the log of the activity.
+4. **Volunteer Name**: The name of the volunteer associated with the log.
+5. **Befriendee Name**: The name of the befriendee associated with the log.
+6. **Duration**: The duration of the activity in hours.
+7. **Remarks**: Any additional remarks or notes about the activity.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"> </div> 
