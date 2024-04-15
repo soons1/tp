@@ -664,7 +664,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
 3.  User requests to delete a specific contact.
-4.  Elder Scrolls deletes the specific contact.
+4.  Elder Scrolls deletes the specified contact.
 
     Use case ends.
 
@@ -678,9 +678,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The contact requested to be deleted is still paired.
 
-  * 4a1. Elder Scrolls shows an error message.
-
-    Use case resumes at step 2.
+    * 4a1. Elder Scrolls shows an error message.
+    
+      Use case resumes at step 2.
 
 **Use case: UC03 - List all contacts and logs**
 
