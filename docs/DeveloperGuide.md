@@ -24,6 +24,8 @@ title: Developer Guide
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
 
 ## **Design**
 
@@ -31,9 +33,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
-
-[//]: # (Page Break:)
-<div style="page-break-after: always;"> </div> 
 
 ### Architecture
 
@@ -92,6 +91,9 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` and `Log` objects that reside in the `Model`.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div> 
+
 ### Logic component
 
 **API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
@@ -123,11 +125,12 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/src/main/java/scrolls/elder/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="600" />
-
 
 The `Model` component,
 
@@ -138,7 +141,7 @@ The `Model` component,
 
 #### Datastore
 
-<img src="images/DatastoreClassDiagram.png" width="600" />
+<img src="images/DatastoreClassDiagram.png" width="550" />
 
 Contains the `PersonStore`:
 
@@ -154,7 +157,8 @@ Contains the `LogStore`:
 
 </div>
 
-
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/master/src/main/java/scrolls/elder/storage/Storage.java)
@@ -267,7 +271,8 @@ The following sequence diagram shows how a delete operation goes through the `Lo
     * Pros: Simplifies the deletion process.
     * Cons: Accidental deletion of a person who is still a part of the volunteer programme is possible.
 
-
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 ### Find feature
 
 #### Implementation
@@ -352,6 +357,9 @@ The following sequence diagram shows how a pair operation goes through the `Logi
 
 For the unpair operation, the sequence diagram is similar to the pair operation, with the `UnpairCommand` class executing the unpair operation.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 #### Design considerations:
 
 **Aspect: What attribute(s) should be saved in the `Person` object:**
@@ -375,7 +383,9 @@ The `LogEditCommand` class is responsible for creating a new log entry, and the 
 
 The following sequence diagram shows how a LogAdd operation goes through the `Logic` component:
 
-![LogAddSequenceDiagram](images/LogAddSequenceDiagram-Logic.png)
+<div style="text-align:center;">
+  <img src="images/LogAddSequenceDiagram-Logic.png" alt="LogAddSequenceDiagram-Logic" width="600">
+</div>
 
 <div style="text-align:center;">
   <img src="images/LogAddSequenceDiagram2.png" alt="LogAddSequenceDiagram2" width="600">
@@ -434,6 +444,9 @@ The following sequence diagram shows how a LogEdit operation goes through the `L
     * Pros: Prevents cascading modifications of attributes displayed in `Person` contact.
     * Cons: Restricts the flexibility of the `LogEdit` feature
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 ### Delete Log feature
 
 #### Implementation
@@ -462,6 +475,8 @@ The following sequence diagram shows how a LogDelete operation goes through the 
     * Pros: Simplifies the process of deleting a log entry.
     * Cons: Another component of the application must be responsible for updating the `latestLogId` attribute of the `Person` objects.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Find Log feature
 
@@ -514,6 +529,9 @@ Step 2. The user executes `delete 5 r/volunteer` command to delete the 5th volun
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitDatastore()`, causing another modified datastore state to be saved into the `datastoreVersions`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
@@ -532,6 +550,9 @@ than attempting to perform the undo.
 
 </div>
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
@@ -543,6 +564,9 @@ The following sequence diagram shows how an undo operation goes through the `Log
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 The `redo` command does the opposite — it calls `Model#redoChanges()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the datastore to that state.
 
@@ -557,6 +581,9 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 Step 6. The user executes `clear`, which calls `Model#commitDatastore()`. Since the `currentStatePointer` is not pointing at the end of the `datastoreVersions`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -627,6 +654,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | first-time user | see sample befriendee and volunteer profiles                                   | try out the features with pre-loaded data                     |
 | `*`      | first-time user | follow a guided tour                                                           | be aware of how to use and access features in the application |
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Use cases
 
@@ -828,6 +857,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    
    Use case ends
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 **Extensions**
 
 * 3a. The command that was previously executed does not mutate data in the application
@@ -868,6 +900,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
 --------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix B: Instructions for manual testing**
 
@@ -1032,6 +1066,8 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `unpair 2 3`<br>
        Expected: No person is unpaired. Error details indicating "The two persons are not paired..." shown in the status message. Status bar remains the same.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ### Adding a log
 1. Adding a log while all befriendees and volunteers are being shown
@@ -1164,6 +1200,10 @@ testers are expected to do more *exploratory* testing.
    1. **Test case:** `help`
       **Expected:** The help window opens.
 
+--------------------------------------------------------------------------------------------------------------------
+
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix C: Effort**
 
@@ -1179,6 +1219,9 @@ The team also made significant changes to the UI, in an attempt to modernise the
 2. **Adding Logs**: The team faced challenges in adding logs to the application, as it required a significant restructuring of the existing codebase. Given that logs were an entirely new set of entities to be stored in the application, where AB3 had only a single entity, we quickly realised that the existing structure of the `model` was not sufficient to handle the new requirements. This led to a significant amount of refactoring and restructuring of the `Model` and `Storage` classes.
 3. **Relationships between entities**: Given that the new features included two different classes of `Person` as well as a `Log` class associated with both, the team spent a significant amount of time planning and testing the correctness of the relations between these entities. Through defensive programming and good test coverage, we were able to ensure that all user operations modifying these relationships were correctly reflected in the application state.
 
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
+
 ### Effort Required
 
 Overall, over the thousands of lines of code changed, the team estimates that a few dozen man-hours were spent on the project. The team met regularly to discuss the project, and each member contributed significantly to the project through an even distribution of work over the main areas: adding commands, restructuring logic and backend, UI. The team also spent a significant amount of time on testing, as the new features added to the application were complex and required a significant amount of additional test code to ensure that they worked as expected.
@@ -1188,6 +1231,10 @@ As a result, we were able to deliver on planned features while increasing our co
 ### Achievements
 
 A robust and extensible application was delivered, with a significant amount of new features added to the application. The team was able to deliver on planned features, and the performance of new features, such as `log` operations, were significantly improved over old features of the inherited project.
+
+--------------------------------------------------------------------------------------------------------------------
+[//]: # (Page Break:)
+<div style="page-break-after: always;"> </div>  
 
 ## **Appendix D: Planned Enhancements**
 
