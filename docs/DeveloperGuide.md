@@ -658,14 +658,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
-3.  User requests to delete a specific contact using its list index.
-4.  Elder Scrolls deletes the contact based on its list index.
+3.  User requests to delete a specific contact by specifying the role and using its list index.
+4.  Elder Scrolls deletes the contact based on its role and list index.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. The given list index or given role is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
@@ -673,9 +673,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 4a. The contact requested to be deleted is still paired.
 
-  * 4a1. Elder Scrolls shows an error message.
-
-    Use case resumes at step 2.
+    * 4a1. Elder Scrolls shows an error message.
+    
+      Use case resumes at step 2.
 
 **Use case: UC03 - List all contacts**
 

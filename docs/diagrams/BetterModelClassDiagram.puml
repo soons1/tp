@@ -12,16 +12,21 @@ UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
 
+Person *-up-> personId
 Person -up-> "*" Tag
+personId -[hidden]left--> Tag
 
 Volunteer .left.|> Person
 Befriendee .left.|> Person
+
 
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *--> "0..1" pairedWith
+Person *--> "0..1" pairedWithId
+Person --> "0..1" pairedWithName
+Person *--> "0..1" latestLogId
 Person *--> Role
 Person *--> timeServed
 @enduml
