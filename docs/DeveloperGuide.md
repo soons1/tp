@@ -676,12 +676,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 2.
 
-**Use case: UC03 - List all contacts**
+**Use case: UC03 - List all contacts and logs**
 
 **MSS**
 
-1. User requests to list all contacts
-2. Elder Scrolls shows a list of all contacts
+1. User requests to list all contacts and logs
+2. Elder Scrolls shows a list of all contacts and logs
 
    Use case ends.
 
@@ -689,8 +689,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2.  Elder Scrolls shows a list of contacts.
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
 3.  User requests to pair a specific volunteer and befriendee in the list.
 4.  Elder Scrolls pairs the specified volunteer and befriendee.
 
@@ -710,33 +710,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC05 - Tag contacts**
+**Use case: UC05 - Edit field for a specific contact**
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2.  Elder Scrolls shows a list of contacts.
-3.  User requests to tag a specific person with a property.
-4.  Elder Scrolls tags the specified person in the list with that specified property.
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
+3.  User requests to edit a field for a specific contact, with a new specified value.
+4.  Elder Scrolls edits the field for the specified person in the list with the new specified value.
 
     Use case ends.
 
 **Extensions**
 
-
 * 3a. The given list index is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
-
       Use case resumes at step 2.
+  
+* 3b. The field that the user wants to edit is not specified
+    * 3b1. Elder Scrolls shows an error message to prompt the user to specify a field to edit.
+      Use case resumes at step 2.
+  
+* 3c. The new specified value is not provided by the user
+    * 3c1. Elder Scrolls shows an error message to prompt the user to specify a new value for the field the user wishes to edit.
+      Use case resumes at step 2. 
 
 
 **Use case: UC06 - Add a log entry for volunteer-befriendee pairs**
 
 **MSS**
 
-1.  User <u>requests to list all contacts (UC03)</u>.
-2. Elder Scrolls shows a list of contacts.
+1. User <u>requests to list all contacts and logs (UC03)</u>.
+2. Elder Scrolls shows a list of contacts and logs.
 3. User requests to add a log entry for two paired individuals, and enters details of the activity log, including date, time, and remarks.
 4. Elder Scrolls records the log entry for the selected pair.
 
@@ -785,7 +791,54 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
+**Use case: UC09 - Edit field for a specific log**
 
+**MSS**
+
+1.  User <u>requests to list all contacts and logs (UC03)</u>.
+2.  Elder Scrolls shows a list of contacts and logs.
+3.  User requests to edit a field in a specific log, with a new specified value.
+4.  Elder Scrolls edits that field for that specific log in the list with the new specified value.
+    
+    Use case ends.
+
+**Extensions**
+
+* 3a. The given list index is invalid.
+    * 3a1. Elder Scrolls shows an error message.
+      Use case resumes at step 2.
+
+* 3b. The field that the user wants to edit is not specified
+    * 3b1. Elder Scrolls shows an error message to prompt the user to specify a field to edit.
+      Use case resumes at step 2.
+
+**Use case: UC10 - Undo a delete command**
+
+**MSS**
+
+1. User <u>requests to delete a contact (UC02)</u>.
+2. Elder Scrolls deletes the contact.
+3. User requests to undo the deletion.
+4. Elder Scrolls undoes the deletion of the contact.
+   
+   Use case ends
+
+**Extensions**
+
+* 1a. The specified contact to delete is invalid
+    * 1a1. Elder Scrolls shows an error message to prompt the user to specify a valid contact to delete
+      Use case resumes at step 1.
+
+**Use case: UC11 - Redo a command**
+
+**MSS**
+
+1. User <u>requests to undo a delete command (UC10)</u>.
+2. Elder Scrolls undoes the delete command.
+3. User requests to revert the effects of the undo command.
+4. Elder Scrolls reverts the effect of the undo command.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
