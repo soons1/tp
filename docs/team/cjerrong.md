@@ -3,9 +3,9 @@ layout: page
 title: CJerrong's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: Elder Scrolls
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Elder Scrolls is a Volunteer Management System (VMS) designed to streamline the coordination of volunteers and befriendees, with a particular focus on elderly befriending programs. It is a brownfield project based on AddressBook-Level3, which is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java. After our development, our project now has about 23 kLoC.
 
 Given below are my contributions to the project.
 
