@@ -173,7 +173,7 @@ public class ParserUtil {
         try {
             return Integer.parseInt(trimmedNum);
         } catch (NumberFormatException e) {
-            throw new ParseException("Invalid number format. Expected a number.", e);
+            throw new ParseException("Invalid number format. Expected an integer.", e);
         }
     }
 }
