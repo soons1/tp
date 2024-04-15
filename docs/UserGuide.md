@@ -90,11 +90,11 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
 2. John now needs a volunteer friend! Let's have volunteer Bernice take care of him. From the list, you can see that Bernice has been hard at work befriending Irfan, but sadly, we'll need to reassign her. Let's unpair Bernice and Irfan using the **`unpair` command**, since Irfan sits at the 2nd index in the befriendee list.
 
     ```
-    unpair 2 1
+    unpair 2 2
     ```
 
    <div style="text-align:center; margin-bottom: 1.5em">
-    <img src="images/unpairResult.png" alt="result for 'unpair 2 1'" width="630"> <br>
+    <img src="images/unpairResult.png" alt="result for 'unpair 2 2'" width="630"> <br>
     <i>Both lists should reset to their original state, and looking at Bernice and Irfan's cards, they are no longer paired.</i>
    </div>
      
@@ -136,8 +136,26 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
         <i>You should see the log card appear in the <code>Logs</code> list on the right, with the details supplied.</i>
     </div>
 
-6. This summarizes the basic workflow of Elder Scrolls. Feel free to remove the sample data and start fresh by using the `clear` command and get **started with your own data!**
+6. To double-check that our log has been added, let's use the **`logfind` command**, which can help us to find all logs associated with John. First, let's search for our pair John and Bernice, then use the `logfind` command to find the log we just added.
 
+    ```
+    find john bernice
+    ```
+    ```
+    logfind 1 r/befriendee
+    ```
+
+    <div style="text-align:center; margin-bottom: 1.5em">
+        <img src="images/logfindResult.png" alt="result for 'logfind 1 r/befriendee'" width="630"> <br>
+        <i>You should see a single log card in the <code>Logs</code> list, which we have just added.</i>
+    </div>
+
+
+7. This summarizes the basic workflow of Elder Scrolls. To reset your view of each list and clear all filters, use the **`list` command**. Feel free to remove the sample data and start fresh by using the **`clear` command** and get **started with your own data!**
+
+    ```
+    list
+    ```
     ```
     clear
     ```
@@ -234,7 +252,7 @@ Constraints:
 * `n/NAME` must be alphanumeric and cannot be empty.
 * `p/PHONE_NUMBER` must be at least 3 digits long.
 * `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
-* `e/EMAIL` must be a valid email address.
+* `e/EMAIL` must be a valid email address of the format `local-part@domain`.
 * `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
 * `t/TAG` must be alphanumeric.
 * `n/NAME`, `r/ROLE`, `p/PHONE_NUMBER`, `e/EMAIL` and `a/ADDRESS` must be provided and cannot be empty.
