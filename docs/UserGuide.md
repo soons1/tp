@@ -13,7 +13,6 @@ title: User Guide
 
 ## **About this User Guide**
 
-
 Welcome to the user guide for Elder Scrolls! Whether you're new or experienced, this guide has everything you need to make the most of Elder Scrolls:
 
 * [Quick Start](#1-quick-start): Get started with Elder Scrolls quickly and easily.
@@ -54,30 +53,75 @@ Once you've completed the setup, you're ready to launch Elder Scrolls! Follow th
 
 A GUI similar to the one below should appear in a few seconds. If this is your first time launching Elder Scrolls, the application should contain some sample data to get you started!
 
-<div style="text-align:center;">
-  <img src="images/Ui.png" alt="Ui" width="400">
-  <p></p>
+<div style="text-align:center; margin-bottom: 1.5em">
+  <img src="images/Ui.png" alt="Ui" width="600">
+  <i>The starting user interface with sample data</i>
 </div>
 
 After this, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 
-Here are some commands to get you started:
+Lets walk you through some important commands to get you started:
 
-   * `find David`: Finds all contacts with names containing `David`.
+1. The most integral function of Elder Scrolls is to help you to keep track of the people in your volunteering organisation. Naturally, there is a way to add new volunteers and befriendees to the system. Let's try adding a new befriendee, John Doe, to the system using the `add` command.
 
-   * `list` : Lists all befriendee and volunteer contacts.
+    ```
+    add n/John Doe p/98765432 e/johnd@example.com a/John Street, Block 123, #01-01 r/befriendee
+    ```
+   
+    ![result for 'add John Doe'](images/addJohnResult.png)
 
-   * ```add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/volunteer``` : Adds a volunteer named `John Doe` to the Elder Scrolls.
+    Scroll down the befriendee list, and you should see John's card at the bottom of the list.
 
-   * `delete 4 r/volunteer ` : Deletes the 4th contact shown in the current list.
+2. Now that he's officially joined, John needs a friend! Let's have one of our volunteers, Bernice, take care of him. From the list, you can see that Bernice has been hard at work befriending Irfan, but sadly, we'll need to reassign her. Let's unpair Bernice and Irfan using the `unpair` command, since Irfan sits at the 2nd index in the befriendee list.
 
-   * `clear` : Deletes all contacts.
+    ```
+    unpair 2 1
+    ```
+   
+    ![result for 'unpair 2 1'](images/unpairResult.png)
+    
+    Both lists should reset to their original state, and looking at Bernice and Irfan's cards, they should no longer be paired.
 
-   * `exit` : Exits the app.
+3. Now we are ready to pair Bernice with John. But wait, John's card is too far down the list, and we're a little lazy to scroll down to find his index. No problem, one of the most powerful features of Elder Scrolls is the `find` command. This command allows you to search for contacts based on various criteria, such as name, role, pairing status, and tags. Now, let's try to bring John to the top of our list using the `find` command.
 
-   * Refer to the [Features](#3-features) below for details of each command.
+    ```
+    find r/befriendee John
+    ```
 
-Great! Now that you're familiar with the fundamental commands and have successfully launched Elder Scrolls, let's delve deeper into its intricacies and explore its advanced functionalities.
+    ![result for 'find John'](images/findJohnResult.png)
+
+    Here, we've specified the `r/befriendee` filter, which ensures we only search in the befriendee list, leaving the volunteer list untouched.
+
+4. Now that we've found John, let's pair him with Bernice. Bernice sits at the 2nd index in the volunteer list, so we can pair them using the `pair` command.
+
+    ```
+    pair 1 2
+    ```
+   
+    ![result for 'pair 1 2'](images/pairResult.png)
+
+5. Finally, let's add an entry in `Logs` to record the first meeting between Bernice and John. We can `find` John again, then use the `logadd` command to do this.
+
+    ```
+    find r/befriendee John
+    ```
+    ```
+    logadd 1 2 t/First Meeting s/2024-04-10 d/1 r/Introduction
+    ```
+
+    ![result for 'logadd'](images/logaddResult.png)
+
+    You should see the log card appear at the bottom of the `Logs` list, with the details you supplied.
+
+6. This summarizes the basic workflow of Elder Scrolls. Feel free to remove the sample data and start fresh by using the `clear` command and get started with your own data!
+
+    ```
+    clear
+    ```
+
+    The lists should now be empty, ready for you to start managing your own volunteers and befriendees!
+
+7. You can refer to the [Features](#3-features) below for detailed descriptions of all the commands available in Elder Scrolls.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -85,9 +129,7 @@ Great! Now that you're familiar with the fundamental commands and have successfu
 
 <div style="text-align:center;">
   <img src="images/UserInterface.jpg" alt="Ui" width="700">
-</div>
-<div align="center">
-  <text><u> Image: User interface Layout Breakdown of Elder Scrolls </u></text>
+  <i>User interface Layout Breakdown of Elder Scrolls </i>
 </div>
 
 ### 2.1 Toolbar
