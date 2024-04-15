@@ -503,7 +503,7 @@ Format: `undo`
 
 Examples:
 * You mistakenly executed a `clear` command and cleared every entry in Elder Scrolls. You can simply execute the command `undo` to revert the changes and all your entries in Elder Scrolls will be restored to their previous state, before the `clear` command was executed.
-* You might have performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. You can execute multiple `undo` commands to revert the changes made by the wrongful delete commands.
+* You might have performed multiple `delete` commands in sequence, and realised you've deleted the wrong entries. Not to worry, you can execute multiple `undo` commands to revert the changes made by the wrongful delete commands.
 
 #### 3.3.2 Revert the most recent undo command : `redo`
 
@@ -552,7 +552,7 @@ Format: `exit`
 
 ## **4. Saving the data**
 
-Elder Scrolls data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually!
+Elder Scrolls data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually!
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 While Elder Scrolls saves automatically, you can also easily make backups and snapshots of your data! To do so, simply copy the `datastore.json` file located in the `data` folder of the Elder Scrolls home directory as a backup file! Making a backup copy is never a bad idea! 
@@ -624,7 +624,7 @@ For additional resources, you can explore online forums, community groups, and v
 | Action        | Format, Examples                                                                                                                                                                         |
 |---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**       | `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho r/volunteer p/88889999 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Edit**      | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
+| **Edit**      | `edit INDEX r/ROLE [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 r/volunteer n/James Lee e/jameslee@example.com`                                           |
 | **Pair**      | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`                                                                                                                             |
 | **Unpair**    | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`                                                                                                                         |
 | **List**      | `list`                                                                                                                                                                                   |
