@@ -74,16 +74,17 @@ public class LogDeleteCommand extends Command {
 
         int durationToDelete = logToDelete.getDuration();
 
-        // Update the timeServed of the volunteer and befriendee
+        // Retrieve the volunteer and befriendee from the log to be deleted
         Person volunteer = personStore.getPersonFromID(logToDelete.getVolunteerId());
         Person befriendee = personStore.getPersonFromID(logToDelete.getBefriendeeId());
 
+        // Get the latest log id of the volunteer and befriendee after deletion
         Optional<Integer> latestLogIdBefriendee =
-                getLatestLogId(befriendee, logToDelete, logStore, logToDelete.getLogId());
+                getLatestLogId(befriendee, logStore, logToDelete.getLogId());
         Optional<Integer> latestLogIdVolunteer =
-                getLatestLogId(volunteer, logToDelete, logStore, logToDelete.getLogId());
+                getLatestLogId(volunteer, logStore, logToDelete.getLogId());
 
-
+        // Update the volunteer and befriendee with the new timeServed and latestLogId
         Person updatedVolunteer = createUpdatedPerson(volunteer, durationToDelete, latestLogIdVolunteer);
         Person updatedBefriendee = createUpdatedPerson(befriendee, durationToDelete, latestLogIdBefriendee);
         personStore.setPerson(volunteer, updatedVolunteer);
@@ -97,25 +98,32 @@ public class LogDeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_LOG_SUCCESS, Messages.formatLog(logToDelete)));
     }
 
-    private Person createUpdatedPerson(Person p, int duration, Optional<Integer> logId) {
-        assert p != null;
+    /**
+     * Create and return a {@code Person} with the details of {@code personToUpdate}
+     * edited with the updated timeServed and latestLogId.
+     */
+    private Person createUpdatedPerson(Person personToUpdate, int duration, Optional<Integer> logId) {
+        assert personToUpdate != null;
 
-        Name name = p.getName();
-        Phone phone = p.getPhone();
-        Email email = p.getEmail();
-        Address address = p.getAddress();
-        Set<Tag> tags = p.getTags();
-        Role role = p.getRole();
-        Optional<Name> pairedWithName = p.getPairedWithName();
-        Optional<Integer> pairedWithId = p.getPairedWithId();
-        int updatedTimeServed = p.getTimeServed() - duration;
+        Name name = personToUpdate.getName();
+        Phone phone = personToUpdate.getPhone();
+        Email email = personToUpdate.getEmail();
+        Address address = personToUpdate.getAddress();
+        Set<Tag> tags = personToUpdate.getTags();
+        Role role = personToUpdate.getRole();
+        Optional<Name> pairedWithName = personToUpdate.getPairedWithName();
+        Optional<Integer> pairedWithId = personToUpdate.getPairedWithId();
+        int updatedTimeServed = personToUpdate.getTimeServed() - duration;
         Optional<Integer> latestLogId = logId;
 
-        return PersonFactory.withIdFromParams(p.getPersonId(), name, phone, email, address, role, tags, pairedWithName,
-                pairedWithId, updatedTimeServed, latestLogId);
+        return PersonFactory.withIdFromParams(personToUpdate.getPersonId(), name, phone, email, address, role,
+                tags, pairedWithName, pairedWithId, updatedTimeServed, latestLogId);
     }
 
-    private Optional<Integer> getLatestLogId(Person person, Log deletedLog, LogStore logStore, Integer toDeleteId) {
+    /**
+     * Returns the latest log id of the person after the log is deleted.
+     */
+    private Optional<Integer> getLatestLogId(Person person, LogStore logStore, Integer toDeleteId) {
 
         if (person.isLatestLogPresent()) {
             Log currentLatest = logStore.getLogById(person.getLatestLogId().get());
@@ -123,13 +131,15 @@ public class LogDeleteCommand extends Command {
             if (toDeleteId != currentLatest.getLogId()) {
                 return Optional.of(currentLatest.getLogId());
             }
-            // the deletedLog is displayed as the current latest log
+            // the log deleted is displayed as the current latest log
+            // the next latest log is then retrieved
             Log newCurrentLatest = logStore.getLogList().stream()
                     .filter(log -> log.getBefriendeeId() == person.getPersonId()
                             || log.getVolunteerId() == person.getPersonId())
                     .filter(log -> log.getLogId() != toDeleteId)
                     .max(Comparator.comparing(Log::getStartDate)).orElse(null);
 
+            // newCurrentLatest is returned as latest log if present
             if (newCurrentLatest != null) {
                 return Optional.of(newCurrentLatest.getLogId());
             } else {
