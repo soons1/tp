@@ -812,29 +812,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. Elder Scrolls shows an error message to prompt the user to specify a field to edit.
       Use case resumes at step 2.
 
-**Use case: UC10 - Undo a delete command**
+**Use case: UC10 - Undo a command**
 
 **MSS**
 
-1. User <u>requests to delete a contact (UC02)</u>.
-2. Elder Scrolls deletes the contact.
-3. User requests to undo the deletion.
-4. Elder Scrolls undoes the deletion of the contact.
+1. User requests to execute a command.
+2. Elder Scrolls executes the command.
+3. User requests to undo the command.
+4. Elder Scrolls undoes the command.
    
    Use case ends
 
 **Extensions**
 
-* 1a. The specified contact to delete is invalid
-    * 1a1. Elder Scrolls shows an error message to prompt the user to specify a valid contact to delete
-      Use case resumes at step 1.
+* 3a. The command that was previously executed does not mutate data in the application
+    * 1a1. Elder Scrolls shows an error message to tell the user there is no previous operation to be undone.
+      Use case resumes at step 2.
 
 **Use case: UC11 - Redo a command**
 
 **MSS**
 
-1. User <u>requests to undo a delete command (UC10)</u>.
-2. Elder Scrolls undoes the delete command.
+1. User <u>requests to undo a command (UC10)</u>.
+2. Elder Scrolls undoes the command.
 3. User requests to revert the effects of the undo command.
 4. Elder Scrolls reverts the effect of the undo command.
 
