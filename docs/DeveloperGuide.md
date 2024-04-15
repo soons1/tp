@@ -657,14 +657,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list all contacts
 2.  Elder Scrolls shows a list of all contacts
-3.  User requests to delete a specific contact using its list index.
-4.  Elder Scrolls deletes the contact based on its list index.
+3.  User requests to delete a specific contact.
+4.  Elder Scrolls deletes the specific contact.
 
     Use case ends.
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. The specific contact given by the user is invalid.
 
     * 3a1. Elder Scrolls shows an error message.
 
@@ -698,15 +698,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. One or both of the specified persons are invalid.
 
-    * 3a1. Elder Scrolls shows an error message indicating that the given list index is invalid.
+    * 3a1. Elder Scrolls shows an error message indicating that the specified person(s) given are invalid.
 
       Use case resumes at step 2.
 
-* 3b. One or both given persons at specified list index are already paired.
+* 3b. One or both of the specified persons are already paired.
 
-    * 3b1. Elder Scrolls shows an error message indicating that the given person(s) are already paired.
+    * 3b1. Elder Scrolls shows an error message indicating that the specified person(s) are already paired.
 
       Use case resumes at step 2.
 
@@ -723,8 +723,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 3a. The given list index is invalid.
-
+* 3a. The specific contact given by the user is invalid.
     * 3a1. Elder Scrolls shows an error message.
       Use case resumes at step 2.
   
@@ -804,7 +803,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 3a. The given list index is invalid.
+* 3a. The given specific log is invalid.
     * 3a1. Elder Scrolls shows an error message.
       Use case resumes at step 2.
 
