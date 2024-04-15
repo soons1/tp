@@ -72,7 +72,7 @@ A GUI similar to the one below should appear in a few seconds. If this is your f
 
 After this, you're all set to begin using Elder Scrolls! Let's make managing volunteers and befriendees a breeze.
 
-**Lets walk you through some important commands to get you started:**
+**Let's walk through some important commands to get you started:**
 
 1. The most integral function of Elder Scrolls is to help you to keep track of the people in your volunteering organisation. Naturally, there is a way to add new volunteers and befriendees to the system. Let's try adding a new befriendee, John Doe, to the system using the **`add` command**.
 
@@ -82,7 +82,7 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
    
    <div style="text-align:center; margin-bottom: 1.5em">
     <img src="images/addJohnResult.png" alt="result for 'add John Doe'" width="630"> <br>
-    <i>Scroll down the befriendee list to see John's card at the bottom of the list, on the left.</i>
+    <i>Scroll down the left <code>Befriendees</code> list to see John's card at the bottom of the list.</i>
    </div>
 
     
@@ -108,7 +108,7 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
     ```
    <div style="text-align:center; margin-bottom: 1.5em">
     <img src="images/findJohnResult.png" alt="result for 'find John'" width="630"> <br>
-    <i>Here, we've specified the `r/befriendee` filter, which ensures we only search in the befriendee list, leaving the volunteer list untouched.</i>
+    <i>Here, we've specified the <code>r/befriendee</code> filter, which ensures we only search in the <code>Befriendees</code> list, leaving the <code>Volunteers</code> list untouched.</i>
    </div>
 
 4. Now that we've found John, let's pair him with Bernice. Bernice sits at the 2nd index in the volunteer list, so we can pair them using the **`pair` command**.
@@ -118,7 +118,7 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
     ```
    <div style="text-align:center; margin-bottom: 1.5em">
     <img src="images/pairResult.png" alt="result for 'pair 1 2'" width="630"> <br>
-    <i>You should see the `Befriendee` and `Volunteer` field in Bernice and John's cards updated to reflect the pairing.</i>
+    <i>You should see the <code>Paired with:</code> field in Bernice and John's cards updated to reflect the pairing.</i>
    </div>
 
 
@@ -133,7 +133,7 @@ After this, you're all set to begin using Elder Scrolls! Let's make managing vol
    
     <div style="text-align:center; margin-bottom: 1.5em">
         <img src="images/logaddResult.png" alt="result for 'logadd'" width="630"> <br>
-        <i>You should see the log card appear in the `Logs` list on the right, with the details supplied.</i>
+        <i>You should see the log card appear in the <code>Logs</code> list on the right, with the details supplied.</i>
     </div>
 
 6. This summarizes the basic workflow of Elder Scrolls. Feel free to remove the sample data and start fresh by using the `clear` command and get **started with your own data!**
