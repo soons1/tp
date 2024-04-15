@@ -52,7 +52,7 @@ Once you've completed the setup, you're ready to launch Elder Scrolls! Follow th
 
 1. Launch Elder Scrolls: Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar elderscrolls.jar` command to run the application.<br>
 
-A GUI similar to the below should appear in a few seconds. If this is your first time launching Elder Scrolls, the application should contain some sample data to get you started!
+A GUI similar to the one below should appear in a few seconds. If this is your first time launching Elder Scrolls, the application should contain some sample data to get you started!
 
 <div style="text-align:center;">
   <img src="images/Ui.png" alt="Ui" width="400">
@@ -94,7 +94,7 @@ Great! Now that you're familiar with the fundamental commands and have successfu
 
 The toolbar at the top provides functionality for accessing help and exiting Elder Scrolls. The application window contains the following buttons:
 * `File`: Hovering over opens a dropdown menu, click on Exit to close the application!
-* `Help`: Hovering over open a dropdown menu, whereby clicking on Help F1 opens a help pop-up!
+* `Help`: Hovering over opens a dropdown menu, whereby clicking on Help F1 opens a help pop-up!
 
 ### 2.2 Command Input Box
 
@@ -108,11 +108,11 @@ The command output box displays the results of the commands you have executed. I
 
 ### 2.4 Befriendee List Panel
 
-This section displays all your registered befriendees, and you may filter the display using our supported find commands. The list is updated in real-time as you execute commands.
+This section displays all your registered befriendees, and you may filter the display using our supported find commands. The list is updated in real time as you execute commands.
 
 ### 2.5 Volunteer List Panel
 
-Similar to the Befriendee List Panel, this section displays all your registered volunteers. The volunteer list cards also support an added aggregate statistic `Time Served`, that helps you better track volunteer hours!
+Similar to the Befriendee List Panel, this section displays all your registered volunteers. The volunteer list cards also support an added aggregate statistic `Time Served`, which helps you better track volunteer hours!
 
 ### 2.6 Log List Panel
 
@@ -128,9 +128,9 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 
 **:information_source: Notes about the command format:**<br>
 
-* For all commands which require a `INDEX` (e.g., `VOLUNTEER_INDEX`), the index refers to the index number shown in the displayed person list.
+* For all commands which require an `INDEX` (e.g., `VOLUNTEER_INDEX`), the index refers to the index number shown in the displayed person list.
   The indexes provided **must be indexes of people currently displayed in the person lists**.
-  * As the indexes are one-based, index values must be positive integers greater than 0. Any other values are automatically invalidated, and hence constitutes an invalid command format. 
+  * As the indexes are one-based, index values must be positive integers greater than 0. Any other values are automatically invalidated and hence constitute an invalid command format. 
 
 * Words in `UPPER_CASE` are placeholders to represent parameters that should be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -147,7 +147,7 @@ Your Log List Panel displays all logs associated with your befriendees and volun
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line breaks may be omitted when copied over to the application.
 </div>
 
 <div style="page-break-after: always;"> </div> 
@@ -162,7 +162,7 @@ Format: `add n/NAME r/ROLE p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 Constraints:
 * `n/NAME` must be alphanumeric and cannot be empty.
-* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `p/PHONE_NUMBER` must be at least 3 digits long.
 * `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will add either a volunteer or befriendee respectively.
 * `e/EMAIL` must be a valid email address.
 * `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
@@ -185,7 +185,7 @@ Format: `edit INDEX r/ROLE [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…�
 
 Constraints:
 * `n/NAME` must be alphanumeric and cannot be empty.
-* `p/PHONE_NUMBER` must be a at least 3 digits long.
+* `p/PHONE_NUMBER` must be at least 3 digits long.
 * `r/ROLE` must **only** be either `volunteer` or `befriendee`, which will edit either a volunteer or befriendee respectively.
 * `e/EMAIL` must be a valid email address.
 * `a/ADDRESS` has no limitations but cannot have line breaks, i.e., it should be the single-line format for addresses.
@@ -195,7 +195,7 @@ Additional Information:
 * Edits the person at the specified `INDEX` for the list corresponding to the provided role. For example, if `r/volunteer` is provided, the person at the `INDEX` in the volunteer list will be edited.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 
 Examples:
@@ -357,7 +357,7 @@ Constraints:
 * The person at `BEFRIENDEE_INDEX` must be a befriendee and the person at `VOLUNTEER_INDEX` must be a volunteer.
 * The two persons must be paired before a log can be added.
 * The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
-* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
+* The `DURATION` **must be a positive integer** ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 * `t/TITLE`, `s/START_DATE`, `d/DURATION` and `r/REMARKS` must be provided and cannot be empty.
 
 Examples:
@@ -375,7 +375,7 @@ Constraints:
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * The `START_DATE` must be in the format `YYYY-MM-DD`. Valid dates range from `0001-01-01` to `9999-12-31`. Only dates that exist in the standard Gregorian calendar are accepted.
-* The `DURATION` **must be a positive integer** from ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
+* The `DURATION` **must be a positive integer** ranging from 1 to 999. We cannot guarantee correct behaviour for durations exceeding 999 hours.
 
 Examples:
 * `logedit 1 t/Cinema Visit s/2020-01-10 d/3 r/had popcorn` Edits the title, start date, duration and remarks of the 1st log to be `Movies`, `2020-01-09`, `3` and `had popcorn` respectively.
@@ -539,7 +539,7 @@ For additional resources, you can explore online forums, community groups, and v
 | **Pair**      | `pair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `pair 1 2`                                                                                                                             |
 | **Unpair**    | `unpair BEFRIENDEE_INDEX VOLUNTEER_INDEX`<br> e.g., `unpair 1 2`                                                                                                                         |
 | **List**      | `list`                                                                                                                                                                                   |
-| **Find**      | `find [r/ROLE] [t/TAG] [--paired]/[--unpaired] KEYWORD [MORE_KEYWORDS]...` <br> e.g., `find r/volunteer --paired James`                                                                  |
+| **Find**      | `find NAME_KEYWORD [MORE_NAME_KEYWORDS]... [r/ROLE] [t/TAG] [--paired]/[--unpaired]  ` <br> e.g., `find James r/volunteer --paired  `                                                    |
 | **Delete**    | `delete INDEX r/ROLE`<br> e.g., `delete 3 r/befriendee`                                                                                                                                  |
 | **LogAdd**    | `logadd BEFRIENDEE_INDEX VOLUNTEER_INDEX t/TITLE s/START_DATE d/DURATION r/REMARKS`<br> e.g., `logadd 1 2 t/Movies s/2020-01-09 d/3 r/had popcorn`                                       |
 | **LogEdit**   | `logedit INDEX [t/TITLE] [s/START_DATE] [d/DURATION] [r/REMARKS]`<br> e.g., `logedit 1 t/Movies s/2020-01-09 d/3 r/had popcorn`                                                          |
@@ -556,8 +556,6 @@ For additional resources, you can explore online forums, community groups, and v
 **Volunteer**: An individual who offers their time and services to social service agencies or causes without financial compensation, in this context they carry out befriending activities with the beneficiaries.
 
 **Befriendee**: An individual who receives support, companionship, or assistance from volunteers, in this context they are the beneficiaries of the befriending activities.
-
-**Befriending**: The act of providing companionship, support, or assistance to individuals in need, typically carried out by volunteers to enhance the well-being and quality of life of the befriendees. Examples include social visits, outings, and emotional support.
 
 **Volunteer Management System (VMS)**: A digital volunteer management tool designed to aid an organisation in the management of volunteers to improve productivity and potentially enhance the volunteer experience.
 
