@@ -1066,15 +1066,6 @@ testers are expected to do more *exploratory* testing.
       Subsequently, when the `redo` command is executed, the `undo` operation of the `delete 3 r/volunteer` command will not be reversed. 
       Error details indicating "No previous undo operation to be reversed" shown in the status message. Status bar remains the same.
 
-### Saving data
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
-
-
 
 ### Clearing Elder Scrolls data
 1. Clearing all data
@@ -1109,9 +1100,17 @@ Our current version of Elder Scrolls enables users to efficiently manage volunte
 
 2. **Enhanced find feature**: The current `find` command returns valid entries based on full matching of user inputs. We plan to enhance our `find` command with partial name keyword/tag search functionality, enabling users to find contacts based on partial name/tag matches. Improves search efficiency and usability in case a user may not fully remember a contact's name or tag.
 
-3. **Add customizability to constraints of logs added**: Currently, logs added can have dates in the future. While this may be desirable (for e.g. to log a planned visit with todos, and subsequently update remarks after the visit), it may also be undesirable (for e.g. to prevent accidental future date inputs). We plan to add a configuration option to allow users to set constraints on the dates of logs added, such that users can customize the behavior to suit their needs.
+3. **Better find command format**: While the current `find` command supports a more concise and naturalised search, users may feel that the parameter format is not standardised across all commands, leading to inconvenience for those with bad memory. We plan to implement and support standardised `find` command parameters (such as `n/NAME_KEYWORD`, `p/PAIR_STATUS` etc.) that would help streamline the formatting across all our commands. This would also naturally include appropriate exception handling for invalid input parameters as well.
 
-4. **Flexible Grouping of Volunteer and Befriendee**: Currently, our system only supports 1-1 pairing of volunteer and befriendee. We recognise that expanding beyond will bring stronger flexibility and generalizability, and hence plan to expand the current 1-to-1 pairing system to allow for more flexible grouping of volunteers and befriendees. Specifically, this would allow multiple volunteers to be paired with a single befriendee, vice versa, or allow a group of volunteers to be paired with a group of befriendees. This would be consistent with logadd, logedit, and logdelete commands.
+4. **Add customizability to constraints of logs added**: Currently, logs added can have dates in the future. While this may be desirable (for e.g. to log a planned visit with todos, and subsequently update remarks after the visit), it may also be undesirable (for e.g. to prevent accidental future date inputs). We plan to add a configuration option to allow users to set constraints on the dates of logs added, such that users can customize the behavior to suit their needs.
+
+5. **Flexible Grouping of Volunteer and Befriendee**: Currently, our system only supports 1-1 pairing of volunteer and befriendee. We recognise that expanding beyond will bring stronger flexibility and generalizability, and hence plan to expand the current 1-to-1 pairing system to allow for more flexible grouping of volunteers and befriendees. Specifically, this would allow multiple volunteers to be paired with a single befriendee, vice versa, or allow a group of volunteers to be paired with a group of befriendees. This would be consistent with logadd, logedit, and logdelete commands.
+
+6. **More Informative Pairing and Unpairing Outputs**: Currently, the `pair` and `unpair` commands do not provide exact and detailed feedback during failure of the operation (e.g. person already paired, or persons are not paired together). While the user can thereafter search to find these details using the `find` command, we plan to enhance these commands to provide stronger feedback, including which person is paired, whom each person is currently paired with, and provide shortcuts for a user to easily unpair that person (e.g. by providing copy-paste formatted commands in the output).
+
+7. **More Customizable UI for output**: Currently, while the entire window is adjustable with each list scaling individually, the output message window is not height adjustable. To improve user experience, we plan to make the output message window height adjustable, allowing users to adjust the height of the output message window to their preference.
+
+8. **More Specific Error Messages showing specific parameter absence/invalidity**: While the current error messages are informative, they do not provide specific details on which parameter is missing or invalid. We plan to enhance the error messages to provide more specific details on which parameter is missing or invalid, allowing users to quickly identify and rectify the issue. (E.g. for `add` command, the error message will specify which parameter is missing or invalid).
 
 
 
