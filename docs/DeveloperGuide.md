@@ -39,7 +39,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -71,13 +71,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `LogListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -88,7 +88,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-T09-3/tp/blob/master/src/main/java/scrolls/elder/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -196,7 +196,6 @@ The following sequence diagram shows how an add operation goes through the `Logi
     * Cons: In cases where two people have the same name with different capitalization, it is not accepted.
 
 * **Alternative 2:** Name attribute is case-sensitive.
-  itself.
     * Pros: Two people who have the same name with different capitalization is allowed in the application.
     * Cons: Accidental capitalization can cause duplicate entries in the application.
 
@@ -834,8 +833,7 @@ testers are expected to do more *exploratory* testing.
 1. Close Elder Scrolls.
 2. Delete the file `./data/datastore.json` if it exists.
 3. Launch Elder Scrolls.
-4. Click on the `Volunteers` tab.
-   * Expected: Lists of sample volunteers, befriendees and logs are shown.
+   Expected: Lists of sample volunteers, befriendees and logs are shown.
 
 ### Find a specific person based on name keywords, pairing status, or tags
 1. Prerequisites: Starting with sample data. Refer to the previous test case to load sample data. Use `list` to reset the view before each testcase.
